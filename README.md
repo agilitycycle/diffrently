@@ -1,6 +1,6 @@
-# Flipbio
+# Diffrently
 
-Curate NEW content with flipbio using OpenAI tecnology.
+Write a book every 5 mins with our AI co-pilot.
 
 [![GPL3 License](https://img.shields.io/badge/license-GPLv3-blue)](https://choosealicense.com/licenses/gpl-3.0/)
 
