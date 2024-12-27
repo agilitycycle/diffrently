@@ -13,8 +13,8 @@ Curate NEW content with flipbio using OpenAI tecnology.
  * [ ] Social Logins (Facebook, Twitter)
  * [ ] Post edit the Diffrently way
  * [ ] Stripe Payment
- * [ ] Parachute / Dropzone
- * [ ] Fizz Time
+ * [ ] Re-order chapters
+ * [ ] Render book
 
 ## FREE to use under GPLv3 license
 

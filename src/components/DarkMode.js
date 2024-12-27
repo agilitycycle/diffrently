@@ -15,11 +15,12 @@ const DarkMode = () => {
     newAppState.darkMode = newMode;
     setCurrentDarkMode(newMode);
     dispatch(updateAppState(newAppState));
-    document.body.classList.toggle('dark');
+    document.body.classList.add(newMode ? 'dark' : 'light');
+    document.body.classList.remove(newMode ? 'light' : 'dark');
   }
 
   return (
-    <div className="w-[34px] ml-4">
+    <div className="flex items-center w-[23px] ml-4">
       <a href={null} onClick={handleChangeMode} className="cursor-pointer">
         {currentDarkMode && (
           <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="sun-bright" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" className="text-amber-400 w-5 h-5">

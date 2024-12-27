@@ -135,20 +135,8 @@ const Drawer = ({ side = 'left' }) => {
                       </Link>
                     </li>
                     <li>
-                      <Link to="/timeline" onClick={drawerMenuItemClicked} className="flex items-center pt-2 pb-2 text-gray-900 dark:text-black">
-                        <span>Timeline</span>
-                      </Link>
-                    </li>
-                    <li>
-                      <Link to="/parachute" onClick={drawerMenuItemClicked} className="flex items-center pt-2 pb-2 text-gray-900 dark:text-black">
-                        <span>Parachute</span>
-                      </Link>
-                    </li>
-                    <li>
-                      <Link to="/fizztime" onClick={drawerMenuItemClicked} className="flex items-center pt-2 pb-2 text-gray-900 dark:text-black">
-                        <button type="button" className="text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-base px-5 py-2.5 text-center me-2 text-center">
-                          Fizz time
-                        </button>
+                      <Link to="/subject" onClick={drawerMenuItemClicked} className="flex items-center pt-2 pb-2 text-gray-900 dark:text-black">
+                        <span>Subject</span>
                       </Link>
                     </li>
                     <li>

@@ -53,7 +53,7 @@ const SignIn = () => {
             dispatch(updateAppState(newAppState));
 
             // redirect
-            navigate('/timeline');
+            navigate('/subject');
           })
           .catch((error) => {
             console.log(error);

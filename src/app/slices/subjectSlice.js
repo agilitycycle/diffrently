@@ -14,7 +14,7 @@ export const initialState = {
     topic3: '',
     cardCount: 0,
     currentSubject: '',
-    currentTimeline: []
+    currentTimeline: undefined
   },
 }
 

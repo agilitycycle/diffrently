@@ -165,7 +165,7 @@ const router = createBrowserRouter([
     element: CategoryContextComponent(PostDetails),
   },
   {
-    path: '/timeline-v2',
+    path: '/timeline-v2/:username/:subject',
     element: CategoryContextComponent(TimelineV2),
   },
   {

@@ -119,7 +119,7 @@ const DrawerHome = ({ side = 'left' }) => {
                     </li>
                   </ul>
                   <div className="mt-6 p-3 mb-4 text-sm text-blue-800 rounded bg-slate-100 border border-blue-500" role="alert">
-                    <span className="font-medium">Important</span> You will not be able to sign in until some of the major changes have been completed.
+                    <span className="font-medium">Important</span> You will not be able to sign in until the beta version is released.
                   </div>
                 </div>
               </div>

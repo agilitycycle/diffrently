@@ -84,7 +84,7 @@ function* app () {
      */
     const subjects = yield call(getSubjects, userId);
     const newSubjectState = Object.assign({...subjectState}, {subjects});
-    updateSubjectState(newAppState);
+    updateSubjectState(newSubjectState); // do I need this?
     yield put(updateSubjectState(newSubjectState));
     /**
      * 

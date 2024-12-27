@@ -11,11 +11,11 @@ const appName = 'Diffrently.';
  */
 
 const Header = (props) => {
-  const {className, noMenu=false, useLink='/dashboard'} = props;
-  const headerClss = className || 'w-full block leading-none text-4xl font-light mb-9 mt-[-8px]';
+  const {className, extraButtons, noMenu=false, useLink='/subject'} = props;
+  const headerClss = className || 'w-full block leading-none text-3xl font-light';
 
   return (
-    <div className="flex">
+    <div className="flex px-5 py-3.5 border-b border-gray-800">
 			{!noMenu && (
         <Menu />
       )}
@@ -23,14 +23,10 @@ const Header = (props) => {
         <h1 className={headerClss}>
           <Link to={useLink} className="flex items-center w-[220px] text-[#000423] dark:text-white">
             {appName}
-            {!noMenu && useLink !== '/' && (
-              <span className="ml-2.5 mt-[-18px] bg-blue-100 text-blue-800 text-xs font-medium me-2 px-[7px] py-[1px] rounded-full dark:bg-blue-900 dark:text-blue-300">
-                Dash
-              </span>
-            )}
           </Link>
         </h1>
       </div>
+      {extraButtons}
       <DarkMode />
     </div>
   );

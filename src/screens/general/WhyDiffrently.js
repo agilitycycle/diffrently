@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import {
   Page,
   DrawerHome,
@@ -6,6 +7,7 @@ import {
 } from '../../components';
 
 const WhyDiffrently = () => {
+  const navigate = useNavigate();
 
 	return (<>
 		<Page>
@@ -13,38 +15,50 @@ const WhyDiffrently = () => {
       <Header useLink="/" />
       <div className="flex items-center justify-center h-full">
         <div className="h-full w-full sm:w-7/12">
-          <div>
+          <div className="p-5">
             <div className="flex flex-col md:flex-row justify-between mt-6 text-4xl text-white font-sans font-thin">
               <div className="flex items-center mb-10">
                 Why Diffrently?
               </div>
             </div>
             <p className="mb-4 text-2xl text-gray-500 md:text-xl dark:text-gray-400 font-extralight leading-relaxed">
-              Diffrently is a co-partnership between you and AI in curating NEW content.
+              Diffrently is a Game Changer when writing books.
             </p>
             <p className="text-gray-500 dark:text-gray-400 mb-4 leading-relaxed">
-              The idea is that you write or copy and paste in content from something you like and by prompting our chat AI you can enhance your content with a generated image and tags.
+              Diffrently can categorise and classify your book in the first 5 mins.
+            </p>
+            <p className="text-gray-500 dark:text-gray-400 mb-4 leading-relaxed">
+              Once Diffrently has the preliminary requirements, you can begin creating new content for your book.
+            </p>
+            <div className="flex flex-col mt-9 mb-9 text-3xl text-white font-sans font-thin">
+              Stunning AI performance
+            </div>
+            <p className="mb-4 text-2xl text-gray-500 md:text-xl dark:text-gray-400 font-extralight leading-relaxed">
+              Learn how our AI technology can help you
+            </p>
+            <p className="text-gray-500 dark:text-gray-400 mb-4 leading-relaxed">
+              Diffrently is your AI co-pilot for each new book you write.
             </p>
             <p className="text-gray-500 dark:text-gray-400 leading-relaxed">
-              Once your content is published, you can choose to export to any of the popular social networks.
+              Start writing from anywhere, our AI can automatically re-order your book.
             </p>
             <div className="flex flex-col mt-9 mb-9 text-3xl text-white font-sans font-thin">
-              Parachute
+              Sharing
             </div>
             <p className="mb-4 text-2xl text-gray-500 md:text-xl dark:text-gray-400 font-extralight leading-relaxed">
-              Parachute content to a signed in user or a group of signed in individuals.
+              Learn how to share your e-books with others
             </p>
-            <p className="text-gray-500 dark:text-gray-400 mb-4 leading-relaxed">
-              With Parachute you can make content accessible to pre-existing users of your choosing. Your content will show in the form of a newsfeed.
+            <p className="text-gray-500 dark:text-gray-400 leading-relaxed">
+              You can share your e-book with other diffrently readers or share a snippet of your book on any of the popular Social Media Platforms.
             </p>
             <div className="flex flex-col mt-9 mb-9 text-3xl text-white font-sans font-thin">
-              Fizz time
+              For Developers
             </div>
             <p className="mb-4 text-2xl text-gray-500 md:text-xl dark:text-gray-400 font-extralight leading-relaxed">
-              Fizz time is the ultimate share to everyone who is signed in.
+              Learn how to use our API and embed your books onto any site
             </p>
-            <p className="text-gray-500 dark:text-gray-400 mb-4 leading-relaxed">
-              Once signed in you can choose to subscribe to tags in Fizz time. Each tag becomes its own newsfeed with content ranked from highest to lowest.
+            <p className="text-gray-500 dark:text-gray-400 leading-loose">
+              Our friendly read-only API service allows you to drop a list of books onto any site. Alternatively, you can choose to purchase our commercial license - <a href={null} className="cursor-pointer" onClick={() => navigate('/pricing')}>pricing page</a>.
             </p>
             <p>&nbsp;</p>
           </div>

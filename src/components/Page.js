@@ -4,7 +4,7 @@ import React from 'react';
 const Page = (props) => {
   const { children } = props;
   return (
-    <div className="flex flex-col p-5 h-screen bg-slate-100 dark:bg-[#000423]">
+    <div className="flex flex-col h-screen bg-slate-100 dark:bg-[#000423]">
       {children}
     </div>
   )

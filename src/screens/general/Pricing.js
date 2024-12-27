@@ -13,7 +13,7 @@ const Pricing = () => {
       <Header useLink="/" />
       <div className="flex items-center justify-center h-full">
         <div className="h-full w-full sm:w-7/12">
-          <div>
+          <div className="p-5">
             <div className="flex flex-col md:flex-row justify-between mt-6 text-4xl text-white font-sans font-thin">
               <div className="flex items-center mb-10">
                 Pricing
@@ -23,8 +23,7 @@ const Pricing = () => {
               Diffrently is different than most apps and so is the pricing.
             </p>
             <p className="text-gray-500 dark:text-gray-400 mb-4 leading-relaxed">
-              If you are intending to use our cloud service, than you can try Diffrently for free using our FREE Trial subscription.
-              If you find you like using Diffrently, than you can opt for our mo. subscription with booster options.
+              Because each feature is built using AI, its virtually impossible to offer a FREE trial.
             </p>
             <div className="flex flex-col mt-9 mb-9 text-3xl text-white font-sans font-thin">
               Subscription
@@ -33,13 +32,13 @@ const Pricing = () => {
               Subscribe monthy with no fixed terms.
             </p>
             <p className="text-gray-500 dark:text-gray-400 mb-4 leading-relaxed">
-              Diffrently offers several subscriptions although at this time there is only one mo. option.
+              Diffrently offers a single subscription cost e.g $25 USD per mo.
             </p>
             <div className="flex flex-col mt-9 mb-9 text-3xl text-white font-sans font-thin">
-              Hosting and set up
+              API services
             </div>
             <p className="mb-4 text-2xl text-gray-500 md:text-xl dark:text-gray-400 font-extralight leading-relaxed">
-              Host your own Diffrently app with our help.
+              Our API service is free providing you are on a mo. subscription.
             </p>
             <p className="text-gray-500 dark:text-gray-400 mb-4 leading-relaxed">
               If you would prefer to host your own Diffrently app than we can help lend a hand with us.
@@ -49,10 +48,10 @@ const Pricing = () => {
               Commercial or Open Source
             </div>
             <p className="mb-4 text-2xl text-gray-500 md:text-xl dark:text-gray-400 font-extralight leading-relaxed">
-              Purchase a one-time commercial licence or use the free <a href="https://github.com/agilitycycle/Diffrently" target="_blank" className="underline">Open Source</a> option.
+              Purchase a one-time commercial licence or use our free <a href="https://github.com/agilitycycle/Diffrently" target="_blank" className="underline">Open Source</a> code.
             </p>
-            <p className="text-gray-500 dark:text-gray-400 mb-4 leading-relaxed">
-              Diffrently offers two kinds of licenses; <a href="https://github.com/agilitycycle/Diffrently" target="_blank" className="underline">Open Source</a> and free minus the backend code and the other is a commercial license in which all code is available.
+            <p className="text-gray-500 dark:text-gray-400 mb-4 leading-loose">
+              Diffrently offers two types of licenses; our FREE to use under GPLv3 license minus backend code or a commercial license in which all code is available (front-end and back-end code).
             </p>
             <p className="text-gray-500 dark:text-gray-400 mb-4 leading-relaxed">
               Note: If new feats become available after purchase of a commercial license, you can opt to pay for the new code.

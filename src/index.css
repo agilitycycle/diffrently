@@ -27,6 +27,7 @@ code {
   border: 1px solid #fff;
 }
 
+/* react-tag-input-component */
 .rti--container * {
   box-sizing: border-box;
   transition: all 0.2s ease;
@@ -41,8 +42,8 @@ code {
   --rti-tag: #34d399;
   --rti-tag-remove: #000423;
   --rti-tag-padding: 0.15rem 0.25rem;
-
-  /* Container Styles */
+  
+  /* Container styles */
   align-items: center;
   background: var(--rti-bg);
   border: 1px solid var(--rti-border);
@@ -52,7 +53,6 @@ code {
   gap: var(--rti-s);
   line-height: 1.4;
   padding: var(--rti-s);
-  margin-bottom: 35px;
 }
 
 .rti--container:focus-within {

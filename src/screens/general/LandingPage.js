@@ -2,14 +2,13 @@ import React from 'react';
 import {
   Page,
   DrawerHome,
-  Header,
-  Flat
+  Header
 } from '../../components';
 import GithubImage from '../../assets/github-mark-white.svg';
 
 const LandingPage = () => {
 
-  const getCurateTags = () => {
+  {/*const getCurateTags = () => {
     const tagEl = [
       'Books', 'Biographies', 'Blurbs', 'Blogs',
       'Stories', 'Writings', 'Geography', 'Mappings',
@@ -24,15 +23,15 @@ const LandingPage = () => {
         </span>
       </button>
     })
-  }
+  }*/}
 
   const getTags = () => {
     const tagEl = [
-      'Asheville', 'CBSNews', 'Carolinas', 'Casualties',
-      'Catastrophe', 'ClimateChangeEffec', 'Deaths', 'ExtremeWeatherEvent',
-      'Flood', 'HumanitarianCrisis', 'HurricaneHelene', 'MeganDrye',
-      'Micah', 'NaturalCalamity', 'NaturalDisaster', 'NorthCarolina',
-      'Rescue', 'StormDamage', 'Tragedy'
+      'Religion', 'Christianity', 'Bible', 'Faith',
+      'Spirituality', 'SacredTexts', 'ChristianLifestyle', 'Ancient',
+      'Wisdom', 'Prayer', 'God', 'Jesus',
+      'ReligiousStudies', 'Historical', 'Teachings', 'Morality',
+      'Divinity', 'Scripture', 'Inspiration'
     ];
     return tagEl.map((tag, index) => {
       return <button key={`tag${index}`} className="mb-2">
@@ -41,15 +40,6 @@ const LandingPage = () => {
         </span>
       </button>
     })
-  }
-
-  const renderMiniCard = () => {
-    const props = {
-      item: {
-        primaryTag: 'HurricaneHelene'
-      }
-    }
-    return (<Flat {...props} />)
   }
 
   const renderSocialMediaIcons = () => {
@@ -77,55 +67,50 @@ const LandingPage = () => {
     <Page>
       <DrawerHome />
       <Header useLink="/" invisible />
-      <div className="flex items-center justify-center h-full">
-        <div className="h-full w-full sm:w-7/12">
-          <div className="hidden sm:flex items-center justify-center h-96 text-white text-9xl mb-24 font-extralight">
+      <div className="flex items-center justify-center h-full p-5">
+        <div className="h-full w-full lg:w-9/12">
+          <div className="hidden lg:flex items-center justify-center h-96 mb-5 text-white text-9xl font-extralight">
             Diffrently.
           </div>
-          <div className="flex flex-col md:flex-row justify-between mt-6 mb-16 text-4xl text-white font-sans font-thin">
-            <div className="flex items-center justify-center mb-10">
-              Write something...
+          <div className="flex flex-col lg:flex-row mb-10 lg:mb-40">
+            <div className="w-full mb-7 lg:w-5/12 lg:mb-0 text-4xl xl:text-5xl text-white font-thin">
+              <div className="w-10/12 lg:w-8/12 mx-auto leading-loose text-center">
+                Write a <span className="border-b border-white">book</span> every 5 mins with our AI co-pilot.
+              </div>
             </div>
-            <div>
-              {renderMiniCard()}
+            <div className="w-11/12 lg:w-7/12 mx-auto">
+              <div className="border border-gray-800">
+                <div>
+                  <img src="/wreck-it-ralph.jpg"/>
+                </div>
+                <div className="pt-12 px-12 pb-24">
+                  <div className="text-white/90 text-center text-base sm:text-2xl font-extralight mb-8">
+                    Chapter 5
+                  </div>
+                  <div className="text-white/90 text-2xl sm:text-4xl font-extralight mb-9">
+                    Who Broke The Internet?
+                  </div>
+                  <div className="text-white/90 text-base sm:text-xl font-extralight leading-loose">
+                    ... The Internet has been broken for some time. It wasn't just celebrities with outrageous ideas but a series of events that ultimately led to the internet being broken.
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
           <div className="flex flex-col text-center mb-10 text-4xl text-white font-sans font-thin">
             <div className="mb-10">
-              Generate image
+              Generate images
             </div>
             <div>
-              <img className="w-11/12 m-auto" referrerpolicy="no-referrer" src="https://lh3.googleusercontent.com/d/18UOi66-7Gb9Jkl6kmsi3i1bOVmoSr-cH" />
+              <img className="w-11/12 m-auto" referrerpolicy="no-referrer" src="/moses.png" />
             </div>
           </div>
           <div className="flex flex-col mb-16 text-3xl text-white font-sans font-thin">
             <div className="text-center mb-5">
               Generate tags
             </div>
-            <div className="text-center">
+            <div className="w-full sm:w-7/12 mx-auto text-center">
               {getTags()}
-            </div>
-          </div>
-          <div className="pt-8 pb-7 px-12 pe-12 mb-16 text-blue-800 border border-blue-300 rounded-lg bg-transparent dark:text-blue-400 dark:border-blue-800" role="alert">
-            <h3 className="text-3xl font-thin text-center mb-6">Donate - Samaritan's Purse</h3>
-            <div className="mt-2 mb-12 text-2xl text-center font-thin leading-relaxed">
-              Samaritan's Purse is responding to both Hurricane Helene and Hurricane Milton, with multiple disaster relief bases in North Carolina and Florida.
-            </div>
-            <div className="flex justify-center mb-2">
-              <a href="https://www.samaritanspurse.org/disaster/hurricane-helene" target="_blank" className="text-white text-base bg-blue-800 hover:bg-blue-900 focus:ring-4 focus:outline-none focus:ring-blue-200 font-medium rounded-lg py-1.5 px-14 sm:px-16 me-2 inline-flex items-center justify-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                Give
-              </a>
-            </div>
-          </div>
-          <div className="mb-14">
-            <iframe className="border border-[#A9AAC5]/40 rounded-xl mx-auto w-full sm:w-5/5 h-[285px] md:h-[425px] xl:h-[700px]" src="https://www.youtube.com/embed/9M0fPsfTJwU?si=LWouqko0vKpb0gjD" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-          </div>
-          <div className="flex flex-col mb-14 text-3xl text-white font-sans font-thin">
-            <div className="mb-5 leading-relaxed text-center">
-              What can I curate with Diffrently?
-            </div>
-            <div className="text-center">
-              {getCurateTags()}
             </div>
           </div>
           <div className="flex flex-col mb-16 text-3xl text-white font-sans font-thin">
@@ -152,7 +137,7 @@ const LandingPage = () => {
           </div>
           <div className="mb-18 lg:mb-20">
             <div className="text-center text-white text-7xl font-extralight mb-11">
-              FREE or $25/MO*
+              $25/MO*
             </div>
             <div className="text-gray-400 text-base text-center mt-10 mb-10 pb-10 font-sans font-extralight">
               * All benefits incl. AI features.

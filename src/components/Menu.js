@@ -6,7 +6,7 @@ const Menu = () => {
 	const currentAppState = useSelector(appState);
   const { loggedIn } = currentAppState;
 	const dispatch = useDispatch();
-	return (<div className="w-[32px] mr-4" onClick={() => {
+	return (<div className="flex items-center w-[32px] mr-3" onClick={() => {
     const newAppState = {...currentAppState};
     (!loggedIn) ?
       newAppState.drawerHome = !newAppState.drawerHome :

@@ -68,22 +68,22 @@ const Dashboard = () => {
                       <a href={null} className="bg-emerald-800 text-white/50 flex w-20 h-20 rounded-full items-center justify-center">
                         <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 fill-white/50" viewBox="0 0 512 512"><path d="M64 32C28.7 32 0 60.7 0 96l0 64c0 35.3 28.7 64 64 64l384 0c35.3 0 64-28.7 64-64l0-64c0-35.3-28.7-64-64-64L64 32zm280 72a24 24 0 1 1 0 48 24 24 0 1 1 0-48zm48 24a24 24 0 1 1 48 0 24 24 0 1 1 -48 0zM64 288c-35.3 0-64 28.7-64 64l0 64c0 35.3 28.7 64 64 64l384 0c35.3 0 64-28.7 64-64l0-64c0-35.3-28.7-64-64-64L64 288zm280 72a24 24 0 1 1 0 48 24 24 0 1 1 0-48zm56 24a24 24 0 1 1 48 0 24 24 0 1 1 -48 0z"/></svg>
                       </a>
-                      <h4 className="text-white text-xl font-bold capitalize text-center">Timeline v2</h4>
+                      <h4 className="text-white text-xl font-bold capitalize text-center">Timeline</h4>
                       <p className="text-white/50">5 timelines</p>
                     </div>
-                    <div onClick={() => navigate('/hosting-v2')} className="relative group border border-emerald-800 bg-transparent py-10 px-4 flex flex-col space-y-2 items-center cursor-pointer rounded-md">
-                      <a href={null} className="bg-emerald-800 text-white/50 flex w-20 h-20 rounded-full items-center justify-center">
+                    <div onClick={() => navigate('/hosting-v2')} className="relative group border border-indigo-800 bg-transparent py-10 px-4 flex flex-col space-y-2 items-center cursor-pointer rounded-md">
+                      <a href={null} className="bg-indigo-800 text-white/50 flex w-20 h-20 rounded-full items-center justify-center">
                         <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 fill-white/50" viewBox="0 0 512 512"><path d="M64 32C28.7 32 0 60.7 0 96l0 64c0 35.3 28.7 64 64 64l384 0c35.3 0 64-28.7 64-64l0-64c0-35.3-28.7-64-64-64L64 32zm280 72a24 24 0 1 1 0 48 24 24 0 1 1 0-48zm48 24a24 24 0 1 1 48 0 24 24 0 1 1 -48 0zM64 288c-35.3 0-64 28.7-64 64l0 64c0 35.3 28.7 64 64 64l384 0c35.3 0 64-28.7 64-64l0-64c0-35.3-28.7-64-64-64L64 288zm280 72a24 24 0 1 1 0 48 24 24 0 1 1 0-48zm56 24a24 24 0 1 1 48 0 24 24 0 1 1 -48 0z"/></svg>
                       </a>
-                      <h4 className="text-white text-xl font-bold capitalize text-center">Hosting v2</h4>
-                      <p className="text-white/50">5 timelines</p>
+                      <h4 className="text-white text-xl font-bold capitalize text-center">Hosting</h4>
+                      <p className="text-white/50">2 hosted</p>
                     </div>
                     <div onClick={() => navigate('/api')} className="relative group border border-indigo-800 bg-transparent py-10 px-4 flex flex-col space-y-2 items-center cursor-pointer rounded-md">
                       <a href={null} className="bg-indigo-800 text-white/50 flex w-20 h-20 rounded-full items-center justify-center">
                         <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 fill-white/50" viewBox="0 0 512 512"><path d="M64 32C28.7 32 0 60.7 0 96l0 64c0 35.3 28.7 64 64 64l384 0c35.3 0 64-28.7 64-64l0-64c0-35.3-28.7-64-64-64L64 32zm280 72a24 24 0 1 1 0 48 24 24 0 1 1 0-48zm48 24a24 24 0 1 1 48 0 24 24 0 1 1 -48 0zM64 288c-35.3 0-64 28.7-64 64l0 64c0 35.3 28.7 64 64 64l384 0c35.3 0 64-28.7 64-64l0-64c0-35.3-28.7-64-64-64L64 288zm280 72a24 24 0 1 1 0 48 24 24 0 1 1 0-48zm56 24a24 24 0 1 1 48 0 24 24 0 1 1 -48 0z"/></svg>
                       </a>
                       <h4 className="text-white text-xl font-bold capitalize text-center">API</h4>
-                      <p className="text-white/50">5 timelines</p>
+                      <p className="text-white/50">3 api's</p>
                     </div>
                   </div>
                 </div>

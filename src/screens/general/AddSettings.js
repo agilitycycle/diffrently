@@ -18,7 +18,7 @@ const AddSettings = () => {
   const currentAppState = useSelector(appState);
   const currentSubjectState = useSelector(subjectState);
   const {userId} = currentAppState;
-  const {subject, category, tags, subjectId} = currentSubjectState;
+  const {subject, category, tags, username, subjectId} = currentSubjectState;
   const [newSettings, setNewSettings] = useState({
     title: '',
     imageUrl: '',
@@ -51,7 +51,7 @@ const AddSettings = () => {
     dispatch(updateSubjectState(newSubjectState));
 
     // redirect
-    navigate('/timeline-v2');
+    navigate(`/timeline-v2/${username}/${subject}`);
   }
 
   const settingsProps = {
