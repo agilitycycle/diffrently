@@ -69,6 +69,9 @@ const LandingPage = () => {
       <Header useLink="/" invisible />
       <div className="flex items-center justify-center h-full p-5">
         <div className="h-full w-full lg:w-9/12">
+          <div className="saira-condensed-extrabold text-[#233ce6] text-7xl sm:text-9xl tracking-tight w-full xl:w-9/12 my-12 lg:mb-0">
+            NOT A BLOG, NOT A WEBSITE, NOT YOUTUBE, NOT FACEBOOK.
+          </div>
           <div className="hidden lg:flex items-center justify-center h-96 mb-5 text-white text-9xl font-extralight">
             Diffrently.
           </div>

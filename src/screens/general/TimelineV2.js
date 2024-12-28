@@ -310,7 +310,7 @@ const TimelineV2 = () => {
                 <div className="flex flex-col justify-between h-full">
                   <div>
                     <div>
-                      <select name="timeline" onChange={handleOptions} className="bg-transparent border border-gray-200 dark:border-gray-700 text-white/60 text-base rounded-lg block w-72 p-2.5 mb-8 !outline-none">
+                      <select name="timeline" onChange={handleOptions} className="bg-transparent border border-gray-200 dark:border-gray-700 text-white/60 text-base rounded-lg block w-72 p-2.5 mb-7 !outline-none">
                         <option value="Select timeline" selected={!selectedTimeline}>Select Timeline</option>
                         {renderOptions()}
                       </select>
@@ -318,37 +318,17 @@ const TimelineV2 = () => {
                     <div className="text-sm text-[#B3B5CC] mb-2">
                       {`Other reads >`}
                     </div>
-                    <ul className="text-sm text-blue-600 leading-loose mb-4">
+                    <ul className="text-sm text-blue-600 leading-loose mb-7">
                       <li>#LeonardoDaVinci1</li>
                       <li>#LeonardoDaVinci2</li>
                       <li>#LeonardoDaVinci3</li>
                       <li>#LeonardoDaVinci4</li>
                     </ul>
-                    {/**
-                     * 
-                     * Google Square Ad
-                     * data-adtest="on"
-                     * 
-                     */}
-                    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2497889154695387"
-                      crossorigin="anonymous"></script>
-                    <ins className="adsbygoogle"
-                      style={{display: 'block'}}
-                      data-ad-client="ca-pub-2497889154695387"
-                      data-ad-slot="6935324495"
-                      data-ad-format="auto"
-                      data-adtest="on"
-                      data-full-width-responsive="true"></ins>
-                    <script>
-                      (adsbygoogle = window.adsbygoogle || []).push({});
-                    </script>
-                    {/**
-                     * 
-                     * End ~
-                     * 
-                     */}
+                   <div className="w-72 border border-dashed border-gray-500 rounded-sm mb-7 p-8 text-center text-base text-gray-400 font-light">
+                    Promote your book here.
+                   </div>
                     <p className="w-72 text-sm text-[#B3B5CC] leading-loose mb-6">
-                      Pay a mo. subscription for no Ads, Unlimited timelines and more control.
+                      Pay a mo. subscription for no Ads, Unlimited books and more control.
                     </p>
                   </div>
                   <button type="button" onClick={handleDelete} className="w-20 text-red-700 hover:text-white border border-red-700 hover:bg-red-800 focus:outline-none font-medium rounded-lg text-xs px-3 py-1.5 mb-8 text-center me-2 mb-2 dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600">
