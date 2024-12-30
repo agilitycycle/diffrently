@@ -16,6 +16,8 @@ import {
   Drawer,
   Header
 } from '../../components';
+import TimelinePost from '../../components/Timeline/TimelinePost';
+import TimelinePostCards from '../../components/Timeline/TimelinePostCards';
 import Make from '../../components/Cards/type/Make';
 import Post from '../../containers/Post';
 
@@ -27,7 +29,7 @@ const TimelineV2 = () => {
   const location = useLocation();
   const currentAppState = useSelector(appState);
   const currentSubjectState = useSelector(subjectState);
-  const {userId} = currentAppState;
+  const {userId, darkMode} = currentAppState;
   const {
     subject,
     subjects,
@@ -202,52 +204,6 @@ const TimelineV2 = () => {
     })
   }
 
-  const renderPost = () => {
-    if (!currentTimeline) {
-      return (<div role="status" className="max-w-sm animate-pulse p-5">
-        <div className="h-2.5 bg-gray-200 rounded-full dark:bg-gray-700 w-48 mb-4"></div>
-        <div className="h-2 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[360px] mb-2.5"></div>
-        <div className="h-2 bg-gray-200 rounded-full dark:bg-gray-700 mb-2.5"></div>
-        <div className="h-2 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[330px] mb-2.5"></div>
-        <div className="h-2 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[300px] mb-2.5"></div>
-        <div className="h-2 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[360px]"></div>
-        <span className="sr-only">Loading...</span>
-      </div>);
-    }
-    if (currentTimeline && currentTimeline.length < 1) {
-      return(<div
-        className="w-full sm:w-72 sm:max-w-72 p-2"
-      >
-        <div className="relative mb-1 bg-transparent border border-gray-200 rounded-lg shadow dark:bg-transparent dark:border-gray-700">
-          <div className="py-3 px-7">
-            <h2 className="mb-4 text-xl text-white/60 font-semibold">Chapter 1</h2>
-            <p className="text-white/60">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua.
-            </p>
-          </div>
-        </div>
-      </div>)
-    }
-    // Earlier??
-    const reverseCurrentTimeline = [...currentTimeline].reverse();
-    return reverseCurrentTimeline.map((item, index) => {
-      return (<div
-        key={index}
-        className="cursor-pointer w-full min-w-72 sm:w-72 p-2"
-      >
-        <div className="relative mb-1 bg-transparent border border-gray-200 rounded-lg shadow dark:bg-transparent dark:border-gray-700">
-          <div className="py-3 px-7">
-            <h2 className="mb-4 text-xl text-white/60 font-semibold">{item && item.title}</h2>
-            <p className="text-white/60">
-              {item && `${item.body.slice(0, 150 - 1)}...`}
-            </p>
-          </div>
-        </div>
-      </div>)
-    })
-  }
-
   const makeProps = {
     topic1,
     topic2,
@@ -257,6 +213,10 @@ const TimelineV2 = () => {
     handleChange,
     handleSubmit
   }
+
+  useEffect(() => {
+    setIsLightDark(darkMode);
+  }, [darkMode])
 
   useEffect(() => {
     if (selectedTimeline) {
@@ -277,17 +237,17 @@ const TimelineV2 = () => {
       <div
         className="flex">
         <div className="flex flex-col w-full">
-          <div className="pt-8 pb-6 text-sm font-medium text-center text-gray-500 dark:text-gray-400">
+          <div className="pt-8 pb-6 text-sm font-medium text-center text-gray-500 theme-text-gray-400">
             <ul className="flex justify-center">
               <li className="me-2">
                 <a href={null} onClick={() => setIsTimeline(true)}
-                  className={`cursor-pointer inline-block px-4 pb-4 border-b-2 ${isTimeline === true ? 'border-blue-600 active dark:text-blue-500 dark:border-blue-500' : 'border-transparent hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300'}`}>
+                  className={`cursor-pointer inline-block px-4 pb-4 border-b-2 ${isTimeline === true ? 'border-blue-600 active theme-dark:text-blue-500 theme-dark:border-blue-500' : 'border-transparent hover:text-gray-600 hover:border-secondary/40 theme-dark:hover:text-gray-300'}`}>
                   Timeline
                 </a>
               </li>
               <li className="me-2">
                 <a href={null} onClick={() => setIsTimeline(false)}
-                  className={`cursor-pointer inline-block px-4 pb-4 border-b-2 ${isTimeline === false ? 'border-blue-600 active dark:text-blue-500 dark:border-blue-500' : 'border-transparent hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300'}`}>
+                  className={`cursor-pointer inline-block px-4 pb-4 border-b-2 ${isTimeline === false ? 'border-blue-600 active theme-dark:text-blue-500 dark:border-blue-500' : 'border-transparent hover:text-gray-600 hover:border-secondary/40 theme-dark:hover:text-gray-300'}`}>
                   Post
                 </a>
               </li>
@@ -295,22 +255,13 @@ const TimelineV2 = () => {
           </div>
           {isTimeline && (
             <>
-              <div className="w-11/12 sm:w-10/12 mx-auto mb-8">
-                <div className="flex flex-rows w-full h-80 overflow-x-scroll
-                  overflow-y-hidden
-                  [&::-webkit-scrollbar]:w-2.5
-                  [&::-webkit-scrollbar]:h-2.5
-                  dark:[&::-webkit-scrollbar-track]:bg-white/5
-                  dark:[&::-webkit-scrollbar-thumb]:bg-white/60"
-                >
-                  {renderPost()}
-                </div>
-              </div>
+              <TimelinePost/>
+              <TimelinePostCards currentTimeline={currentTimeline}/>
               <div className="w-11/12 sm:w-10/12 mx-auto">
                 <div className="flex flex-col justify-between h-full">
                   <div>
                     <div>
-                      <select name="timeline" onChange={handleOptions} className="bg-transparent border border-gray-200 dark:border-gray-700 text-white/60 text-base rounded-lg block w-72 p-2.5 mb-7 !outline-none">
+                      <select name="timeline" onChange={handleOptions} className="bg-transparent border border-secondary/25 theme-dark:border-secondary/15 text-secondary/60 text-base rounded-lg block w-72 p-2.5 mb-7 !outline-none">
                         <option value="Select timeline" selected={!selectedTimeline}>Select Timeline</option>
                         {renderOptions()}
                       </select>
@@ -324,14 +275,14 @@ const TimelineV2 = () => {
                       <li>#LeonardoDaVinci3</li>
                       <li>#LeonardoDaVinci4</li>
                     </ul>
-                   <div className="w-72 border border-dashed border-gray-500 rounded-sm mb-7 p-8 text-center text-base text-gray-400 font-light">
+                   <div className="w-72 border border-dashed border-secondary/35 theme-dark:border-secondary/15 rounded-sm mb-7 p-8 text-center text-base text-secondary/70 font-light">
                     Promote your book here.
                    </div>
                     <p className="w-72 text-sm text-[#B3B5CC] leading-loose mb-6">
                       Pay a mo. subscription for no Ads, Unlimited books and more control.
                     </p>
                   </div>
-                  <button type="button" onClick={handleDelete} className="w-20 text-red-700 hover:text-white border border-red-700 hover:bg-red-800 focus:outline-none font-medium rounded-lg text-xs px-3 py-1.5 mb-8 text-center me-2 mb-2 dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600">
+                  <button type="button" onClick={handleDelete} className="w-20 text-red-700 hover:text-white border border-red-700 hover:bg-red-800 focus:outline-none font-medium rounded-lg text-xs px-3 py-1.5 mb-8 text-center me-2 mb-2 theme-dark:border-red-500 theme-dark:text-red-500 theme-dark:hover:text-white dark:hover:bg-red-600">
                     Delete
                   </button>
                 </div>
@@ -343,8 +294,8 @@ const TimelineV2 = () => {
               <div className={`w-11/12 ${isGenerate ? 'sm:w-80' : 'sm:w-[450px]'}`}>
                 <label className="w-full mb-6 inline-flex items-center justify-center mb-5 cursor-pointer">
                   <input type="checkbox" onChange={handleToggle} value={isGenerate} className="sr-only peer" checked={isGenerate}/>
-                  <div className="relative w-9 h-5 bg-gray-200 peer-focus:outline-none rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
-                  <span className="ms-3 text-sm font-medium text-gray-900 dark:text-gray-300">Generate</span>
+                  <div className="relative w-9 h-5 bg-secondary/30 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all theme-dark:border-gray-600 peer-checked:bg-blue-600"></div>
+                  <span className="ms-3 text-sm font-medium text-gray-900 theme-dark:text-gray-300">Generate</span>
                 </label>
                 {isGenerate && (
                   <Make {...makeProps} />
@@ -357,10 +308,10 @@ const TimelineV2 = () => {
           )}
         </div>
       </div>
-      <div className={`${isOpen ? isLightDark ? 'dark' : 'light' : ''} absolute z-40 top-[60px] right-0 ${isOpen ? `w-[calc(100%-55px)] ${isExpand ? 'md:w-[95%]' : 'md:w-[600px] lg:w-[700px]'}` : 'w-6'} h-[calc(100%-60px)] border-l border-gray-800 bg-page/section`}>
+      <div className={`${isOpen ? isLightDark ? 'dark' : 'light' : ''} absolute z-40 top-[60px] right-0 ${isOpen ? `w-[calc(100%-55px)] ${isExpand ? 'md:w-[95%]' : 'md:w-[600px] lg:w-[700px]'}` : 'w-6'} h-[calc(100%-60px)] border-l border-secondary/10 shadow bg-page/section`}>
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className="absolute -left-5 top-7 bg-page/section border border-gray-800 p-2 rounded-full hover:bg-page/section focus:outline-none"
+          className="absolute -left-5 top-7 bg-page/section border border-transparent theme-dark:border-gray-800 shadow p-2 rounded-full hover:bg-page/section focus:outline-none"
         >
           {isOpen ? (
             <FiX className="w-4 h-4 text-secondary/60" />
@@ -407,8 +358,8 @@ const TimelineV2 = () => {
                     </div>
                     <div className="w-1/2">
                       <label className="w-full inline-flex items-center cursor-pointer">
-                        <input type="checkbox" onChange={() => setIsLightDark(!isLightDark)} value="" className="sr-only peer" checked={isLightDark} />
-                        <div className="relative w-9 h-5 peer-focus:outline-none rounded-full peer bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+                        <input type="checkbox" onChange={() => setIsLightDark(!isLightDark)} className="sr-only peer" checked={isLightDark} />
+                        <div className="relative w-9 h-5 peer-focus:outline-none rounded-full peer bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all theme-dark:border-gray-600 peer-checked:bg-blue-600"></div>
                       </label>
                     </div>
                   </div>
@@ -419,7 +370,7 @@ const TimelineV2 = () => {
                     <div className="w-1/2">
                       <label className="w-full inline-flex items-center cursor-pointer">
                         <input type="checkbox" onChange={() => setIsExpand(!isExpand)} value="" className="sr-only peer" checked={isExpand} />
-                        <div className="relative w-9 h-5 peer-focus:outline-none rounded-full peer bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+                        <div className="relative w-9 h-5 peer-focus:outline-none rounded-full peer bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all theme-dark:border-gray-600 peer-checked:bg-blue-600"></div>
                       </label>
                     </div>
                   </div>

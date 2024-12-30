@@ -139,7 +139,7 @@ const Subject = () => {
       <Header extraButtons={
         <div className="relative" ref={dropdownRef}>
           <button type="button"
-            className="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none font-medium rounded-lg text-sm px-3 p-[5px] text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700"
+            className="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none font-medium rounded-lg text-sm px-3 p-[5px] text-center inline-flex items-center theme-dark:bg-blue-600 theme-dark:hover:bg-blue-700"
             onClick={() => setIsOpen(!isOpen)}
             aria-expanded={isOpen}
             aria-haspopup="true"
@@ -150,8 +150,8 @@ const Subject = () => {
             </svg>
           </button>
           {isOpen && (
-            <div className="absolute right-0 w-48 z-10 bg-white rounded-lg shadow dark:bg-gray-700">
-              <ul className="h-48 py-2 overflow-y-auto text-gray-700 dark:text-gray-200">
+            <div className="absolute right-0 w-48 z-10 bg-white rounded-lg shadow theme-dark:bg-gray-700">
+              <ul className="h-48 py-2 overflow-y-auto text-gray-700 theme-dark:text-gray-200">
               {subjects.map(item => {
                 const {
                   subject,
@@ -159,7 +159,7 @@ const Subject = () => {
                 } = item;
                 const url = `/timeline-v2/${username}/${subject}`;
                 return (<li>
-                  <a href={null} onClick={() => handleOptions(url)} className="cursor-pointer flex items-center px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                  <a href={null} onClick={() => handleOptions(url)} className="cursor-pointer flex items-center px-4 py-2 hover:bg-gray-100 theme-dark:hover:bg-gray-600 theme-dark:hover:text-white">
                     #{subject}
                   </a>
                 </li>)
@@ -170,14 +170,14 @@ const Subject = () => {
         </div>
       } />
       <div className="flex flex-col items-center justify-center h-3/5 sm:h-4/5 px-3">
-        <div className="transition-all ease-in-out mb-8 sm:mb-16 lg:mb-20 text-white text-3xl sm:text-6xl font-light">
+        <div className="transition-all ease-in-out mb-8 sm:mb-16 lg:mb-20 text-secondary text-3xl sm:text-6xl font-light">
           What is this about?
         </div>
-        <div className="transition-all ease-in-out w-full lg:w-2/3 rounded-full border border-gray-200 dark:border-gray-700 mb-7 sm:mb-14 px-8 py-3.5 sm:px-10 sm:py-5">
+        <div className="transition-all ease-in-out w-full lg:w-2/3 rounded-full border border-secondary/20 mb-7 sm:mb-14 px-8 py-3.5 sm:px-10 sm:py-5">
           <div className="flex items-center justify-between">
             <div className="flex w-full">
-              <span className="flex-none text-white text-2xl sm:text-5xl mr-4 sm:mr-5">#</span>
-              <input value={subject} onChange={handleChange} className="grow-1 w-full pr-5 text-white text-2xl sm:text-5xl font-light bg-transparent !outline-none" placeholder="Who/what/where" />
+              <span className="flex-none text-secondary text-2xl sm:text-5xl mr-4 sm:mr-5">#</span>
+              <input value={subject} onChange={handleChange} className="grow-1 w-full pr-5 text-secondary text-2xl sm:text-5xl font-light bg-transparent !outline-none" placeholder="Who/what/where" />
             </div>
             <button onClick={handleSubject} className="bg-emerald-400 w-11 sm:w-16 text-base sm:text-xl p-2 sm:p-3 rounded-full items-end">
               Go
@@ -189,7 +189,7 @@ const Subject = () => {
         <div className="transition-all ease-in-out mb-8 sm:mb-16 lg:mb-20 text-white text-3xl sm:text-6xl font-light">
           Is this a Person?
         </div>
-        <div className="transition-all ease-in-out w-full lg:w-2/3 rounded-full border border-gray-200 dark:border-gray-700 px-10 py-5">
+        <div className="transition-all ease-in-out w-full lg:w-2/3 rounded-full border border-gray-200 theme-dark:border-gray-700 px-10 py-5">
           <span className="text-white text-xl sm:text-5xl mr-5">#</span>
           <input className="text-white text-xl sm:text-5xl font-light bg-transparent !outline-none" value="russellcrowe" placeholder="What/who/where" />
         </div>

@@ -66,7 +66,7 @@ const Payment = () => {
       <Header />
 		  <div className="flex items-center justify-center h-full">
 		    <div className="w-[500px] h-full sm:h-auto">
-          <div className="w-full rounded-lg text-[#fff] font-semibold border border-gray-200 bg-white p-4 mb-5 shadow-sm dark:border-gray-700 dark:bg-[#0d1026] sm:p-6 lg:max-w-xl lg:p-8">
+          <div className="w-full rounded-lg text-[#fff] font-semibold border border-gray-200 bg-white p-4 mb-5 shadow-sm theme-dark:border-gray-700 theme-dark:bg-[#0d1026] sm:p-6 lg:max-w-xl lg:p-8">
             <div className="flex flex-rows">
               <div className="flex-auto">
                 Pay as you go ${checkOut}
@@ -76,7 +76,7 @@ const Payment = () => {
               </div>
             </div>
           </div>
-          <div className="w-full rounded-lg border border-gray-200 bg-white p-4 mb-5 shadow-sm dark:border-gray-700 dark:bg-[#0d1026] sm:p-6 lg:max-w-xl lg:p-8">
+          <div className="w-full rounded-lg border border-gray-200 bg-white p-4 mb-5 shadow-sm theme-dark:border-gray-700 theme-dark:bg-[#0d1026] sm:p-6 lg:max-w-xl lg:p-8">
             <CardElement
               options={cardElementOpts}
               onChange={() => {}}

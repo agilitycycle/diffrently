@@ -20,9 +20,11 @@ const initialState = {
     photoUrl: '',
     displayName: '',
     activeSubscriptions: '',
+    isPostCardShow: undefined,
     freeTrial: false,
     checkOut: '',
     credit: '',
+    scrollPos: 0,
     currentTimeline: []
   },
 }

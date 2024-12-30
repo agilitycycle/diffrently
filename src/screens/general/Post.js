@@ -374,8 +374,8 @@ const Post = () => {
 		  <div className="flex items-center justify-center h-full">
 		    <div className="w-[500px] h-full">
           <div className="w-10/12 text-center">
-            <p className="sm:mt-0 mb-5 text-gray-500 dark:text-gray-400 text-right">
-              <button onClick={() => {}} className="cursor-pointer inline-flex items-center text-blue-600 dark:text-blue-500 hover:underline ml-5">
+            <p className="sm:mt-0 mb-5 text-gray-500 theme-dark:text-gray-400 text-right">
+              <button onClick={() => {}} className="cursor-pointer inline-flex items-center text-blue-600 theme-dark:text-blue-500 hover:underline ml-5">
                 Preview
               </button>
             </p>
@@ -400,7 +400,7 @@ const Post = () => {
                 </div>
               </div>
             )}
-            <div className="sm:mt-0 mb-6 text-gray-500 dark:text-gray-400">
+            <div className="sm:mt-0 mb-6 text-gray-500 theme-dark:text-gray-400">
               (<span className={characterCount > 850 ? 'text-red-700' : ''}>{characterCount}</span>/850)
             </div>
             <div className="p-6 mb-8 mt-4 mx-auto block text-gray-500 rounded border border-gray-700">
@@ -408,7 +408,7 @@ const Post = () => {
                 <div className="h-[32px]">
                   <div className="flex justify-between">
                     <input value={imageTagFormValue} onChange={handleNewImageTag} maxlength="25" className="pe-4 mb-5 mr-2 w-8/12 h-[32px] text-base text-white bg-[#000423] bg-opacity-70 rounded !outline-none" placeholder={primaryImageTagFormValue || `A representation image of...`}/>
-                    <button type="button" onClick={handleAddImageTag} className={`h-[32px] opacity-${!generatedImage ? '100' : '50'} text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 pt-.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800`}>
+                    <button type="button" onClick={handleAddImageTag} className={`h-[32px] opacity-${!generatedImage ? '100' : '50'} text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 pt-.5 theme-dark:bg-blue-600 theme-dark:hover:bg-blue-700 focus:outline-none theme-dark:focus:ring-blue-800`}>
                       Generate
                     </button>
                   </div>
@@ -424,17 +424,17 @@ const Post = () => {
                         &nbsp;
                       </div>
                     </div>
-                    <button type="button" onClick={() => {}} className="cursor-pointer inline-flex items-center font-medium text-blue-600 dark:text-blue-500 hover:underline">
+                    <button type="button" onClick={() => {}} className="cursor-pointer inline-flex items-center font-medium text-blue-600 theme-dark:text-blue-500 hover:underline">
                       Download
                     </button>
                   </>
                 )}
               </div>
             </div>
-            {/*<div className="mx-auto bg-transparent border border-gray-200 rounded-lg shadow dark:bg-transparent dark:border-gray-700">
+            {/*<div className="mx-auto bg-transparent border border-gray-200 rounded-lg shadow theme-dark:bg-transparent theme-dark:border-gray-700">
               <a href={null} className="relative w-full block">
                 {postDetails.generatingImage && (
-                  <svg aria-hidden="true" className="absolute top-[25px] right-[25px] w-8 h-8 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <svg aria-hidden="true" className="absolute top-[25px] right-[25px] w-8 h-8 text-gray-200 animate-spin theme-dark:text-gray-600 fill-blue-600" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="currentColor"/>
                     <path d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z" fill="currentFill"/>
                   </svg>
@@ -442,7 +442,7 @@ const Post = () => {
                 <div className="h-[32px] absolute top-0 bottom-0 left-0 right-0 m-auto">
                   <div className="flex justify-center">
                     <input value={imageTagFormValue} onChange={handleNewImageTag} maxlength="25" className="px-4 mb-5 mr-2 w-7/12 h-[32px] text-base text-white bg-[#000423] bg-opacity-70 rounded !outline-none" placeholder={primaryImageTagFormValue || `A representation image of...`}/>
-                    <button type="button" onClick={handleAddImageTag} className="h-[32px] text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 pt-.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
+                    <button type="button" onClick={handleAddImageTag} className="h-[32px] text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 pt-.5 theme-dark:bg-blue-600 theme-dark:hover:bg-blue-700 focus:outline-none theme-dark:focus:ring-blue-800">
                       Generate
                     </button>
                   </div>
@@ -457,11 +457,11 @@ const Post = () => {
               </a>
               <div className="p-5">
                 <a href={null}>
-                  <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+                  <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 theme-dark:text-white">
                     {titleFormValue || 'Title'}
                   </h5>
                 </a>
-                <p className="mb-8 font-normal text-gray-700 dark:text-gray-400" style={{wordBreak: 'break-word'}}>
+                <p className="mb-8 font-normal text-gray-700 theme-dark:text-gray-400" style={{wordBreak: 'break-word'}}>
                   {postDetails.body.length > 0 ? postDetails.body : 'Write something...'}
                 </p>
                 // Render generated tags
@@ -473,19 +473,19 @@ const Post = () => {
                   </div>
                 )}
                 <div className="flex items-center justify-center">
-                  <svg className="opacity-25 w-[20px] h-[20px] text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                  <svg className="opacity-25 w-[20px] h-[20px] text-gray-800 theme-dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
                     <path fill-rule="evenodd" d="M13.135 6H15V3h-1.865a4.147 4.147 0 0 0-4.142 4.142V9H7v3h2v9.938h3V12h2.021l.592-3H12V6.591A.6.6 0 0 1 12.592 6h.543Z" clip-rule="evenodd"/>
                   </svg>
-                  <svg className="opacity-25 w-[22px] h-[22px] mr-2 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                  <svg className="opacity-25 w-[22px] h-[22px] mr-2 text-gray-800 theme-dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                     <path fill="currentColor" fill-rule="evenodd" d="M3 8a5 5 0 0 1 5-5h8a5 5 0 0 1 5 5v8a5 5 0 0 1-5 5H8a5 5 0 0 1-5-5V8Zm5-3a3 3 0 0 0-3 3v8a3 3 0 0 0 3 3h8a3 3 0 0 0 3-3V8a3 3 0 0 0-3-3H8Zm7.597 2.214a1 1 0 0 1 1-1h.01a1 1 0 1 1 0 2h-.01a1 1 0 0 1-1-1ZM12 9a3 3 0 1 0 0 6 3 3 0 0 0 0-6Zm-5 3a5 5 0 1 1 10 0 5 5 0 0 1-10 0Z" clip-rule="evenodd"/>
                   </svg>
-                  <svg className="opacity-25 w-[22px] h-[22px] mr-2 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                  <svg className="opacity-25 w-[22px] h-[22px] mr-2 text-gray-800 theme-dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
                     <path fill-rule="evenodd" d="M21.7 8.037a4.26 4.26 0 0 0-.789-1.964 2.84 2.84 0 0 0-1.984-.839c-2.767-.2-6.926-.2-6.926-.2s-4.157 0-6.928.2a2.836 2.836 0 0 0-1.983.839 4.225 4.225 0 0 0-.79 1.965 30.146 30.146 0 0 0-.2 3.206v1.5a30.12 30.12 0 0 0 .2 3.206c.094.712.364 1.39.784 1.972.604.536 1.38.837 2.187.848 1.583.151 6.731.2 6.731.2s4.161 0 6.928-.2a2.844 2.844 0 0 0 1.985-.84 4.27 4.27 0 0 0 .787-1.965 30.12 30.12 0 0 0 .2-3.206v-1.516a30.672 30.672 0 0 0-.202-3.206Zm-11.692 6.554v-5.62l5.4 2.819-5.4 2.801Z" clip-rule="evenodd"/>
                   </svg>
-                  <svg className="opacity-25 w-[18px] h-[18px] mr-1.5 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                  <svg className="opacity-25 w-[18px] h-[18px] mr-1.5 text-gray-800 theme-dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M13.795 10.533 20.68 2h-3.073l-5.255 6.517L7.69 2H1l7.806 10.91L1.47 22h3.074l5.705-7.07L15.31 22H22l-8.205-11.467Zm-2.38 2.95L9.97 11.464 4.36 3.627h2.31l4.528 6.317 1.443 2.02 6.018 8.409h-2.31l-4.934-6.89Z"/>
                   </svg>
-                  <svg className="opacity-25 w-[23px] h-[23px] text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                  <svg className="opacity-25 w-[23px] h-[23px] text-gray-800 theme-dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
                     <path fill-rule="evenodd" d="M12.51 8.796v1.697a3.738 3.738 0 0 1 3.288-1.684c3.455 0 4.202 2.16 4.202 4.97V19.5h-3.2v-5.072c0-1.21-.244-2.766-2.128-2.766-1.827 0-2.139 1.317-2.139 2.676V19.5h-3.19V8.796h3.168ZM7.2 6.106a1.61 1.61 0 0 1-.988 1.483 1.595 1.595 0 0 1-1.743-.348A1.607 1.607 0 0 1 5.6 4.5a1.601 1.601 0 0 1 1.6 1.606Z" clip-rule="evenodd"/>
                     <path d="M7.2 8.809H4V19.5h3.2V8.809Z"/>
                   </svg>
@@ -502,7 +502,7 @@ const Post = () => {
                         <input type="text" value={tagFormValue} onChange={handleNewTag} className="w-full h-[40px] bg-transparent text-white text-lg block inline py-2.5 border-b border-b-sky-100 !outline-none" placeholder="Help your AI learn" />
                       </div>
                       <div className="flex-none">
-                        <button type="button" onClick={handleAddTag} disabled={postDetails.tags.length > 25} className="h-[40px] text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Add tags</button>
+                        <button type="button" onClick={handleAddTag} disabled={postDetails.tags.length > 25} className="h-[40px] text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 theme-dark:bg-blue-600 theme-dark:hover:bg-blue-700 focus:outline-none theme-dark:focus:ring-blue-800">Add tags</button>
                       </div>
                     </div>
                   </li>
@@ -510,13 +510,13 @@ const Post = () => {
               </div>
               {renderClickableTags()}
               {(postDetails.autoTagging.length === 0) && (
-                <button type="button" onClick={generateTags} disabled={postDetails.generating || postDetails.selected.length == 0} className={`opacity-${postDetails.generating || (postDetails.body.length < 36 || postDetails.body.length > 850 || characterCount < 0 || postDetails.selected.length == 0) ? '50' : '100'} block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 rounded-lg text-base mt-5 mx-auto px-5 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 justify-center`}>
+                <button type="button" onClick={generateTags} disabled={postDetails.generating || postDetails.selected.length == 0} className={`opacity-${postDetails.generating || (postDetails.body.length < 36 || postDetails.body.length > 850 || characterCount < 0 || postDetails.selected.length == 0) ? '50' : '100'} block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 rounded-lg text-base mt-5 mx-auto px-5 py-2 theme-dark:bg-blue-600 theme-dark:hover:bg-blue-700 focus:outline-none theme-dark:focus:ring-blue-800 justify-center`}>
                   {postDetails.generating ? <span>Generating...</span> : <span>Generate</span>}
                 </button>
               )}
             </div>
-            <p className="sm:mt-0 mb-10 text-gray-500 dark:text-gray-400 text-center">
-              <button onClick={() => {}} className="cursor-pointer text-xs font-medium inline-flex border border-emerald-500 rounded-full px-4 py-1.5 text-emerald-500 dark:text-emerald-500 hover:underline">
+            <p className="sm:mt-0 mb-10 text-gray-500 theme-dark:text-gray-400 text-center">
+              <button onClick={() => {}} className="cursor-pointer text-xs font-medium inline-flex border border-emerald-500 rounded-full px-4 py-1.5 text-emerald-500 theme-dark:text-emerald-500 hover:underline">
                 900 Credit - Upgrade
               </button>
             </p>
@@ -536,7 +536,7 @@ const Post = () => {
             <div className="h-6">&nbsp;</div>
             {/** Generate again **/}
             {!postDetails.published && postDetails.autoTagging.length > 0 && (<>
-              <div className="w-full mb-16 flex flex-col items-center justify-center font-normal text-blue-600 dark:text-blue-500">
+              <div className="w-full mb-16 flex flex-col items-center justify-center font-normal text-blue-600 theme-dark:text-blue-500">
                 <div className="text-base">
                   {/* {credit - postDetails.autoTagging.length >= 0 && (
                     <span className="text-neutral-400">Yes, you can publish. ({credit})</span>
@@ -555,8 +555,8 @@ const Post = () => {
             </>)}
             {/** Post another **/}
             {postDetails.published && (
-              <p className="sm:mt-0 text-gray-500 dark:text-gray-400">
-                <button onClick={handlePostAnother} className="cursor-pointer mb-16 inline-flex items-center font-medium text-blue-600 dark:text-blue-500 hover:underline">
+              <p className="sm:mt-0 text-gray-500 theme-dark:text-gray-400">
+                <button onClick={handlePostAnother} className="cursor-pointer mb-16 inline-flex items-center font-medium text-blue-600 theme-dark:text-blue-500 hover:underline">
                   Post another?
                 </button>
               </p>
@@ -564,13 +564,13 @@ const Post = () => {
             {/** Render error **/}
             {!postDetails.published && postDetails.error && (
               <>
-                <div className="p-4 mb-6 text-base text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
+                <div className="p-4 mb-6 text-base text-red-800 rounded-lg bg-red-50 theme-dark:bg-gray-800 theme-dark:text-red-400" role="alert">
                   {(postDetails.error && postDetails.errorResponse === '') && (<span>Could not auto-tag. Try again.</span>)}
                   {(postDetails.error && postDetails.errorResponse !== '') && (<span><span className="font-bold">Suggestion:</span> {
                     postDetails.errorResponse
                   }</span>)}
                 </div>
-                <div className="w-full flex items-center justify-center font-medium text-blue-600 dark:text-blue-500">
+                <div className="w-full flex items-center justify-center font-medium text-blue-600 theme-dark:text-blue-500">
                   <a href={null} onClick={generateTags} className="cursor-pointer underline">Generate again</a>&nbsp;or add tags
                   <svg className="w-4 h-4 ms-2 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
                     <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>

@@ -15,7 +15,7 @@ const Menu = () => {
     }}>
     <div className="tham tham-e-squeeze tham-w-8 mr-auto">
       <div className="tham-box">
-        <div className="tham-inner bg-[#000423] dark:bg-slate-300" />
+        <div className="tham-inner bg-slate-800 theme-dark:bg-slate-300" />
       </div>
     </div>
   </div>)
