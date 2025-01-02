@@ -102,6 +102,12 @@ const LandingPage = () => {
           </div>
           <div className="flex flex-col text-center mb-10 text-4xl text-secondary font-sans font-thin">
             <div className="mb-10">
+              Power at your fingertips...
+            </div>
+            <iframe className="w-11/12 h-[300px] sm:h-[450px] xl:w-9/12 xl:h-[550px] mx-auto mb-10 shadow" src="https://www.youtube.com/embed/sT2UDxVLJ4k?si=H78ibRRvivVAc5sg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+          </div>
+          <div className="flex flex-col text-center mb-10 text-4xl text-secondary font-sans font-thin">
+            <div className="mb-10">
               Generate images
             </div>
             <div>

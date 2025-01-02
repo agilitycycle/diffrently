@@ -3,6 +3,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { matchPath } from 'react-router';
 import axios from 'axios';
+import {Editor} from '../../components/TipTap/Editor';
 import {appState} from '../../app/slices/appSlice';
 import {updateSubjectState, subjectState} from '../../app/slices/subjectSlice';
 import {fbdb} from '../../app/firebase';
@@ -47,12 +48,12 @@ const TimelineV2 = () => {
     cardCount: 0
   });
   const [selectedTimeline, setSelectedTimeline] = useState(undefined);
-  const [isTimeline, setIsTimeline] = useState(false);
+  const [isTimeline, setIsTimeline] = useState(true);
   const [isGenerate, setIsGenerate] = useState(true);
   const [isPreferences, setIsPreferences] = useState(false);
   const [isLightDark, setIsLightDark] = useState(true);
   const [isExpand, setIsExpand] = useState(false);
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(true);
   const {topic1, topic2, topic3, cardCount} = newSettings;
   const { pathname } = location;
   const match = matchPath({
@@ -378,14 +379,39 @@ const TimelineV2 = () => {
               </div>
             )}
             <div className="p-14">
-              <div className="text-secondary/85 text-3xl mb-8">
-                Book title here.
-              </div>
-              <div className="text-secondary/60 leading-loose">
-                It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-                <br />
-                <br />
-                Popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop.
+              <Editor/>
+              <div className="w-full flex items-center justify-center">
+                <div className="absolute left-0 right-0 m-auto">
+                  <div className="flex flex-row items-center justify-center relative">
+                    <button type="button" className="px-3 py-2 mr-3 text-sm font-medium text-center inline-flex items-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                      Add section
+                    </button>
+                    <button className="inline-flex items-center bg-primary border border-secondary/25 theme-dark:border-secondary/15 text-secondary/60 text-sm rounded-lg block w-36 p-2 !outline-none">
+                      Select chapter <svg className="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                      <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
+                      </svg>
+                    </button>
+                    <div className="hidden absolute top-[37px] right-[172px] w-48 z-10 bg-primary rounded-lg border border-secondary/25 theme-dark:border-secondary/15 theme-dark:bg-gray-700">
+                      <ul className="h-48 py-2 overflow-y-auto text-gray-700 theme-dark:text-gray-200">
+                        <li>
+                          <a href={null} className="cursor-pointer flex items-center text-sm px-4 py-2 hover:bg-gray-100 theme-dark:hover:bg-gray-600 theme-dark:hover:text-white">
+                            1
+                          </a>
+                          <a href={null} className="cursor-pointer flex items-center text-sm px-4 py-2 hover:bg-gray-100 theme-dark:hover:bg-gray-600 theme-dark:hover:text-white">
+                            2
+                          </a>
+                          <a href={null} className="cursor-pointer flex items-center text-sm px-4 py-2 hover:bg-gray-100 theme-dark:hover:bg-gray-600 theme-dark:hover:text-white">
+                            3
+                          </a>
+                        </li>
+                      </ul>
+                      <a href={null} className="flex items-center p-3 text-sm text-blue-600 border-gray-200 rounded-b-lg text-secondary bg-secondary/10 dark:border-gray-600">
+                        Add new chapter
+                      </a>
+                    </div>
+                  </div>
+                </div>
+                <hr className="w-full h-[1px] my-8 bg-gray-200 border-0 theme-dark:bg-gray-700"></hr>
               </div>
             </div>
           </>

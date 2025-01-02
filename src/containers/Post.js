@@ -1,11 +1,13 @@
 import React, {useState} from 'react';
 import {useSelector} from 'react-redux';
+import {Editor} from '../components/TipTap/Editor';
 import TextareaAutosize from 'react-textarea-autosize';
 import {TagsInput} from 'react-tag-input-component';
 import moment from 'moment';
 import {fbPush} from '../services/firebaseService';
 import {subjectState} from '../app/slices/subjectSlice';
 import {IoMdPricetag} from 'react-icons/io';
+import '../components/TipTap/styles.css';
 
 const initialState = {
   body: '',
@@ -63,18 +65,19 @@ const Post = () => {
   }
 
   return (
-    <div className="mb-7 mx-auto bg-[#fbfbfc] theme-dark:bg-transparent border border-transparent rounded-lg theme-dark:border-gray-700">
+    <div className="w-11/12 sm:w-full mb-7 bg-[#fbfbfc] theme-dark:bg-transparent border border-transparent rounded-lg theme-dark:border-gray-700">
       <div className="pt-4 pl-4 pr-4 pb-7">
         <div className="flex items-center h-full">
           <div className="h-full w-full">
             {!isTag && (
               <div>
-                <div>
+                {/*<div>
                   <input value={titleFormValue} onChange={handleTitle} className="block pb-2.5 pr-2.5 mb-5 w-full text-base text-secondary bg-transparent !outline-none" placeholder="Title"/>
                 </div>
-                <input type="text" value={imageUrl} onChange={handleImage} className="w-full h-[40px] bg-transparent text-secondary text-base block inline py-2.5 mb-5 !outline-none" placeholder="Image URL" />
-                <div className="relative">
-                  <TextareaAutosize onChange={handleChange} value={postDetails.body} minRows={3} maxRows={15} className="resize-none block py-2.5 pr-2.5 mb-20 w-full h-fit text-base text-secondary bg-transparent !outline-none" placeholder="Write something..."/>
+                <input type="text" value={imageUrl} onChange={handleImage} className="w-full h-[40px] bg-transparent text-secondary text-base block inline py-2.5 mb-5 !outline-none" placeholder="Image URL" />*/}
+                <div>
+                  {/*<TextareaAutosize onChange={handleChange} value={postDetails.body} minRows={3} maxRows={15} className="resize-none block py-2.5 pr-2.5 mb-20 w-full h-fit text-base text-secondary bg-transparent !outline-none" placeholder="Write something..."/>*/}
+                    <Editor/>
                 </div>
                 <div className="flex">
                   <button onClick={handlePost} className="block-inline rounded-full mt-4 mr-3 text-xl uppercase px-7 py-1.5 bg-[#f87341] text-white">

@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {useSelector} from 'react-redux';
-import {useAppState, useDispatchAppState} from '../../utility/state';
+import {useAppState, useDispatchAppState} from '../../hooks/state';
 import {subjectState} from '../../app/slices/subjectSlice';
 
 // https://stackoverflow.com/questions/65472666/calling-custom-hook-in-event-handler
@@ -34,7 +34,7 @@ const TimelinePost = () => {
     }
   }
 
-  const HandleBack = () => {
+  const handleBack = () => {
     setData({
       isPostCardShow: undefined
     });
@@ -88,7 +88,7 @@ const TimelinePost = () => {
       </div>
       <div className="w-11/12 sm:w-auto mt-3.5 sm:mt-0">
         <div className="flex flex-row sm:flex-col justify-center h-full">
-          <button type="button" onClick={HandleBack} className="text-blue-700 hover:text-white border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-bold rounded-lg text-xs px-1.5 py-1 sm:px-3 sm:py-2 text-center me-2 sm:mb-5 theme-dark:border-blue-500 theme-dark:text-blue-500 theme-dark:hover:text-white theme-dark:hover:bg-blue-500 theme-dark:focus:ring-blue-800">
+          <button type="button" onClick={handleBack} className="text-blue-700 hover:text-white border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-bold rounded-lg text-xs px-1.5 py-1 sm:px-3 sm:py-2 text-center me-2 sm:mb-5 theme-dark:border-blue-500 theme-dark:text-blue-500 theme-dark:hover:text-white theme-dark:hover:bg-blue-500 theme-dark:focus:ring-blue-800">
             Back
           </button>
           <button type="button" onClick={handleUseInBook} className="text-blue-700 hover:text-white border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-bold rounded-lg text-xs px-1.5 py-1 sm:px-3 sm:py-2 text-center me-2 sm:mb-5 theme-dark:border-blue-500 theme-dark:text-blue-500 theme-dark:hover:text-white theme-dark:hover:bg-blue-500 theme-dark:focus:ring-blue-800">
