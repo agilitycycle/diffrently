@@ -1,0 +1,8 @@
+export const bookStates = {
+	PREVIEW: 'PREVIEW',
+	EDIT: 'EDIT',
+	PRELOAD: 'PRELOAD',
+	NOT_STARTED: 'NOT_STARTED',
+	STARTED: 'STARTED',
+	NEW: 'NEW'
+}
