@@ -1,5 +1,5 @@
-import CreateBook from './CreateBook';
-import ViewBook from './ViewBook';
+import CreateBook from './CreateBook.tsx';
+import ViewBook from './ViewBook.tsx';
 
 export {
   CreateBook,

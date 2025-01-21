@@ -1,55 +1,34 @@
 import {useEffect, useState} from 'react';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import moment from 'moment';
 import {fbUpdate, fbPush} from '../../../services/firebaseService';
 import {appState} from '../../../app/slices/appSlice';
-import {subjectState} from '../../../app/slices/subjectSlice';
+import {updateSubjectState, subjectState} from '../../../app/slices/subjectSlice';
 import {BsQuestionCircleFill} from 'react-icons/bs';
 
-const MinusIcon = () => {
-  return (<svg 
-      xmlns="http://www.w3.org/2000/svg" 
-      fill="none" 
-      viewBox="0 0 24 24" 
-      stroke-width="1.5" 
-      stroke="currentColor" 
-      className="w-4 h-4 text-[#000423]/90 theme-dark:text-white"
-    >
-      <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14" />
-    </svg>)
-}
-
-const PlusIcon = () => {
-  return (<svg 
-      xmlns="http://www.w3.org/2000/svg" 
-      fill="none" 
-      viewBox="0 0 24 24" 
-      stroke-width="1.5" 
-      stroke="currentColor" 
-      className="w-4 h-4 text-[#000423]/90 theme-dark:text-white"
-    >
-      <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-    </svg>);
-}
-
 const AddChapter = () => {
+  const dispatch = useDispatch();
   const currentAppState = useSelector(appState);
   const currentSubjectState = useSelector(subjectState);
-  const [chapter, setChapter] = useState(1);
+  const [chapter, setChapter] = useState(undefined);
+  const [chaptersHydrated, setChaptersHydrated] = useState([]);
   const [isValid, setIsValid] = useState(true);
   const {userId} = currentAppState;
   const {currentSubject, chapters} = currentSubjectState;
 
-  const updateChapters = () => {
-
+  const sort = (a, b) => {
+		const propA = Object.keys(a)[0];
+		const propB = Object.keys(b)[0];
+    return +propA.match(/\d+/)[0] - +propB.match(/\d+/)[0];
   }
 
-  const updateValid = () => {
+  const updateIsValid = () => {
     setIsValid(true); // reset
     const chaptersArray = chapters ? JSON.parse(chapters) : [];
     for (let i in chaptersArray) {
+      const value = chaptersArray[i][Object.keys(chaptersArray[i])[0]];
       const number = Number(Object.keys(chaptersArray[i])[0].split('chapter-')[1]);
-      if (number === chapter) {
+      if (number === chapter && value) {
         setIsValid(false);
       }
     }
@@ -61,25 +40,23 @@ const AddChapter = () => {
     setChapter(Number(value));
   }
 
-  const handleOnClick = (e) => {
-    const {currentTarget} = e;
-    const {id} = currentTarget;
-    let newChapter = chapter;
-    
-    if (id === 'minus') {
-      if (chapter > 1) {
-        newChapter = newChapter - 1;
-        setChapter(newChapter);
-      }
-    }
-    if (id === 'plus') {
-      newChapter = newChapter + 1;
-      setChapter(newChapter);
-    }
-  }
-
   const handleSubmit = () => {
     if (isValid) {
+      let newChapters = [...chaptersHydrated];
+      if (chaptersHydrated.filter(e => Object.keys(e)[0] !== `chapter-${chapter}`).length > 0) {
+        newChapters.push({[`chapter-${chapter}`]: true, alias: ''});
+      }
+
+      const sorted = newChapters.sort(sort);
+      const stringified = JSON.stringify(sorted);
+
+      setChaptersHydrated(sorted);
+
+      // console.log(newChapters);
+
+      const newSubjectState = Object.assign({...currentSubjectState}, {chapters: stringified});
+      dispatch(updateSubjectState(newSubjectState));
+
       fbPush(`/userBooks/${currentSubject}/pages/chapter-${chapter}`, {
         content: '',
         dateCreated: moment().valueOf(),
@@ -87,18 +64,26 @@ const AddChapter = () => {
       });
 
       fbUpdate(`/userSubject/${userId}/subjects/${currentSubject}`, {
-        chapters: updateChapters()
+        chapters: stringified
       });
     }
   }
 
   useEffect(() => {
-    updateValid();
+    if(!currentSubjectState.chapters) return;
+    const parsed = JSON.parse(currentSubjectState.chapters);
+    const getKeys = Object.keys(parsed[parsed.length - 1]);
+    setChapter(Number(getKeys[0].split('chapter-')[1]) + 1);
+    setChaptersHydrated(parsed);
+  }, [chapters])
+
+  useEffect(() => {
+    updateIsValid();
   }, [chapter, chapters])
 
   return (<div className="max-w-sm py-[45px] mx-auto">
     <div className="flex items-center justify-center relative">
-      <div className="w-[110px] mr-3 relative">
+      <div className="w-[90px] mr-3 relative">
         <input
           type="number"
           value={chapter}
@@ -106,25 +91,9 @@ const AddChapter = () => {
           className={`w-full h-9 pl-4 pr-3 bg-transparent placeholder:text-secondary/40 ${isValid ? 'text-secondary/60' : 'text-blue-600'} text-base font-bold border border-secondary/25 rounded-xl focus:outline-none shadow-sm focus:shadow-md`}
           placeholder="1"
         />
-        <button
-          id="minus"
-          onClick={handleOnClick}
-          className="absolute top-[6px] right-[35px] h-6 w-6 flex items-center justify-center bg-[#d7dce3] theme-dark:bg-[#252940] rounded-md"
-          type="button"
-        >
-          <MinusIcon/>
-        </button>
-        <button
-          id="plus"
-          onClick={handleOnClick}
-          className="absolute top-[6px] right-[6px] h-6 w-6 flex items-center justify-center bg-[#d7dce3] theme-dark:bg-[#252940] rounded-md"
-          type="button"
-        >
-          <PlusIcon/>
-        </button>
       </div>
       <button onClick={handleSubmit} type="button" className="px-3 w-fit h-[30px] text-base font-medium text-center flex items-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-        Add
+        Next chapter
       </button>
       <BsQuestionCircleFill className="ml-2.5 text-blue-600 text-xl cursor-pointer"/>
     </div>

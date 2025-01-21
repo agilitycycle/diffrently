@@ -1,12 +1,12 @@
 import React, {useState} from 'react';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {ref as sRef, uploadBytesResumable} from 'firebase/storage';
 import {fbStorage} from '../../../app/firebase';
 import {ref, update} from 'firebase/database';
 import {fbdb} from '../../../app/firebase';
 import Resizer from 'react-image-file-resizer';
 import {appState} from '../../../app/slices/appSlice';
-import {subjectState} from '../../../app/slices/subjectSlice';
+import {updateSubjectState, subjectState} from '../../../app/slices/subjectSlice';
 import {Editor} from '../../common/tiptap/Editor';
 import {MdPhotoCamera} from 'react-icons/md';
 
@@ -16,13 +16,23 @@ const Section = ({
   item
 }) => {
   const {
+    id,
     content
   } = item;
+  const dispatch = useDispatch();
+  const currentSubjectState = useSelector(subjectState);
+
+  const handleOpenEditor = () => {
+    const newSubjectState = Object.assign({...currentSubjectState}, {section: id});
+    dispatch(updateSubjectState(newSubjectState));
+    openEditor();
+  }
+
   return (<div className="mb-5">
     <p className="leading-loose text-secondary/60 theme-dark:text-secondary/40 mb-2">
       {content}
     </p>
-    <button onClick={() => openEditor()} type="button" className="px-1.5 py-1 text-sm font-medium text-center inline-flex items-center text-white bg-blue-700 rounded hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+    <button onClick={handleOpenEditor} type="button" className="px-1.5 py-1 text-sm font-medium text-center inline-flex items-center text-white bg-blue-700 rounded hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
       Edit
     </button>
     <div className="w-full flex items-center justify-center">
@@ -97,7 +107,11 @@ const Edit = ({
 
   let items = [];
   for (let i in content) {
-    items.push(content[i]);
+    const newItem = {
+      id: i,
+      ...content[i]
+    }
+    items.push(newItem);
   }
 
   if (!isEditor && selected !== 'Cover') {

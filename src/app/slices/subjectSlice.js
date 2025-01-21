@@ -2,18 +2,23 @@ import { createSlice } from '@reduxjs/toolkit'
 
 export const initialState = {
   value: {
+    id: '', // subject id
     title: '',
     imageUrl: '',
     blurb: '',
     subject: '',
     newSubject: false,
+    chapters: undefined,
+    chapter: undefined,
+    section: undefined,
+    editorContent: '',
     category: '',
-    tags: [],
+    tags: '[]',
     topic1: '',
     topic2: '',
     topic3: '',
     cardCount: 0,
-    currentSubject: '',
+    currentSubject: '', // current subject id??
     currentTimeline: undefined
   },
 }

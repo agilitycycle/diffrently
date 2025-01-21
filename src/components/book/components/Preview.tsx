@@ -20,11 +20,15 @@ const Preview = ({
 
   let items = [];
   for (let i in content) {
-    items.push(content[i]);
+    const newItem = {
+      id: i,
+      ...content[i]
+    }
+    items.push(newItem);
   }
 
   if (selected === 'Cover') {
-    return (<div className="max-w-md h-full mx-auto flex items-start sm:items-center justify-center">
+    return (<div className="max-w-md py-20 h-[calc(100%-58px)] mx-auto flex items-start sm:items-center justify-center">
         <img src={coverUrl} className="max-h-full border border-secondary/20" />
       </div>);
   }

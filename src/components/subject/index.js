@@ -1,9 +1,9 @@
-import AddSettings from './AddSettings';
 import Post from './Post';
 import Subject from './Subject';
+import NextStep from './NextStep';
 
 export {
-  AddSettings,
   Post,
-  Subject
+  Subject,
+  NextStep
 }

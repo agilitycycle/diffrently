@@ -1,4 +1,5 @@
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
 import moment from 'moment';
 import {fbPush, fbUpdate} from '../../../services/firebaseService';
 import {mergeAttributes, Node} from '@tiptap/core';
@@ -8,6 +9,7 @@ import ListItem from '@tiptap/extension-list-item';
 import TextStyle from '@tiptap/extension-text-style';
 import {EditorProvider, useCurrentEditor} from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
+import {updateSubjectState, subjectState} from '../../../app/slices/subjectSlice.js';
 import './styles.css';
 
 // https://tiptap.dev/docs/editor/getting-started/install/react?gad_source=1&gclid=CjwKCAiApsm7BhBZEiwAvIu2XwubtoP3gFq2ssgn7Vc5c78Y0meg2NMnf8utyr3HaRyYO0ihqd5e5RoC7PMQAvD_BwE
@@ -408,6 +410,8 @@ const content = `
  * 
  */
 export const Editor = ({items}) => {
+  const dispatch = useDispatch();
+  const currentSubjectState = useSelector(subjectState);
   const [value, setValue] = useState(undefined);
   let newContent = '';
 
@@ -446,13 +450,20 @@ export const Editor = ({items}) => {
     })
   }
 
+  useEffect(() => {
+    const newSubjectState = Object.assign({...currentSubjectState}, {
+      editorContent: value
+    });
+    dispatch(updateSubjectState(newSubjectState));
+  }, [value])
+
   return (<div className="!m-0 h-[calc(100vh-232px)]">
     <EditorProvider
       slotBefore={<Menu/>}
       extensions={extensions}
       content={newContent}
       onUpdate={({editor}) => {
-        setValue(editor.getHTML())
+        setValue(editor.getHTML());
       }}
     >
     </EditorProvider>

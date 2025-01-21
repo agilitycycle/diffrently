@@ -1,0 +1,1 @@
+const unique = arr => arr.filter((el, i, array) => array.indexOf(el) === i);

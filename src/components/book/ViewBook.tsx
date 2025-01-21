@@ -1,59 +1,43 @@
 import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import {useNavigate, useLocation} from 'react-router-dom';
+import {useLocation} from 'react-router-dom';
 import {matchPath} from 'react-router';
 import {bookStates} from '../../configs/constants';
-import {appState} from '../../app/slices/appSlice.js';
-import {updateSubjectState, subjectState} from '../../app/slices/subjectSlice.js';
-import {fbdb} from '../../app/firebase.js';
+import {appState} from '../../app/slices/appSlice';
+import {updateSubjectState, subjectState} from '../../app/slices/subjectSlice';
+import {fbdb} from '../../app/firebase';
 import {ref, query, get} from 'firebase/database';
-import {fbRemove} from '../../services/firebaseService.js';
-import {Book} from './Book.js';
-import Sidebar from './components/Sidebar';
-import AddChapter from './components/AddChapter';
-import {Page, Drawer, Header} from '../index.js';
+import {Book} from './Book.tsx';
+import Sidebar from './components/Sidebar.tsx';
+import {Page, Drawer, Header} from '../index';
 import Highlights from '../highlights/Highlights';
-import Options from './components/Options';
+import PublicOptions from './components/public/PublicOptions.tsx';
 import {Skeleton} from '../common/Skeleton';
 
-// https://qdus.hashnode.dev/simplifying-react-component-composition-with-dot-notation
-// https://purecode.ai/generations/b105581b-8e18-4545-83c2-a328b58b0e7e/0
+type WrapperProps = {
+  children: any
+}
 
-const Wrapper = ({children}) => <div className="flex flex-col w-full">{children}</div>
+const Wrapper = ({children}: WrapperProps) => <div className="flex flex-col w-full">{children}</div>;
 
 const CreateBook = () => {
-  const navigate = useNavigate();
   const dispatch = useDispatch();
   const location = useLocation();
   const currentAppState = useSelector(appState);
   const currentSubjectState = useSelector(subjectState);
-  const {userId, darkMode} = currentAppState;
+  const {darkMode} = currentAppState;
   const {
-    subject,
     subjects,
-    subjectId, // rename
-    // newSubject,
-    subjectImageUrl, // rename
-    currentSubject,
     currentTimeline
   } = currentSubjectState;
-  // does this need to be added back to subjects reducer?
-  // const [newSettings, setNewSettings] = useState({
-  //   topic1: '', // could user add more than 3 topics?
-  //   topic2: '',
-  //   topic3: '',
-  //   cardCount: 0
-  // });
-  // const {topic1, topic2, topic3, cardCount} = newSettings;
-  // timeline
   const [selectedTimeline, setSelectedTimeline] = useState(undefined);
 
   const [book, setBook] = useState({
     frontCover: true,
-    state: 'NOT_STARTED',
-    editMode: 'EDIT',
+    state: 'PREVIEW',
+    editMode: 'PREVIEW',
     contentLoaded: undefined,
-    selected: undefined,
+    selected: 'Cover',
     newSection: false
   })
 
@@ -73,80 +57,9 @@ const CreateBook = () => {
 
   const { pathname } = location;
   const match = matchPath({
-    path: '/create/:username/:subject',
+    path: '/view/:username/:subject',
     exact: true
   }, pathname);
-
-  // const handleSubmit = (e) => {
-  //   axios.post('https://d9mi4czmx5.execute-api.ap-southeast-2.amazonaws.com/prod/{read+}', JSON.stringify({
-  //     option: 'generate-articles',
-  //     data: {
-  //       cardCount,
-  //       text: `${subject}, ${topic1}, ${topic2}, ${topic3}`
-  //     }
-  //   })).then(resp => {
-  //     console.log(resp)
-  //     const { data } = resp;
-  //     const { response } = data;
-  //     const { content } = response;
-  //     console.log(content)
-  
-  //     const newContent = JSON.parse(content);
-  //     const {articles} = newContent;
-
-  //     fbUpdate(`/userSubject/${userId}/subjects/${subjectId}`, {
-  //       topic1,
-  //       topic2,
-  //       topic3,
-  //       cardCount
-  //     });
-
-  //     articles.map((article) => {
-  //       const {title, body} = article;
-  //       fbPush(`/userTimelineV2/${subjectId}/post/`, {
-  //         title,
-  //         body
-  //       });
-  //     })
-
-  //     const newSubjectState = Object.assign({}, {...currentSubjectState}, {
-  //       newSubject: false,
-  //       topic1: topic1,
-  //       topic2: topic2,
-  //       topic3: topic3,
-  //       cardCount: cardCount,
-  //       currentTimeline: articles
-  //     });
-  //     dispatch(updateSubjectState(newSubjectState));
-  
-  //   }).catch(error => {
-  //     console.log(error);
-  //   });
-  // }
-
-  const handleOptions = (e) => {
-    const {target} = e;
-    const {value} = target;
-    navigate(`/create/${value}`);
-  }
-
-  const handleDelete = () => {
-    fbRemove(`userSubject/${userId}/subjects/${currentSubject}`);
-    fbRemove(`userTimelineV2/${currentSubject}`);
-
-    const newSubjects = subjects.filter(x => x.id !== currentSubject);
-    const newSubjectState = Object.assign({...currentSubjectState}, {subjects: newSubjects});
-    dispatch(updateSubjectState(newSubjectState));
-
-    navigate('/subject')
-  }
-
-  const handleNewSection = () => {
-    setBook(Object.assign(
-      {...book}, {newSection: true}
-    ));
-    openEditor();
-  }
 
   const deepObjectUpdate = (object, prop, newValue) => {
     let newObject = {
@@ -218,17 +131,6 @@ const CreateBook = () => {
     });
   }
 
-  const toggleEdit = () => {
-    setBook(Object.assign(
-      {...book}, {
-        state: 'EDIT',
-        editMode: 'EDIT',
-        newSection: false
-      }
-    ));
-    handleControls({editor: {isEditor: false}});
-  }
-
   const getTimeline = async () => {
     const subjectId = selectedTimeline;
     const userRef = ref(fbdb, `userTimelineV2/${subjectId}/post`);
@@ -243,7 +145,6 @@ const CreateBook = () => {
         });
     });
 
-    // dispatch new results
     const timelineArray = [];
     for (let i in newTimeline) {
       const subjectObject = {id: i};
@@ -261,30 +162,17 @@ const CreateBook = () => {
 
   const getSubject = () => {
     const {params} = match;
-    // subject url
     const {subject} = params;
     for (let i in subjects) {
       if(subjects[i].subject === subject) {
         const {
-          topic1,
-          topic2,
-          topic3,
-          cardCount,
           coverUrl,
-          imageUrl,
           chapters,
           id
         } = subjects[i];
 
-        // setNewSettings({
-        //   topic1,
-        //   topic2,
-        //   topic3,
-        //   cardCount
-        // })
         setSelectedTimeline(id);
         const newSubjectState = Object.assign({}, {...currentSubjectState}, {
-          subjectImageUrl: imageUrl,
           coverUrl,
           subject, 
           chapters,
@@ -295,32 +183,11 @@ const CreateBook = () => {
     }
   }
 
-  const renderOptions = () => {
-    if (subjects.length < 1) return;
-    return subjects.map((item, index) => {
-      const {id, subject, username} = item;
-      return (<option key={index} value={`${username}/${subject}`} selected={selectedTimeline === id}>{subject}</option>)
-    })
-  }
-
-  const openEditor = () => {
-    handleControls({editor: {isEditor: true}})
-  }
-
   //
   // Props
 
-  const timelineOptionsProps = {
-    renderOptions,
-    handleOptions,
-    selectedTimeline,
-    handleDelete
-  }
-
   const menuProps  = {
     book,
-    setBook,
-    toggleEdit,
     handleControls,
     changeBookMatter,
     expandCollapsePageToggle: sidebar.toggleSidebar
@@ -331,24 +198,6 @@ const CreateBook = () => {
     handleControls,
     isLightDark: sidebar.darkMode,
     isExpand: sidebar.isExpand
-  }
-
-  const notStartedProps = {
-    loadBookMatter,
-    sidebar
-  }
-
-  const startedProps = {
-    sidebar
-  }
-
-  const editProps = {
-    isEditor: controls.editor.isEditor,
-    openEditor,
-    newSection: book.newSection,
-    handleNewSection,
-    selected: book.selected,
-    content: book.newSection ? '' : book.contentLoaded
   }
 
   const previewProps = {
@@ -383,26 +232,21 @@ const CreateBook = () => {
       <Header />
       <Drawer />
       <Wrapper>
-        <AddChapter/>
+        <div className="h-[126px]">
+          &nbsp;
+        </div>
         <Highlights currentTimeline={currentTimeline}/>
-        <Options {...timelineOptionsProps}/>
+        <PublicOptions/>
       </Wrapper>
       <Sidebar {...sidebarProps}>
         <Book>
-          <Book.Menu {...menuProps}>
+          <Book.PublicMenu {...menuProps}>
             <Book.SubMenu {...subMenuProps}/>
-          </Book.Menu>
+          </Book.PublicMenu>
           <Book.Content>
             {book.state === bookStates.PRELOAD && (<Skeleton/>)}
-            {book.state === bookStates.NOT_STARTED && <Book.NotStarted {...notStartedProps}/>}
-            {book.state === bookStates.STARTED && <Book.Started {...startedProps}/>}
-            {book.state === bookStates.EDIT && <Book.Edit {...editProps}/>}
             {book.state === bookStates.PREVIEW && <Book.Preview {...previewProps}/>}
           </Book.Content>
-          {
-            (book.state === bookStates.EDIT || book.state === bookStates.NEW) && 
-            <Book.Footer/>
-          }
         </Book>
       </Sidebar>
     </Page>

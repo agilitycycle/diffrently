@@ -19,10 +19,12 @@ import {
   SignIn,
   Profile,
   CreateBook,
+  ViewBook,
   LandingPage,
   Pricing,
   WhyDiffrently,
-  Subject
+  Subject,
+  NextStep
 } from './components';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
@@ -137,12 +139,16 @@ const router = createBrowserRouter([
     element: CategoryContextComponent(CreateBook),
   },
   {
-    path: '/start/next-step',
-    element: CategoryContextComponent(Subject),
+    path: '/view/:username/:subject',
+    element: CategoryContextComponent(ViewBook),
   },
   {
     path: '/start',
     element: CategoryContextComponent(Subject),
+  },
+  {
+    path: '/start/next-step',
+    element: CategoryContextComponent(NextStep),
   },
   {
     path: '/signin',

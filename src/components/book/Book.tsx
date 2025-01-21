@@ -1,5 +1,6 @@
 import {
   Menu,
+  PublicMenu,
   SubMenu,
   Content,
   Footer,
@@ -17,6 +18,10 @@ export const Book = ({children}) => <>{children}</>;
 //
 // Book Menu
 Book.Menu = Menu;
+
+//
+// Book Public Menu
+Book.PublicMenu = PublicMenu;
 
 //
 // Book SubMenu

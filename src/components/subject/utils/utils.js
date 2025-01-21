@@ -4,7 +4,7 @@ import {
   desserts
 } from './data';
 
-const getRandomIndex = array => Math.floor(Math.random() * array.length)
+export const getRandomIndex = array => Math.floor(Math.random() * array.length)
 
 export const generateUsername = () => {
   const dessertIndex = getRandomIndex(desserts)

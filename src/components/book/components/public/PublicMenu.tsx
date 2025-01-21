@@ -1,22 +1,16 @@
 import {useSelector} from 'react-redux';
-import {subjectState} from '../../../app/slices/subjectSlice';
-import {bookStates} from '../../../configs/constants';
+import {subjectState} from '../../../../app/slices/subjectSlice';
 import {BiFontSize} from 'react-icons/bi';
-import {MdEdit} from 'react-icons/md';
-import {IoMdEye} from 'react-icons/io';
 
-const Menu = ({
+const PublicMenu = ({
   children,
   book,
-  setBook,
-  toggleEdit,
   handleControls,
   changeBookMatter,
   expandCollapsePageToggle
 }) => {
   const currentSubjectState = useSelector(subjectState);
   const {chapters} = currentSubjectState;
-  const isEdit = book.editMode === bookStates.EDIT;
   const bookMatterArray = ['Cover', 'Contents'];
 
   const getDropdown = () => {
@@ -36,15 +30,6 @@ const Menu = ({
     })
   }
 
-  const isDisabled = () => {
-    if (book.selected === 'Contents' ||
-      book.state  === 'NOT_STARTED'
-    ) {
-      return true;
-    }
-    return false;
-  }
-
   return (<div className="bg-gray-100 theme-dark:bg-secondary/5 text-secondary">
     <div className="flex justify-between w-full px-6">
       <div className="py-3 flex inline-flex items-center">
@@ -53,21 +38,6 @@ const Menu = ({
           <option value="" className="disabled hidden">Book Matter</option>
           {getDropdown()}
         </select>
-        {isEdit && (
-          <button disabled={isDisabled()} onClick={() => setBook(Object.assign(
-            {...book},
-            {
-              state: bookStates.PREVIEW,
-              editMode: bookStates.PREVIEW
-            }))} className="bg-primary/50 border border-secondary/15 text-secondary mr-2 sm:mr-4 w-[35px] h-[35px] font-medium inline-flex items-center justify-center rounded-full text-lg disabled:opacity-50">
-            <IoMdEye />
-          </button>
-        )}
-        {!isEdit && (
-          <button disabled={isDisabled()} onClick={() => toggleEdit()} className="bg-primary/50 border border-secondary/15 text-secondary mr-2 sm:mr-4 w-[35px] h-[35px] font-medium inline-flex items-center justify-center rounded-full text-lg disabled:opacity-50">
-            <MdEdit />
-          </button>
-        )}
         <button className="bg-primary/50 border border-secondary/15 text-secondary w-[35px] h-[35px] font-medium inline-flex items-center justify-center rounded-full text-lg">
           <BiFontSize />
         </button>
@@ -82,4 +52,4 @@ const Menu = ({
   </div>);
 }
 
-export default Menu;
+export default PublicMenu;

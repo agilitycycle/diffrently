@@ -1,16 +1,29 @@
 import {useSelector} from 'react-redux';
+import {appState} from '../../../app/slices/appSlice';
 import {subjectState} from '../../../app/slices/subjectSlice';
 
 const NotStarted = ({
   sidebar,
   loadBookMatter
 }) => {
+	const currentAppState = useSelector(appState);
 	const currentSubjectState = useSelector(subjectState);
+  const {darkMode} = currentAppState;
   const {coverUrl} = currentSubjectState;
+
   return (
     <>
       <div className={`${sidebar.isExpand ? 'w-4/5' : 'w-full'} mx-auto`}>
-        <div className="flex flex-col sm:flex-row text-secondary/60 text-xl">
+        <div className="bg-violet-900 text-center py-5 lg:px-4 mb-5">
+          <div className="p-2 bg-violet-700/90 items-center text-white leading-none lg:rounded-full flex lg:inline-flex" role="alert">
+            <span className="flex rounded-full bg-violet-500 uppercase px-2 py-1 text-xs font-bold mr-3">New</span>
+            <span className="font-semibold mr-2 text-left flex-auto">
+              Discover your articles inside.
+            </span>
+            <svg className="fill-current opacity-75 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M12.95 10.707l.707-.707L8 4.343 6.586 5.757 10.828 10l-4.242 4.243L8 15.657l4.95-4.95z"/></svg>
+          </div>
+        </div>
+        <div className="flex flex-col sm:flex-row text-secondary/60 text-xl p-9">
           <div className="w-48 mb-8 mx-auto sm:mb-0">
             {!coverUrl && (
               <div className="w-48 h-60 mx-auto flex items-center justify-center bg-secondary/10 rounded p-2">

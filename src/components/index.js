@@ -6,9 +6,9 @@ import {
   WhyDiffrently,
 } from './public';
 import {
-  AddSettings,
   Post,
-  Subject
+  Subject,
+  NextStep
 } from './subject';
 import {
   CreateBook,
@@ -37,9 +37,9 @@ export {
   Profile,
   CreateBook,
   ViewBook,
-  AddSettings,
   Post,
   Subject,
+  NextStep,
   LandingPage,
   Pricing,
   WhyDiffrently,

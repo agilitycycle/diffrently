@@ -26,6 +26,16 @@ Help improve the open source version by using it freely under the GPLv3 license.
 2. Firebase function code
 3. AWS Lambda code
 
+## [Talent PR](#talent-pr)
+
+Migrating from React.js (JavaScript) to React.js (TypeScript)
+
+1. Type Annotations
+2. Interfaces and Types
+3. Unions and Intersections
+4. Enums
+5. Generics
+
 ## Storybook
 
 https://storybook.flipbio.co
@@ -60,11 +70,16 @@ Start the server
 
 ## Articles
 1. [Folder structures](https://dev.to/itswillt/folder-structures-in-react-projects-3dp8)
-2. [React icons](https://react-icons.github.io/react-icons/)
-3. [Tailwind CSS](https://tailwindcss.com/docs)
-4. [Pagedone](https://pagedone.io/)
-5. [Flowbite](https://flowbite.com/docs/getting-started/introduction/)
-6. [Creative Tim](https://www.creative-tim.com/twcomponents)
+2. [conventional-commits](https://gist.github.com/Zekfad/f51cb06ac76e2457f11c80ed705c95a3)
+3. [React icons](https://react-icons.github.io/react-icons/)
+4. [Tailwind CSS](https://tailwindcss.com/docs)
+5. [Pagedone](https://pagedone.io/)
+6. [Flowbite](https://flowbite.com/docs/getting-started/introduction/)
+7. [Creative Tim](https://www.creative-tim.com/twcomponents)
+8. [React checkbox](https://dev.to/collegewap/how-to-work-with-checkboxes-in-react-44bc)
+9. [Learn TypeScript](https://www.youtube.com/watch?v=3mDny9XAgic)
+10. [Add TypeScript To An Existing React Project](https://www.totaltypescript.com/add-typescript-to-existing-react-project)
+11. [React TypeScript Cheatsheet](https://react-typescript-cheatsheet.netlify.app/docs/basic/getting-started/function_components/)
 
 ## Acknowledgements
 
