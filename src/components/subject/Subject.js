@@ -66,12 +66,14 @@ const Subject = () => {
         const username = generateUsername();
 
         // save to firebase
+        console.log(category, subject, tags)
 
         const base = {
-          subject: hydrateTag(subject),
+          category: category ? hydrateTag(category) : JSON.stringify([]),
+          chapters,
+          subject: subject ? hydrateTag(subject) : JSON.stringify([]),
           title,
-          category: hydrateTag(category),
-          tags: JSON.stringify(tags.map(tag => hydrateTag(tag))),
+          tags: tags ? JSON.stringify(tags.map(tag => hydrateTag(tag))) : JSON.stringify([]),
           username
         };
 
@@ -82,17 +84,17 @@ const Subject = () => {
         const newSubjects = [...subjects];
         newSubjects.push({
           id,
-          subject: hydrateTag(subject)
+          ...base
         });
 
         const additional = {
-          id,
-          ...base,
-          subjects: newSubjects,
-          newSubject: true, // required??
-          chapters
+          activeId: id,
+          subjects: newSubjects
         };
 
+        // why did I get the initial value for??
+        // perhaps to reset the current subjects state
+        // so i could push a new subject **
         const amendedState = {};
         amendedState.value = {...initialState.value};
         amendedState.value.subjects = subjects || [];
@@ -132,6 +134,7 @@ const Subject = () => {
   }
 
   const hydrateTag = (tag) => {
+    console.log(tag)
     // remove space, special characters
     const hydrated = tag.replace(/\w+/g, (a) =>
     `${a.charAt(0).toUpperCase()}${a.substr(1)}`).replace(/\s/g, '').replace(/[^\w\s]/gi, '');

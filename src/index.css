@@ -21,6 +21,19 @@ code {
     monospace;
 }
 
+/* inine edit */
+.rs-input {
+  padding: 5px 10px;
+  border: 1px solid #2563eb;
+  background: transparent;
+  border-radius: 5px;
+  outline: none;
+}
+.rs-inline-edit-controls.rs-stack {
+  display: flex;
+  width: 50px;
+}
+
 /* landing page font */
 .saira-condensed-semibold {
   font-family: 'Saira Condensed', serif;

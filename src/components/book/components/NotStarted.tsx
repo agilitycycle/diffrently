@@ -1,15 +1,29 @@
+import React, {useEffect, useState} from 'react';
 import {useSelector} from 'react-redux';
-import {appState} from '../../../app/slices/appSlice';
 import {subjectState} from '../../../app/slices/subjectSlice';
 
 const NotStarted = ({
   sidebar,
   loadBookMatter
 }) => {
-	const currentAppState = useSelector(appState);
 	const currentSubjectState = useSelector(subjectState);
-  const {darkMode} = currentAppState;
-  const {coverUrl} = currentSubjectState;
+  const {subjects, activeId} = currentSubjectState;
+  const [meta, setMeta] = useState({
+    title: '',
+    coverUrl: undefined
+  });
+  const {title, coverUrl} = meta;
+
+  useEffect(() => {
+    if(!subjects || !activeId) return;
+    const index = subjects.findIndex(x => x.id === activeId);
+    const newSubjects = subjects[index];
+    const {title, coverUrl} = newSubjects;
+    setMeta({
+      title,
+      coverUrl
+    });
+  }, [subjects, activeId]);
 
   return (
     <>
@@ -37,17 +51,17 @@ const NotStarted = ({
             )}
           </div>
           <div className="grow flex flex-col justify-center mx-auto text-center">
-            <p className={`mb-12 ${sidebar.isExpand ? 'text-5xl' : 'text-4xl'} font-bold text-[#000] theme-dark:text-secondary leading-relaxed`}>
-              The Perfect Sermon
+            <p className={`mb-7 ${sidebar.isExpand ? 'text-4xl' : 'text-3xl'} font-bold text-[#000] theme-dark:text-secondary leading-relaxed px-3.5 pt-3.5`}>
+              {title}
             </p>
-            <p className="text-xl tracking-wide">
+            <p className="text-base tracking-wide">
               By James Star
             </p>
             <hr className="w-4/5 h-[1px] mx-auto my-8 bg-slate-400 border-0 theme-dark:bg-secondary"></hr>
-            <div className="text-lg mb-7">
+            <div className="text-base mb-7">
               2% complete
             </div>
-            <button onClick={() => loadBookMatter('chapter-1', 'EDIT', 'EDIT')} type="button" className={`${sidebar.isExpand ? 'px-7 px-2 text-xl' : 'px-5 py-2 text-lg'} w-fit mx-auto h-11 font-medium inline-flex items-center justify-center text-white bg-blue-600 rounded-md`}>
+            <button onClick={() => loadBookMatter('chapter-1', 'EDIT', 'EDIT')} type="button" className={`${sidebar.isExpand ? 'px-7 px-2 text-xl' : 'px-5 py-2 text-base'} w-fit mx-auto h-11 font-medium inline-flex items-center justify-center text-white bg-blue-600 rounded-md`}>
               Start writing
             </button>
           </div>

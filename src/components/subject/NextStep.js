@@ -1,8 +1,9 @@
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
+import moment from 'moment';
 import axios from 'axios';
-import {fbUpdate} from '../../services/firebaseService.js';
+import {fbUpdate, fbPush} from '../../services/firebaseService.js';
 import {appState} from '../../app/slices/appSlice';
 import {updateSubjectState, subjectState} from '../../app/slices/subjectSlice';
 import {TagsInput} from 'react-tag-input-component';
@@ -22,20 +23,31 @@ const NextStep = () => {
   const currentAppState = useSelector(appState);
   const currentSubjectState = useSelector(subjectState);
   const {userId} = currentAppState;
-  const {id, subject, title, tags, username} = currentSubjectState;
+  const {activeId, subjects} = currentSubjectState;
   const [loading, setLoading] = useState(false);
   const [settings, setSettings] = useState(false);
   const [articles, setArticles] = useState('3');
+  const [articleSuggestions, setArticleSuggestions] = useState({
+    article1: `What is the origin of`,
+    article2: `What is the history of`,
+    article3: `What is the thing of`
+  });
   const [showArticles, setShowArticles] = useState(false);
-  const [selected, setSelected] = useState(JSON.parse(tags));
+  const [selected, setSelected] = useState([]);
   const [checked, setChecked] = useState({
     generateTags: true,
     generateArticles: true
   });
+  const [meta, setMeta] = useState({
+    subject: '',
+    tags: '[]',
+    username: ''
+  });
   const [content, setContent] = useState({
-    title,
+    title: '',
     blurb: ''
   });
+  const {subject, tags, username} = meta;
 
   const hydrateTag = (tag) => {
     // remove space, special characters
@@ -81,6 +93,28 @@ const NextStep = () => {
     setArticles(value);
   }
 
+  const handleSkip = () => {
+    const userBookObject = {
+        content: '',
+        dateCreated: moment().valueOf(),
+        order: 0,
+      }
+
+    fbPush(`/userBooks/${activeId}/pages/chapter-1`, userBookObject);
+
+    navigate(`/create/${username}/${subject}`)
+  }
+
+  const handleArticleSuggestion = (e) => {
+    const {target} = e;
+    const {name, value} = target;
+    setArticleSuggestions(Object.assign({}, {
+      ...articleSuggestions
+    }, {
+      [name]: value
+    }));
+  }
+
   const handleCreate = async () => {
     const {
       generateTags,
@@ -94,11 +128,12 @@ const NextStep = () => {
     let generatedTags = [];
 
     if (generateTags) {
+      const {article1, article2, article3} = articleSuggestions;
       await axios.post(api, JSON.stringify({
         option: 'zero-shot-classifier',
         data: {
           tags: JSON.parse(tags).map(item => `\n- ${item.tag}`).join(',').replace(',', ''),
-          text: `${subject}\n\n${title}\n\n${content.blurb}`
+          text: `${subject}, ${article1}, ${article2}, ${article3}`
         }
       })).then(resp => {
         const {data} = resp;
@@ -115,18 +150,17 @@ const NextStep = () => {
       });
     }
 
-    // `${subject}, ${topic1}, ${topic2}, ${topic3}`
-
     // generate articles
 
     let generatedArticles = [];
 
     if (generateArticles) {
+      const {article1, article2, article3} = articleSuggestions;
       await axios.post(api, JSON.stringify({
         option: 'generate-articles',
         data: {
           cardCount: articles,
-          text: `${subject}\n\n${title}\n\n${content.blurb}`
+          text: `${subject}, ${article1}, ${article2}, ${article3}`
         }
       })).then(resp => {
         const { data } = resp;
@@ -147,7 +181,6 @@ const NextStep = () => {
       }).catch(error => {
         console.log(error);
       });
-
     }
 
     // lastly, update db
@@ -155,12 +188,40 @@ const NextStep = () => {
     const newSubjectObject = {
       title: content.title,
       blurb: content.blurb,
-      generatedTags: JSON.stringify(generatedTags),
-      generatedArticles: JSON.stringify(generatedArticles)
+      generatedTags: JSON.stringify(generatedTags)
     }
 
-    fbUpdate(`/userSubject/${userId}/subjects/${id}`, newSubjectObject);
-    const newSubjectState = Object.assign({...currentSubjectState}, newSubjectObject);
+    //
+    // book
+
+    for (let i = 0; i < generatedArticles.length; i++) {
+      fbPush(`/userBooks/${activeId}/pages/chapter-1`, {
+        content: `<p>${generatedArticles[i].title}</p><p>${generatedArticles[i].body}</p>`,
+        dateCreated: moment().valueOf(),
+        order: i,
+      });
+    }
+
+    //
+    // subjects articles
+
+    for (let i = 0; i < Number(articles); i++) {
+      fbPush(`/userSubject/${userId}/subjects/${activeId}/articles`, {
+        article: articleSuggestions[Object.keys(articleSuggestions)[i]]
+      });
+    }
+
+    fbUpdate(`/userSubject/${userId}/subjects/${activeId}`, newSubjectObject);
+    // plural
+    const newSubjects = [...currentSubjectState.subjects];
+    // singular, latest
+    const newSubject = Object.assign({}, {...newSubjects[newSubjects.length -1]}, {...newSubjectObject});
+    // update subject array
+    newSubjects[newSubjects.length -1] = newSubject;
+    // new subject state
+    const newSubjectState = Object.assign({...currentSubjectState}, {
+      subjects: newSubjects
+    });
     dispatch(updateSubjectState(newSubjectState));
 
     setLoading(false);
@@ -171,6 +232,42 @@ const NextStep = () => {
   const goBack = () => {
     setSettings(false);
   }
+
+  // meta and content
+  useEffect(() => {
+    if(!subjects || !activeId) return;
+    const index = subjects.findIndex(x => x.id === activeId);
+    const newSubject = subjects[index];
+    setMeta({
+      subject: newSubject.subject,
+      tags: newSubject.tags,
+      username: newSubject.username
+    });
+    setContent({
+      title: newSubject.title,
+      blurb: ''
+    })
+  }, [subjects, activeId])
+
+  // articles
+  useEffect(() => {
+    if (!subjects) return;
+    const index = subjects.findIndex(x => x.id === activeId);
+    const subject = subjects[index].subject;
+    setArticleSuggestions({
+      article1: `What is the origin of ${subject}`,
+      article2: `What is the history of ${subject}`,
+      article3: `What is the thing of ${subject}`
+    });
+  }, [subjects])
+
+    // tags
+    useEffect(() => {
+      if (!subjects) return;
+      const index = subjects.findIndex(x => x.id === activeId);
+      const tags = subjects[index].tags;
+      setSelected(JSON.parse(tags));
+    }, [subjects])
 
   if (loading) {
     return (<Page>
@@ -220,11 +317,11 @@ const NextStep = () => {
           </div>
           <div className={`${showArticles ? 'flex' : 'hidden'} flex-col text-base text-secondary/60 mt-5`}>
             <div className="text-base mb-3.5">
-              Update articles
+              Update article suggestions
             </div>
-            <input type="text" name="article1" value="What is the origin of" className="w-fit bg-transparent px-2 py-1 border border-secondary/40 mb-2 rounded" />
-            <input type="text" name="article2" value="What is the history of" className="w-fit bg-transparent px-2 py-1 border border-secondary/40 mb-2 rounded" />
-            <input type="text" name="article3" value="What is a" className="w-fit bg-transparent px-2 py-1 border border-secondary/40 mb-2 rounded" />
+            <input onChange={handleArticleSuggestion} type="text" name="article1" value={articleSuggestions.article1} className="wfull sm:w-6/12 bg-transparent px-2 py-1 border border-secondary/40 mb-2 rounded" />
+            <input onChange={handleArticleSuggestion} type="text" name="article2" value={articleSuggestions.article2} className="wfull sm:w-6/12 bg-transparent px-2 py-1 border border-secondary/40 mb-2 rounded" />
+            <input onChange={handleArticleSuggestion} type="text" name="article3" value={articleSuggestions.article3} className="wfull sm:w-6/12 bg-transparent px-2 py-1 border border-secondary/40 mb-2 rounded" />
           </div>
         </div>
         <div className="flex px-7">
@@ -258,7 +355,7 @@ const NextStep = () => {
           </select> articles and 30+ tags.
         </label>
       </div>
-      <button onClick={() => navigate(`/create/${username}/${subject}`)} className="block rounded-full mb-12 text-base w-48 bg-transparent text-blue-600">
+      <button onClick={() => handleSkip()} className="block rounded-full mb-12 text-base w-48 bg-transparent text-blue-600">
         {`Skip >>`}
       </button>
       <button onClick={handleCreate} className="block rounded-full mb-4 text-xl uppercase w-48 h-14 bg-[#f87341] text-[#ffffff]">

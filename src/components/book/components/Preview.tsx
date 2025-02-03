@@ -1,13 +1,15 @@
+import React, {useEffect, useState} from 'react';
 import {getChapters} from '../utils/utils';
+import '../../common/tiptap/styles.css';
 
 const Section = ({item}) => {
   const {
     content
   } = item;
-  return (<div className="mb-5">
-    <p className="leading-loose text-secondary/60 theme-dark:text-secondary/40 mb-2">
-      {content}
-    </p>
+  return (<div className="tiptap mb-5">
+    <div className="leading-loose text-secondary/60 theme-dark:text-secondary/40 mb-2">
+      <div className="p-7" dangerouslySetInnerHTML={{__html: content}}></div>
+    </div>
   </div>);
 }
 
@@ -16,7 +18,9 @@ const Preview = ({
   selected,
   content
 }) => {
-  const {chapters, coverUrl} = currentSubjectState;
+  const {activeId, subjects} = currentSubjectState;
+  const [chapters, setChapters] = useState('[]');
+  const [coverUrl, setCoverUrl] = useState('');
 
   let items = [];
   for (let i in content) {
@@ -26,6 +30,13 @@ const Preview = ({
     }
     items.push(newItem);
   }
+
+  useEffect(() => {
+    if(!subjects || !activeId) return;
+    const index = subjects.findIndex(x => x.id === activeId);
+    setChapters(subjects[index].chapters);
+    setCoverUrl(subjects[index].coverUrl);
+  }, [subjects, activeId])
 
   if (selected === 'Cover') {
     return (<div className="max-w-md py-20 h-[calc(100%-58px)] mx-auto flex items-start sm:items-center justify-center">
@@ -37,10 +48,11 @@ const Preview = ({
     return (<div className="h-[calc(100vh-174px)] relative overflow-y-auto">
       <div className="p-8">
         <h1 className="text-secondary text-3xl font-medium mb-12">Contents</h1>
-        <ol className="text-secondary">
+        <ol className="list-decimal list-inside text-blue-600">
           {getChapters(chapters).map((item) => {
+            const {label} = item;
             return (<li className="mb-5">
-                <a href={null} className="cursor-pointer text-base text-blue-600">{item}</a>
+                <a href={null} className="cursor-pointer text-base text-blue-600">{label}</a>
               </li>)
           })}
         </ol>
@@ -48,7 +60,7 @@ const Preview = ({
     </div>);
   }
 
-  if (selected.indexOf('chapter-') > -1) {
+  if (selected && selected.indexOf('chapter-') > -1) {
     return (<div className="h-[calc(100vh-174px)] relative overflow-y-auto">
       {items.map(item => {
         return (<Section item={item} />)

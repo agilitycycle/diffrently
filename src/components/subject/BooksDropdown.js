@@ -18,10 +18,10 @@ const BooksDropdown = () => {
   };
 
   const handleOptions = (url) => {
+    // do I need to send this?
     const newSubjectState = Object.assign(
       {}, {...currentSubjectState}, {
         subject: '',
-        currentSubject: '',
         currentTimeline: undefined
       });
     dispatch(updateSubjectState(newSubjectState));

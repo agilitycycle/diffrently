@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {useSelector} from 'react-redux';
 import {subjectState} from '../../../app/slices/subjectSlice';
 import {bookStates} from '../../../configs/constants';
@@ -10,15 +10,23 @@ const Menu = ({
   children,
   book,
   setBook,
-  toggleEdit,
+  previewEditToggle,
   handleControls,
   changeBookMatter,
   expandCollapsePageToggle
 }) => {
   const currentSubjectState = useSelector(subjectState);
-  const {chapters} = currentSubjectState;
+  const {activeId, subjects} = currentSubjectState;
+  const [chapters, setChapters] = useState('[]');
   const isEdit = book.editMode === bookStates.EDIT;
-  const bookMatterArray = ['Cover', 'Contents'];
+  const bookMatterArray = [{
+    label: 'Cover',
+    alias: ''
+  },
+  {
+    label: 'Contents',
+    alias: ''
+  }];
 
   const getDropdown = () => {
     if (!chapters) return;
@@ -26,25 +34,42 @@ const Menu = ({
     const parsed = JSON.parse(chapters);
     for (let i in parsed) {
       const getChapter = Object.keys(parsed[i])[0].split('chapter-');
-      chaptersArray.push(getChapter[1]);
+
+      const newChapterObject = {
+        label: getChapter[1],
+        alias: ''
+      }
+
+      if (parsed[i].alias !== '') {
+        newChapterObject.alias = parsed[i].alias;
+      }
+      
+      chaptersArray.push(newChapterObject);
     }
     const newArray = [...bookMatterArray, ...chaptersArray];
-    return newArray.map(item => {
-      if (item === 'Cover' || item === 'Contents') {
-        return <option value={item} selected={book.selected === item}>{item}</option>
+    return newArray.map((item) => {
+      const {label, alias} = item;
+      if (label === 'Cover' || label === 'Contents') {
+        return <option value={label} selected={book.selected === label}>{
+            label
+          }</option>
       }
-      return <option value={`chapter-${item}`} selected={book.selected === `chapter-${item}`}>{`Chapter - ${item}`}</option>
+      return <option value={`chapter-${label}`} selected={book.selected === `chapter-${label}`}>{`${alias !== '' ? `${label}. ${alias}` : `Chapter - ${label}` }`}</option>
     })
   }
 
   const isDisabled = () => {
-    if (book.selected === 'Contents' ||
-      book.state  === 'NOT_STARTED'
-    ) {
+    if (!book.selected) {
       return true;
     }
     return false;
   }
+
+  useEffect(() => {
+    if(!subjects || !activeId) return;
+    const index = subjects.findIndex(x => x.id === activeId);
+    setChapters(subjects[index].chapters);
+  }, [subjects, activeId])
 
   return (<div className="bg-gray-100 theme-dark:bg-secondary/5 text-secondary">
     <div className="flex justify-between w-full px-6">
@@ -55,17 +80,12 @@ const Menu = ({
           {getDropdown()}
         </select>
         {isEdit && (
-          <button disabled={isDisabled()} onClick={() => setBook(Object.assign(
-            {...book},
-            {
-              state: bookStates.PREVIEW,
-              editMode: bookStates.PREVIEW
-            }))} className="bg-primary/50 border border-secondary/15 text-secondary mr-2 sm:mr-4 w-[35px] h-[35px] font-medium inline-flex items-center justify-center rounded-full text-lg disabled:opacity-50">
+          <button disabled={isDisabled()} onClick={() => previewEditToggle('preview')} className="bg-primary/50 border border-secondary/15 text-secondary mr-2 sm:mr-4 w-[35px] h-[35px] font-medium inline-flex items-center justify-center rounded-full text-lg disabled:opacity-50">
             <IoMdEye />
           </button>
         )}
         {!isEdit && (
-          <button disabled={isDisabled()} onClick={() => toggleEdit()} className="bg-primary/50 border border-secondary/15 text-secondary mr-2 sm:mr-4 w-[35px] h-[35px] font-medium inline-flex items-center justify-center rounded-full text-lg disabled:opacity-50">
+          <button disabled={isDisabled()} onClick={() => previewEditToggle('edit')} className="bg-primary/50 border border-secondary/15 text-secondary mr-2 sm:mr-4 w-[35px] h-[35px] font-medium inline-flex items-center justify-center rounded-full text-lg disabled:opacity-50">
             <MdEdit />
           </button>
         )}

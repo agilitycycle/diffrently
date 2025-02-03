@@ -135,8 +135,8 @@ const Drawer = ({ side = 'left' }) => {
                       </Link>
                     </li>
                     <li>
-                      <Link to="/subject" onClick={drawerMenuItemClicked} className="flex items-center pt-2 pb-2 text-gray-900 dark:text-black">
-                        <span>Subject</span>
+                      <Link to="/start" onClick={drawerMenuItemClicked} className="flex items-center pt-2 pb-2 text-gray-900 dark:text-black">
+                        <span>Start here</span>
                       </Link>
                     </li>
                     <li>

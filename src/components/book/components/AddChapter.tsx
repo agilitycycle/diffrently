@@ -1,4 +1,4 @@
-import {useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import moment from 'moment';
 import {fbUpdate, fbPush} from '../../../services/firebaseService';
@@ -10,11 +10,14 @@ const AddChapter = () => {
   const dispatch = useDispatch();
   const currentAppState = useSelector(appState);
   const currentSubjectState = useSelector(subjectState);
+  const [chapters, setChapters] = useState(undefined);
   const [chapter, setChapter] = useState(undefined);
   const [chaptersHydrated, setChaptersHydrated] = useState([]);
   const [isValid, setIsValid] = useState(true);
   const {userId} = currentAppState;
-  const {currentSubject, chapters} = currentSubjectState;
+  const {subjects, activeId} = currentSubjectState;
+
+  const getSubjectIndex = (id) => subjects.findIndex(x => x.id === id);
 
   const sort = (a, b) => {
 		const propA = Object.keys(a)[0];
@@ -46,36 +49,52 @@ const AddChapter = () => {
       if (chaptersHydrated.filter(e => Object.keys(e)[0] !== `chapter-${chapter}`).length > 0) {
         newChapters.push({[`chapter-${chapter}`]: true, alias: ''});
       }
+      // temporary measurement until chapter-1 has been resolved **
+      if (chaptersHydrated.length < 1) {
+        newChapters.push({'chapter-1': true, alias: ''});
+      }
 
       const sorted = newChapters.sort(sort);
       const stringified = JSON.stringify(sorted);
 
       setChaptersHydrated(sorted);
 
-      // console.log(newChapters);
+      const newSubject = [...currentSubjectState.subjects];
+      newSubject[getSubjectIndex(activeId)].chapters = stringified;
 
-      const newSubjectState = Object.assign({...currentSubjectState}, {chapters: stringified});
+      const newSubjectState = Object.assign({...currentSubjectState}, {subjects: newSubject});
+      
       dispatch(updateSubjectState(newSubjectState));
 
-      fbPush(`/userBooks/${currentSubject}/pages/chapter-${chapter}`, {
+      fbPush(`/userBooks/${activeId}/pages/chapter-${chapter}`, {
         content: '',
         dateCreated: moment().valueOf(),
         order: 0,
       });
 
-      fbUpdate(`/userSubject/${userId}/subjects/${currentSubject}`, {
+      fbUpdate(`/userSubject/${userId}/subjects/${activeId}`, {
         chapters: stringified
       });
     }
   }
 
-  useEffect(() => {
-    if(!currentSubjectState.chapters) return;
-    const parsed = JSON.parse(currentSubjectState.chapters);
+  // search and find **
+  const handleChapters = () => {
+    const index = subjects.findIndex(x => x.id === activeId);
+    const newChapters = subjects[index].chapters;
+    setChapters(newChapters);
+
+    const parsed = JSON.parse(newChapters);
     const getKeys = Object.keys(parsed[parsed.length - 1]);
     setChapter(Number(getKeys[0].split('chapter-')[1]) + 1);
     setChaptersHydrated(parsed);
-  }, [chapters])
+  }
+
+  // runs once if both conditions met **
+  useEffect(() => {
+    if(!subjects || !activeId) return;
+    handleChapters();
+  }, [subjects, activeId])
 
   useEffect(() => {
     updateIsValid();

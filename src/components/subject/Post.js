@@ -22,13 +22,13 @@ const Post = () => {
   const currentSubjectState = useSelector(subjectState);
   const {currentSubject} = currentSubjectState;
 
-  const handleChange = (e) => {
-    const { value } = e.target;
-    const newPostDetails = Object.assign({...postDetails}, {
-      body: value
-    });
-    setPostDetails(newPostDetails);
-  }
+  // const handleChange = (e) => {
+  //   const { value } = e.target;
+  //   const newPostDetails = Object.assign({...postDetails}, {
+  //     body: value
+  //   });
+  //   setPostDetails(newPostDetails);
+  // }
 
   const handlePost = () => {
     /**
@@ -53,15 +53,15 @@ const Post = () => {
     setPostDetails(initialState);
   }
 
-  const handleTitle = (e) => {
-    const { value } = e.target;
-    setTitleFormValue(value);
-  }
+  // const handleTitle = (e) => {
+  //   const { value } = e.target;
+  //   setTitleFormValue(value);
+  // }
 
-  const handleImage = (e) => {
-    const { value } = e.target;
-    setImageUrl(value);
-  }
+  // const handleImage = (e) => {
+  //   const { value } = e.target;
+  //   setImageUrl(value);
+  // }
 
   return (
     <div className="w-11/12 sm:w-full mb-7 bg-[#fbfbfc] theme-dark:bg-transparent border border-transparent rounded-lg theme-dark:border-gray-700">

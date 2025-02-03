@@ -457,7 +457,7 @@ export const Editor = ({items}) => {
     dispatch(updateSubjectState(newSubjectState));
   }, [value])
 
-  return (<div className="!m-0 h-[calc(100vh-232px)]">
+  return (<div className="!m-0 p-7 h-[calc(100vh-232px)]">
     <EditorProvider
       slotBefore={<Menu/>}
       extensions={extensions}

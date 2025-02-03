@@ -1,6 +1,9 @@
+/* Base */
+
 .tiptap * {
   line-height: 1.5;
   margin: revert;
+  color: rgba(0, 4, 35, 0.6);
 }
 
 .tiptap.ProseMirror {
@@ -159,6 +162,16 @@
   padding: 1rem;
 }
 
+/* Light */
+
+.dark .light .tiptap {
+  color: rgba(0, 4, 35, 0.6);
+}
+
+.dark .light .tiptap p {
+  color: rgba(0, 4, 35, 0.6);
+}
+
 /* Dark */
 
 .dark .tiptap {
@@ -180,7 +193,8 @@
   background-color: #ffffff;
 }
 
-.dark .tiptap p {
+.dark .tiptap p,
+.dark .tiptap h1 {
   color: rgba(255, 255, 255, 0.4);
 }
 

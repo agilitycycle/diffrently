@@ -5,10 +5,10 @@ import {subjectState} from '../../../app/slices/subjectSlice.js';
 
 const Footer = () => {
   const currentSubjectState = useSelector(subjectState);
-  const {chapter, editorContent, section} = currentSubjectState;
+  const {activeId, chapter, editorContent, section} = currentSubjectState;
 
   const handleUpdate = () => {
-    fbUpdate(`/userBooks/-OEs3jR0LGwzH1oAOkma/pages/${chapter}/${section}`, {
+    fbUpdate(`/userBooks/${activeId}/pages/${chapter}/${section}`, {
       content: editorContent
     });
   }

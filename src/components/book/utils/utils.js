@@ -27,7 +27,18 @@ export const getChapters = (string) => {
 
   for (let i in chapters) {
     const chapter = getChapter(getKeys(chapters[i]));
-    chaptersArray.push(`${CHAPTER_LABEL_CONSTANT} ${chapter.split(CHAPTER_CONSTANT)[1]}`);
+    if (chapters[i].alias) {
+      chaptersArray.push({
+        key: chapter,
+        label: `${chapters[i].alias}`
+      });
+    }
+    if (!chapters[i].alias) {
+      chaptersArray.push({
+        key: chapter,
+        label: `${CHAPTER_LABEL_CONSTANT} ${chapter.split(CHAPTER_CONSTANT)[1]}`
+      });
+    }
   }
 
   return chaptersArray;

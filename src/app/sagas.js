@@ -3,15 +3,14 @@ import { takeEvery, select, call, put, all } from 'redux-saga/effects';
 import { fbdb } from './firebase';
 import { ref, query, get } from 'firebase/database';
 import { updateAppState, appState } from './slices/appSlice';
-import { updateSubjectState, subjectState } from './slices/subjectSlice';
+import { loadSubjectState, updateSubjectState, subjectState } from './slices/subjectSlice';
 
 let called = false;
 
 // watch all
 export default function* mySaga () {
-  yield all([
-    yield takeEvery(updateAppState.type, app)
-  ])
+  yield takeEvery(updateAppState.type, app);
+  yield takeEvery(updateSubjectState.type, subject);
 }
 
 // redux, update tag categories **
@@ -62,6 +61,23 @@ function getSubscriptions (activeSubscriptions, userId) {
   })
 }
 
+function* subject () {
+  console.log('subject saga triggered **');
+  const currentAppState = yield select(appState);
+  const {userId} = currentAppState;
+  /**
+   * 
+   * Subjects
+   * 
+   */
+    const subjects = yield call(getSubjects, userId);
+    const currentSubjectState = yield select(subjectState);
+    const newSubjectState = Object.assign({}, {...currentSubjectState}, {
+      subjects
+    });
+    yield put(loadSubjectState(newSubjectState));
+}
+
 function* app () {
   if (!called) {
     called = true;
@@ -77,15 +93,6 @@ function* app () {
     const newAppState = Object.assign({...currentAppState}, {subscriptions});
     updateAppState(newAppState);
     yield put(updateAppState(newAppState));
-    /**
-     * 
-     * Subjects
-     * 
-     */
-    const subjects = yield call(getSubjects, userId);
-    const newSubjectState = Object.assign({...subjectState}, {subjects});
-    updateSubjectState(newSubjectState); // do I need this?
-    yield put(updateSubjectState(newSubjectState));
     /**
      * 
      * Tag categories

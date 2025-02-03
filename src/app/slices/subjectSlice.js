@@ -2,42 +2,40 @@ import { createSlice } from '@reduxjs/toolkit'
 
 export const initialState = {
   value: {
-    id: '', // subject id
-    title: '',
-    imageUrl: '',
-    blurb: '',
-    subject: '',
-    newSubject: false,
-    chapters: undefined,
-    chapter: undefined,
+    activeId: '',
+    // activeSubject: [],
+    subjects: [],
+    chapter: '', // active chapter
     section: undefined,
     editorContent: '',
-    category: '',
-    tags: '[]',
-    topic1: '',
-    topic2: '',
-    topic3: '',
-    cardCount: 0,
-    currentSubject: '', // current subject id??
     currentTimeline: undefined
   },
 }
 
+// why did i do this for?
 const amendedState = {};
 amendedState.value = {...initialState.value};
 amendedState.value.subjects = [];
+
+// https://syedsajjadkazmii.medium.com/implementing-redux-toolkit-with-redux-sagas-in-react-js-b959492f7053
 
 export const subjectSlice = createSlice({
   name: 'subject',
   initialState: amendedState,
   reducers: {
+    // for saga **
+    loadSubjectState: (state, action) => {
+      state.value = action.payload;
+      state.loading = true;
+    },
     updateSubjectState: (state, action) => {
       state.value = action.payload;
-    }
+      state.loading = false;
+    },
   },
 })
 
-export const { updateSubjectState } = subjectSlice.actions;
+export const { loadSubjectState, updateSubjectState } = subjectSlice.actions;
 
 export const subjectState = (state) => state.subject.value;
 

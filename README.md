@@ -69,6 +69,7 @@ Start the server
 ```
 
 ## Articles
+
 1. [Folder structures](https://dev.to/itswillt/folder-structures-in-react-projects-3dp8)
 2. [conventional-commits](https://gist.github.com/Zekfad/f51cb06ac76e2457f11c80ed705c95a3)
 3. [React icons](https://react-icons.github.io/react-icons/)
@@ -80,6 +81,7 @@ Start the server
 9. [Learn TypeScript](https://www.youtube.com/watch?v=3mDny9XAgic)
 10. [Add TypeScript To An Existing React Project](https://www.totaltypescript.com/add-typescript-to-existing-react-project)
 11. [React TypeScript Cheatsheet](https://react-typescript-cheatsheet.netlify.app/docs/basic/getting-started/function_components/)
+12. [TypeScript for the new programmer](https://www.typescriptlang.org/docs/handbook/typescript-from-scratch.html)
 
 ## Acknowledgements
 

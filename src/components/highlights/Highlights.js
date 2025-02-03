@@ -5,10 +5,10 @@ import {Skeleton} from '../common/Skeleton';
 
 const Placeholder = () => {
   return (<div className="w-full sm:w-72 sm:max-w-72 p-2">
-    <div className="relative mb-1 bg-transparent border border-gray-200 rounded-lg shadow theme-dark:bg-transparent theme-dark:border-gray-700">
+    <div className="relative mb-1 bg-primary border border-transparent theme-dark:border-gray-700 rounded-lg shadow theme-dark:bg-transparent theme-dark:border-gray-700">
       <div className="py-3 px-7">
-        <h2 className="mb-4 text-xl text-white/60 font-semibold">Chapter 1</h2>
-        <p className="text-white/60">
+        <h2 className="mb-4 text-xl text-secondary/60 font-semibold">Chapter 1</h2>
+        <p className="text-secondary/60">
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
             eiusmod tempor incididunt ut labore et dolore magna aliqua.
         </p>

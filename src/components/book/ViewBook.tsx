@@ -32,6 +32,8 @@ const CreateBook = () => {
   } = currentSubjectState;
   const [selectedTimeline, setSelectedTimeline] = useState(undefined);
 
+  const getSubjectIndex = (id) => subjects.findIndex(x => x.id === id);
+
   const [book, setBook] = useState({
     frontCover: true,
     state: 'PREVIEW',
@@ -166,17 +168,22 @@ const CreateBook = () => {
     for (let i in subjects) {
       if(subjects[i].subject === subject) {
         const {
+          id,
           coverUrl,
           chapters,
-          id
         } = subjects[i];
 
         setSelectedTimeline(id);
+        const newSubject = [...currentSubjectState.subjects];
+        newSubject[getSubjectIndex(id)].id = id;
+        newSubject[getSubjectIndex(id)].coverUrl = coverUrl;
+        newSubject[getSubjectIndex(id)].chapters = chapters;
+        newSubject[getSubjectIndex(id)].subject = subject;
+
         const newSubjectState = Object.assign({}, {...currentSubjectState}, {
-          coverUrl,
-          subject, 
-          chapters,
-          currentSubject: id
+          activeId: id
+        }, {
+          subjects: newSubject
         });
         dispatch(updateSubjectState(newSubjectState));
       }

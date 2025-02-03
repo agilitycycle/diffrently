@@ -33,14 +33,11 @@ const CreateBook = () => {
   const currentSubjectState = useSelector(subjectState);
   const {userId, darkMode} = currentAppState;
   const {
-    subject,
+    activeId,
+    subjectsLoaded,
     subjects,
-    subjectId,
-    chapter,
     section,
     editorContent,
-    // newSubject,
-    currentSubject,
     currentTimeline
   } = currentSubjectState;
   const [selectedTimeline, setSelectedTimeline] = useState(undefined);
@@ -88,19 +85,28 @@ const CreateBook = () => {
     exact: true
   }, pathname);
 
+  const getSubjectIndex = (id) => subjects.findIndex(x => x.id === id);
+
   const handleOptions = (e) => {
     const {target} = e;
     const {value} = target;
+    setBook(Object.assign({}, {
+      ...book
+    },
+    {
+      state: 'NOT_STARTED',
+      selected: undefined
+    }));
     navigate(`/create/${value}`);
   }
 
   // later, delete cover img
   // userBooks etc..
   const handleDelete = () => {
-    fbRemove(`userSubject/${userId}/subjects/${currentSubject}`);
-    fbRemove(`userTimelineV2/${currentSubject}`);
+    fbRemove(`userSubject/${userId}/subjects/${activeId}`);
+    fbRemove(`userTimelineV2/${activeId}`);
 
-    const newSubjects = subjects.filter(x => x.id !== currentSubject);
+    const newSubjects = subjects.filter(x => x.id !== id);
     const newSubjectState = Object.assign({...currentSubjectState}, {subjects: newSubjects});
     dispatch(updateSubjectState(newSubjectState));
 
@@ -141,7 +147,13 @@ const CreateBook = () => {
     const {target} = e;
     const {value} = target;
     if (value === 'Contents') {
-      loadContents(value);
+      setBook(Object.assign({...book}, {
+        contentLoaded: null,
+        editMode: bookStates.PREVIEW,
+        state: 'PREVIEW',
+        selected: value
+      }));
+      handleControls({editor: {isEditor: false}})
     }
     if(value === 'Cover' || value.indexOf('chapter-') > -1) {
       loadBookMatter(value);
@@ -153,15 +165,6 @@ const CreateBook = () => {
       });
       dispatch(updateSubjectState(newSubjectState));
     }
-  }
-
-  const loadContents = (value) => {
-    setBook(Object.assign({...book}, {
-      contentLoaded: null,
-      state: 'PREVIEW',
-      selected: value
-    }));
-    handleControls({editor: {isEditor: false}})
   }
 
   const loadBookMatter = (value, state = bookStates.PREVIEW, editMode = bookStates.PREVIEW) => {
@@ -191,15 +194,25 @@ const CreateBook = () => {
     });
   }
 
-  const toggleEdit = () => {
-    setBook(Object.assign(
-      {...book}, {
-        state: 'EDIT',
-        editMode: 'EDIT',
-        newSection: false
-      }
-    ));
-    handleControls({editor: {isEditor: false}});
+  const previewEditToggle = (type) => {
+    if (book.selected && type === 'edit') {
+      setBook(Object.assign(
+        {...book}, {
+          state: 'EDIT',
+          editMode: 'EDIT',
+          newSection: false
+        }
+      ));
+      handleControls({editor: {isEditor: false}});
+    }
+    if(book.selected && type === 'preview') {
+      setBook(Object.assign(
+        {...book},
+        {
+          state: bookStates.PREVIEW,
+          editMode: bookStates.PREVIEW
+        }))
+    }
   }
 
   const getTimeline = async () => {
@@ -239,37 +252,26 @@ const CreateBook = () => {
     for (let i in subjects) {
       if(subjects[i].subject === subject) {
         const {
-          topic1,
-          topic2,
-          topic3,
-          cardCount,
-          coverUrl,
-          imageUrl,
-          chapters,
           id
         } = subjects[i];
 
-        // setNewSettings({
-        //   topic1,
-        //   topic2,
-        //   topic3,
-        //   cardCount
-        // })
+        // Is There an Easy Way to Update Deeply Nested Objects in React? Bonsai example...
+        // https://medium.com/@conboys111/is-there-an-easy-way-to-update-deeply-nested-objects-in-react-acf9301db1c1
+        // could try immer later??
+
         setSelectedTimeline(id);
+
         const newSubjectState = Object.assign({}, {...currentSubjectState}, {
-          subjectImageUrl: imageUrl,
-          coverUrl,
-          subject, 
-          chapters,
-          currentSubject: id
+          activeId: id
         });
+
         dispatch(updateSubjectState(newSubjectState));
       }
     }
   }
 
   const renderOptions = () => {
-    if (subjects.length < 1) return;
+    if (!subjects || subjects && subjects.length < 1) return;
     return subjects.map((item, index) => {
       const {id, subject, username} = item;
       return (<option key={index} value={`${username}/${subject}`} selected={selectedTimeline === id}>{subject}</option>)
@@ -293,7 +295,7 @@ const CreateBook = () => {
   const menuProps  = {
     book,
     setBook,
-    toggleEdit,
+    previewEditToggle,
     handleControls,
     changeBookMatter,
     expandCollapsePageToggle: sidebar.toggleSidebar
@@ -335,10 +337,12 @@ const CreateBook = () => {
     handleControls
   }
 
+  // mode
   useEffect(() => {
     handleControls({sidebar: {darkMode}});
   }, [darkMode])
 
+  // content
   useEffect(() => {
     if (!book.contentLoaded) return;
     const newContentLoaded = {...book.contentLoaded};
@@ -351,6 +355,7 @@ const CreateBook = () => {
     }))
   }, [editorContent])
 
+  // timeline
   useEffect(() => {
     if (selectedTimeline) {
       getTimeline();
@@ -358,10 +363,18 @@ const CreateBook = () => {
   }, [selectedTimeline])
 
   useEffect(() => {
-    if (subjects && subjects.length > 0) {
+    if (!activeId && (subjects && subjects.length > 0)) {
       getSubject();
     }
-  }, [location, subjects])
+  }, [subjects])
+  
+  // change url content
+  useEffect(() => {
+    const newSubjectState = Object.assign({}, {...currentSubjectState}, {
+      activeId: ''
+    });
+    dispatch(updateSubjectState(newSubjectState));
+  }, [location])
 
 	return (
     <Page>

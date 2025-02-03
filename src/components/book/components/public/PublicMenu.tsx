@@ -1,3 +1,4 @@
+import {useEffect, useState} from 'react';
 import {useSelector} from 'react-redux';
 import {subjectState} from '../../../../app/slices/subjectSlice';
 import {BiFontSize} from 'react-icons/bi';
@@ -10,7 +11,8 @@ const PublicMenu = ({
   expandCollapsePageToggle
 }) => {
   const currentSubjectState = useSelector(subjectState);
-  const {chapters} = currentSubjectState;
+  const {activeId, subjects} = currentSubjectState;
+  const [chapters, setChapters] = useState('[]');
   const bookMatterArray = ['Cover', 'Contents'];
 
   const getDropdown = () => {
@@ -29,6 +31,12 @@ const PublicMenu = ({
       return <option value={`chapter-${item}`} selected={book.selected === `chapter-${item}`}>{`Chapter - ${item}`}</option>
     })
   }
+
+  useEffect(() => {
+    if(!subjects || !activeId) return;
+    const index = subjects.findIndex(x => x.id === activeId);
+    setChapters(subjects[index].chapters);
+  }, [subjects, activeId])
 
   return (<div className="bg-gray-100 theme-dark:bg-secondary/5 text-secondary">
     <div className="flex justify-between w-full px-6">
