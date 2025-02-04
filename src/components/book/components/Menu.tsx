@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {useSelector} from 'react-redux';
 import {subjectState} from '../../../app/slices/subjectSlice';
 import {bookStates} from '../../../configs/constants';
+import {getSubjectData} from '../utils/utils';
 import {BiFontSize} from 'react-icons/bi';
 import {MdEdit} from 'react-icons/md';
 import {IoMdEye} from 'react-icons/io';
@@ -67,8 +68,9 @@ const Menu = ({
 
   useEffect(() => {
     if(!subjects || !activeId) return;
-    const index = subjects.findIndex(x => x.id === activeId);
-    setChapters(subjects[index].chapters);
+    const subject = getSubjectData({subjects, activeId, keys: ['chapters']});
+    const {chapters} = subject;
+    setChapters(chapters);
   }, [subjects, activeId])
 
   return (<div className="bg-gray-100 theme-dark:bg-secondary/5 text-secondary">

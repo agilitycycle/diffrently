@@ -5,6 +5,15 @@ const getKeys = (item) => {
   return Object.keys(item);
 }
 
+export const getSubjectData = ({subjects, activeId, keys}) => {
+  let obj = {};
+  for (let i in keys) {
+    const index = subjects.findIndex(x => x.id === activeId);
+    obj[keys[i]] = subjects[index][keys[i]];
+  }
+  return obj;
+}
+
 /**
  * 
  * {

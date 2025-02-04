@@ -4,6 +4,7 @@ import moment from 'moment';
 import {fbUpdate, fbPush} from '../../../services/firebaseService';
 import {appState} from '../../../app/slices/appSlice';
 import {updateSubjectState, subjectState} from '../../../app/slices/subjectSlice';
+import {getSubjectData} from '../utils/utils';
 import {BsQuestionCircleFill} from 'react-icons/bs';
 
 const AddChapter = () => {
@@ -80,17 +81,17 @@ const AddChapter = () => {
 
   // search and find **
   const handleChapters = () => {
-    const index = subjects.findIndex(x => x.id === activeId);
-    const newChapters = subjects[index].chapters;
-    setChapters(newChapters);
+    const subject = getSubjectData({subjects, activeId, keys: ['chapters']});
+    const {chapters} = subject;
+    setChapters(chapters);
 
-    const parsed = JSON.parse(newChapters);
+    const parsed = JSON.parse(chapters);
     const getKeys = Object.keys(parsed[parsed.length - 1]);
     setChapter(Number(getKeys[0].split('chapter-')[1]) + 1);
     setChaptersHydrated(parsed);
   }
 
-  // runs once if both conditions met **
+  // runs once if both conditions are met **
   useEffect(() => {
     if(!subjects || !activeId) return;
     handleChapters();

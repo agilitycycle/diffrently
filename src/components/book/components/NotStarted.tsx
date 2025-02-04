@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {useSelector} from 'react-redux';
 import {subjectState} from '../../../app/slices/subjectSlice';
+import {getSubjectData} from '../utils/utils';
 
 const NotStarted = ({
   sidebar,
@@ -16,9 +17,8 @@ const NotStarted = ({
 
   useEffect(() => {
     if(!subjects || !activeId) return;
-    const index = subjects.findIndex(x => x.id === activeId);
-    const newSubjects = subjects[index];
-    const {title, coverUrl} = newSubjects;
+    const subject = getSubjectData({subjects, activeId, keys: ['title', 'coverUrl']});
+    const {title, coverUrl} = subject;
     setMeta({
       title,
       coverUrl

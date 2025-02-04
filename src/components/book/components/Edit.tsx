@@ -10,7 +10,7 @@ import {appState} from '../../../app/slices/appSlice';
 import {updateSubjectState, subjectState} from '../../../app/slices/subjectSlice';
 import {Editor} from '../../common/tiptap/Editor';
 import {MdPhotoCamera} from 'react-icons/md';
-import {getChapters} from '../utils/utils';
+import {getSubjectData, getChapters} from '../utils/utils';
 import '../../common/tiptap/styles.css';
 
 const Section = ({
@@ -152,9 +152,10 @@ const Edit = ({
 
   useEffect(() => {
     if(!subjects || !activeId) return;
-    const index = subjects.findIndex(x => x.id === activeId);
-    setChapters(subjects[index].chapters);
-    setCoverUrl(subjects[index].coverUrl);
+    const subject = getSubjectData({subjects, activeId, keys: ['chapters', 'coverUrl']});
+    const {chapters, coverUrl} = subject;
+    setChapters(chapters);
+    setCoverUrl(coverUrl);
   }, [subjects, activeId])
 
   if (!isEditor && selected && selected.indexOf('chapter-') > -1) {

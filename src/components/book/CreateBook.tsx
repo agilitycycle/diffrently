@@ -34,7 +34,6 @@ const CreateBook = () => {
   const {userId, darkMode} = currentAppState;
   const {
     activeId,
-    subjectsLoaded,
     subjects,
     section,
     editorContent,
@@ -84,8 +83,6 @@ const CreateBook = () => {
     path: '/create/:username/:subject',
     exact: true
   }, pathname);
-
-  const getSubjectIndex = (id) => subjects.findIndex(x => x.id === id);
 
   const handleOptions = (e) => {
     const {target} = e;

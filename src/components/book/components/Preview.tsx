@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {getChapters} from '../utils/utils';
+import {getSubjectData, getChapters} from '../utils/utils';
 import '../../common/tiptap/styles.css';
 
 const Section = ({item}) => {
@@ -33,9 +33,10 @@ const Preview = ({
 
   useEffect(() => {
     if(!subjects || !activeId) return;
-    const index = subjects.findIndex(x => x.id === activeId);
-    setChapters(subjects[index].chapters);
-    setCoverUrl(subjects[index].coverUrl);
+    const subject = getSubjectData({subjects, activeId, keys: ['chapters', 'coverUrl']});
+    const {chapters, coverUrl} = subject;
+    setChapters(chapters);
+    setCoverUrl(coverUrl);
   }, [subjects, activeId])
 
   if (selected === 'Cover') {
