@@ -113,14 +113,11 @@ const DrawerHome = ({ side = 'left' }) => {
                       </Link>
                     </li>
                     <li>
-                      <button onClick={() => {}} className="flex items-center pt-2 pb-2 text-gray-900 dark:text-black">
+                      <button to="/signin" onClick={drawerMenuItemClicked} className="flex items-center pt-2 pb-2 text-gray-900 dark:text-black">
                         <span>Sign in</span>
                       </button>
                     </li>
                   </ul>
-                  <div className="mt-6 p-3 mb-4 text-sm text-blue-800 rounded bg-slate-100 border border-blue-500" role="alert">
-                    <span className="font-medium">Important</span> You will not be able to sign in until the beta version is released.
-                  </div>
                 </div>
               </div>
             </div>
