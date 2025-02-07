@@ -23,7 +23,9 @@ export const subjectSlice = createSlice({
   name: 'subject',
   initialState: amendedState,
   reducers: {
-    // for saga **
+    resetSubjectState: (state) => {
+      state.value = amendedState;
+    },
     loadSubjectState: (state, action) => {
       state.value = action.payload;
       state.loading = true;
@@ -35,7 +37,7 @@ export const subjectSlice = createSlice({
   },
 })
 
-export const { loadSubjectState, updateSubjectState } = subjectSlice.actions;
+export const {resetSubjectState, loadSubjectState, updateSubjectState} = subjectSlice.actions;
 
 export const subjectState = (state) => state.subject.value;
 

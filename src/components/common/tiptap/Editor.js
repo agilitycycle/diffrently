@@ -344,8 +344,9 @@ const Menu = () => {
             H3
           </button>
           <button
+            disabled
             onClick={() => editor?.chain().focus().toggleSuggest().run()}
-            className={getStyles('suggest')}
+            className={`${getStyles('suggest')} disabled:opacity-50`}
           >
             Suggest
           </button>

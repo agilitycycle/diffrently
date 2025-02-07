@@ -1,10 +1,11 @@
-import React, { useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { getAuth, signOut } from 'firebase/auth';
-import { updateAppState, appState } from '../../app/slices/appSlice';
+import React, { useEffect} from 'react';
+import {Link, useNavigate} from 'react-router-dom';
+import {useDispatch, useSelector } from 'react-redux';
+import {getAuth, signOut} from 'firebase/auth';
+import {resetAppState, updateAppState, appState} from '../../app/slices/appSlice';
+import {resetSubjectState} from '../../app/slices/subjectSlice';
 import Menu from './Menu';
-import { clsx } from 'clsx';
+import {clsx} from 'clsx';
 
 const openClassNames = {
   right: 'translate-x-0',
@@ -56,17 +57,9 @@ const Drawer = ({ side = 'left' }) => {
 
   const handleSignOut = () => {
     const auth = getAuth();
-    const newDrawerState = !currentAppState.drawerMenuItemClicked;
     signOut(auth).then(() => {
-      const newAppState = Object.assign({...currentAppState}, {
-        drawerMenuItemClicked: newDrawerState,
-        loggedIn: false,
-        photoUrl: '',
-        displayName: '',
-        email: '',
-        userId: ''
-      });
-      dispatch(updateAppState(newAppState));
+      dispatch(resetAppState({value: {}}));
+      dispatch(resetSubjectState({value: {}}));
       navigate('/');
     }).catch((error) => {
       console.log(error);

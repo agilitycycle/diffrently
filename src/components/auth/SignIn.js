@@ -70,8 +70,8 @@ const SignIn = () => {
       <Header useLink="/" />
 		  <div className="flex items-center justify-center h-full">
 		    <div className="h-full sm:h-auto">
-          <h2 className="text-2xl text-white text-left leading-snug mb-8">
-		      	1. Login to continue
+          <h2 className="text-2xl text-secondary text-left leading-snug mb-8">
+		      	Login to continue
 		      </h2>
 		      <div className="text-center">
             <div className="flex flex-col max-w-56">

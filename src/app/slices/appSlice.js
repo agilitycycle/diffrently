@@ -33,13 +33,16 @@ export const appSlice = createSlice({
   name: 'app',
   initialState,
   reducers: {
+    resetAppState: (state) => {
+      state.value = initialState.value;
+    },
     updateAppState: (state, action) => {
       state.value = action.payload;
     }
   },
 })
 
-export const { updateAppState } = appSlice.actions;
+export const { resetAppState, updateAppState } = appSlice.actions;
 
 export const appState = (state) => state.app.value;
 
