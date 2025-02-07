@@ -58,6 +58,7 @@
 }
 
 .tiptap ul,.tiptap ol {
+  list-style: auto;
   padding: 0 1rem;
   margin: 1.25rem 1rem 1.25rem .4rem;
 }
@@ -70,7 +71,7 @@
 .tiptap p {
   font-size: 16px;
   line-height: 2;
-  color: rgba(0, 4, 35, 0.6);
+  color: rgb(0, 4, 35);
 }
 
 .tiptap h1,.tiptap h2,.tiptap h3,.tiptap h4,.tiptap h5,.tiptap h6 {

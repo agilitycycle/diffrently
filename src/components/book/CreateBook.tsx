@@ -4,12 +4,16 @@ import {useNavigate, useLocation} from 'react-router-dom';
 import {matchPath} from 'react-router';
 import {bookStates} from '../../configs/constants';
 import {appState} from '../../app/slices/appSlice';
-import {updateSubjectState, subjectState} from '../../app/slices/subjectSlice';
+import {
+  loadSubjectState,
+  updateSubjectState,
+  subjectState
+} from '../../app/slices/subjectSlice';
 import {fbdb} from '../../app/firebase';
 import {ref, query, get} from 'firebase/database';
 import {fbRemove} from '../../services/firebaseService';
-import {Book} from './Book.tsx';
 import Sidebar from './components/Sidebar.tsx';
+import {Book} from './Book.tsx';
 import AddChapter from './components/AddChapter.tsx';
 import {Page, Drawer, Header} from '../';
 import Highlights from '../highlights/Highlights';
@@ -65,18 +69,16 @@ const CreateBook = () => {
   })
 
   const [controls, setControls] = useState({
-    sidebar: {
-      isOpen: true,
-      toggleSidebar: false,
+    bookControls: {
+      showOptions: false,
       isExpand: false,
-      darkMode: true
+      darkMode: undefined
     },
     editor: {
-      isOpen: false,
       isEditor: false
     }
   })
-  const { sidebar } = controls
+  const { bookControls } = controls
 
   const { pathname } = location;
   const match = matchPath({
@@ -128,13 +130,13 @@ const CreateBook = () => {
   }
 
   const handleControls = (newControl) => {
-    const {sidebar, editor} = controls;
-    const types = ['sidebar', 'editor'];
+    const {bookControls, editor} = controls;
+    const types = ['bookControls', 'editor'];
     let newObject;
     for (let i in types) {
       const typeString = types[i];
       if (newControl.hasOwnProperty(typeString)) {
-        newObject = deepObjectUpdate(typeString === 'sidebar' ? sidebar : editor, typeString, newControl);
+        newObject = deepObjectUpdate(typeString === 'bookControls' ? bookControls : editor, typeString, newControl);
       }
     }
     setControls(Object.assign({}, {...controls}, {...newObject}));
@@ -145,7 +147,7 @@ const CreateBook = () => {
     const {value} = target;
     if (value === 'Contents') {
       setBook(Object.assign({...book}, {
-        contentLoaded: null,
+        contentLoaded: undefined,
         editMode: bookStates.PREVIEW,
         state: 'PREVIEW',
         selected: value
@@ -203,12 +205,13 @@ const CreateBook = () => {
       handleControls({editor: {isEditor: false}});
     }
     if(book.selected && type === 'preview') {
-      setBook(Object.assign(
+      const newBook = Object.assign(
         {...book},
         {
           state: bookStates.PREVIEW,
           editMode: bookStates.PREVIEW
-        }))
+        });
+      setBook(newBook)
     }
   }
 
@@ -289,29 +292,33 @@ const CreateBook = () => {
     handleDelete
   }
 
-  const menuProps  = {
+  const sidebarProps  = {
     book,
-    setBook,
     previewEditToggle,
     handleControls,
-    changeBookMatter,
-    expandCollapsePageToggle: sidebar.toggleSidebar
+    isLightDark: bookControls.darkMode,
+    isExpand: bookControls.isExpand
+  }
+
+  const menuProps  = {
+    book,
+    changeBookMatter
   }
 
   const subMenuProps = {
-    expandCollapsePageToggle: sidebar.toggleSidebar,
+    expandCollapsePageToggle: bookControls.showOptions,
     handleControls,
-    isLightDark: sidebar.darkMode,
-    isExpand: sidebar.isExpand
+    isLightDark: bookControls.darkMode,
+    isExpand: bookControls.isExpand
   }
 
   const notStartedProps = {
     loadBookMatter,
-    sidebar
+    bookControls
   }
 
   const startedProps = {
-    sidebar
+    bookControls
   }
 
   const editProps = {
@@ -329,14 +336,9 @@ const CreateBook = () => {
     content: book.contentLoaded
   }
 
-  const sidebarProps = {
-    sidebar,
-    handleControls
-  }
-
   // mode
   useEffect(() => {
-    handleControls({sidebar: {darkMode}});
+    handleControls({bookControls: {darkMode}});
   }, [darkMode])
 
   // content
@@ -370,20 +372,22 @@ const CreateBook = () => {
     const newSubjectState = Object.assign({}, {...currentSubjectState}, {
       activeId: ''
     });
-    dispatch(updateSubjectState(newSubjectState));
+    dispatch(loadSubjectState(newSubjectState));
   }, [location])
 
 	return (
     <Page>
       <Header />
       <Drawer />
+      {/*
       <Wrapper>
         <AddChapter/>
         <Highlights currentTimeline={currentTimeline}/>
-        <Options {...timelineOptionsProps}/>
       </Wrapper>
-      <Sidebar {...sidebarProps}>
-        <Book>
+      */}
+      <div className="flex h-full">
+        <Sidebar {...sidebarProps}/>
+        <Book className={`${bookControls.darkMode !== undefined ? bookControls.darkMode ? 'dark' : 'light' : ''} w-[calc(100%-55px)] ${bookControls.isExpand ? 'md:w-[calc(100%-85px)]' : 'md:w-[600px] lg:w-[700px]'} h-full sm:h-[calc(100%-20px)] sm:mt-[10px] sm:mr-[10px] border border-secondary/10 shadow bg-page/section`}>
           <Book.Menu {...menuProps}>
             <Book.SubMenu {...subMenuProps}/>
           </Book.Menu>
@@ -395,11 +399,18 @@ const CreateBook = () => {
             {book.state === bookStates.PREVIEW && <Book.Preview {...previewProps}/>}
           </Book.Content>
           {
-            (book.state === bookStates.EDIT || book.state === bookStates.NEW) && 
+            (
+              book.state === bookStates.EDIT &&
+              book.selected !== 'Contents' &&
+              controls.editor.isEditor
+            ) && 
             <Book.Footer/>
           }
         </Book>
-      </Sidebar>
+        {!bookControls.isExpand ? (<div className="flex-1 grow overflow-hidden">
+          <Options {...timelineOptionsProps}/>
+        </div>) : (<></>)}
+      </div>
     </Page>
   );
 };

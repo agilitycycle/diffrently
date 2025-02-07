@@ -412,6 +412,7 @@ const content = `
 export const Editor = ({items}) => {
   const dispatch = useDispatch();
   const currentSubjectState = useSelector(subjectState);
+  const {section} = currentSubjectState;
   const [value, setValue] = useState(undefined);
   let newContent = '';
 
@@ -419,38 +420,41 @@ export const Editor = ({items}) => {
 
   if (items && items.length > 0) {
     for (let i in items) {
-      newContent += items[i].content;
+      if (items[i].id === section) {
+        newContent += items[i].content;
+      }
     }
   }
 
-  const handleAdd = () => {
-    const object = {
-      dateCreated: moment().valueOf(),
-      content: value
-    }
+  // const handleAdd = () => {
+  //   const object = {
+  //     dateCreated: moment().valueOf(),
+  //     content: value
+  //   }
 
-    // timeline
-    const timelineId = fbPush('/userTimelineV2/-OEs3jR0LGwzH1oAOkma/post/', Object.assign({},
-      object, {
-        chapter: 1
-      }
-    ));
+  //   // timeline
+  //   const timelineId = fbPush('/userTimelineV2/-OEs3jR0LGwzH1oAOkma/post/', Object.assign({},
+  //     object, {
+  //       chapter: 1
+  //     }
+  //   ));
 
-    // books
-    fbPush('/userBooks/-OEs3jR0LGwzH1oAOkma/pages/chapter-1', Object.assign({},
-      object, {
-        order: 0,
-        timelineId: timelineId
-      }
-    ));
+  //   // books
+  //   fbPush('/userBooks/-OEs3jR0LGwzH1oAOkma/pages/chapter-1', Object.assign({},
+  //     object, {
+  //       order: 0,
+  //       timelineId: timelineId
+  //     }
+  //   ));
 
-    // update
-    fbUpdate('/userSubject/-NrnSwk-t38iZWOB76Lt/subjects/-OEs3jR0LGwzH1oAOkma', {
-      started: true
-    })
-  }
+  //   // update
+  //   fbUpdate('/userSubject/-NrnSwk-t38iZWOB76Lt/subjects/-OEs3jR0LGwzH1oAOkma', {
+  //     started: true
+  //   })
+  // }
 
   useEffect(() => {
+    if (!value) return;
     const newSubjectState = Object.assign({...currentSubjectState}, {
       editorContent: value
     });
@@ -467,6 +471,5 @@ export const Editor = ({items}) => {
       }}
     >
     </EditorProvider>
-    {/*<button onClick={handleAdd}>test</button>*/}
   </div>);
 }

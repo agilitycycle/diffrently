@@ -33,15 +33,18 @@ const Section = ({
 
   return (<div className="tiptap mb-5">
     <div className="leading-loose text-secondary/60 theme-dark:text-secondary/40 mb-2">
-      <div className="p-7" dangerouslySetInnerHTML={{__html: content}}></div>
+      <div className="p-7" dangerouslySetInnerHTML={{__html: content.slice(0, 300)}}></div>
     </div>
-    <button onClick={handleOpenEditor} type="button" className="px-1.5 py-1 text-sm font-medium text-center inline-flex items-center text-white bg-blue-700 rounded hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+    <button onClick={handleOpenEditor} type="button" className="px-2.5 py-1 ml-7 text-sm font-medium text-center inline-flex items-center text-white bg-blue-700 rounded hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
       Edit
+    </button>
+    <button onClick={() => {}} type="button" className="px-2.5 py-1 ml-2.5 text-sm font-medium text-center inline-flex items-center text-white bg-red-700 rounded hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">
+      Delete
     </button>
     <div className="w-full flex items-center justify-center">
       <div className="absolute left-0 right-0 m-auto">
         <div className="flex flex-row items-center justify-center">
-          <button onClick={() => handleNewSection()} type="button" className="px-1.5 py-1 text-sm font-medium text-center inline-flex items-center text-white bg-blue-700 rounded hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+          <button onClick={() => handleNewSection()} type="button" className="px-2.5 py-1 text-sm font-medium text-center inline-flex items-center text-white bg-blue-700 rounded hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
             + section
           </button>
         </div>
@@ -128,7 +131,6 @@ const Edit = ({
       }
     }
 
-    //console.log(currentSubjectState.subjects)
     const newSubject = [...currentSubjectState.subjects];
     const subjectIndex = getSubjectIndex(activeId);
     newSubject[subjectIndex] = {

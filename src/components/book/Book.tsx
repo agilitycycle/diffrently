@@ -13,7 +13,7 @@ import {
 
 //
 // Book
-export const Book = ({children}) => <>{children}</>;
+export const Book = ({className, children}) => <div className={className}>{children}</div>;
 
 //
 // Book Menu

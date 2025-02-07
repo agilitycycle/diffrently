@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {getSubjectData, getChapters} from '../utils/utils';
 import '../../common/tiptap/styles.css';
 
-const Section = ({item}) => {
+const Section = ({chapter, item}) => {
   const {
     content
   } = item;
@@ -40,8 +40,8 @@ const Preview = ({
   }, [subjects, activeId])
 
   if (selected === 'Cover') {
-    return (<div className="max-w-md py-20 h-[calc(100%-58px)] mx-auto flex items-start sm:items-center justify-center">
-        <img src={coverUrl} className="max-h-full border border-secondary/20" />
+    return (<div className="w-full h-[calc(100vh-139px)] overflow-y-auto flex items-start">
+        <img src={coverUrl} className="" />
       </div>);
   }
 

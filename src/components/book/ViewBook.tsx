@@ -8,7 +8,6 @@ import {updateSubjectState, subjectState} from '../../app/slices/subjectSlice';
 import {fbdb} from '../../app/firebase';
 import {ref, query, get} from 'firebase/database';
 import {Book} from './Book.tsx';
-import Sidebar from './components/Sidebar.tsx';
 import {Page, Drawer, Header} from '../index';
 import Highlights from '../highlights/Highlights';
 import PublicOptions from './components/public/PublicOptions.tsx';
@@ -51,7 +50,6 @@ const CreateBook = () => {
       darkMode: true
     },
     editor: {
-      isOpen: false,
       isEditor: false
     }
   })
@@ -245,17 +243,15 @@ const CreateBook = () => {
         <Highlights currentTimeline={currentTimeline}/>
         <PublicOptions/>
       </Wrapper>
-      <Sidebar {...sidebarProps}>
-        <Book>
-          <Book.PublicMenu {...menuProps}>
-            <Book.SubMenu {...subMenuProps}/>
-          </Book.PublicMenu>
-          <Book.Content>
-            {book.state === bookStates.PRELOAD && (<Skeleton/>)}
-            {book.state === bookStates.PREVIEW && <Book.Preview {...previewProps}/>}
-          </Book.Content>
-        </Book>
-      </Sidebar>
+      <Book>
+        <Book.PublicMenu {...menuProps}>
+          <Book.SubMenu {...subMenuProps}/>
+        </Book.PublicMenu>
+        <Book.Content>
+          {book.state === bookStates.PRELOAD && (<Skeleton/>)}
+          {book.state === bookStates.PREVIEW && <Book.Preview {...previewProps}/>}
+        </Book.Content>
+      </Book>
     </Page>
   );
 };

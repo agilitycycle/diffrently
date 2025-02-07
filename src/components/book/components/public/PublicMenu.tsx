@@ -52,7 +52,7 @@ const PublicMenu = ({
           <BiFontSize />
         </button>
       </div>
-      <button onClick={() => handleControls({sidebar: {toggleSidebar: !expandCollapsePageToggle}})} type="button" className="py-5 font-medium rtl:text-right text-gray-500 dark:text-gray-400 gap-3">
+      <button onClick={() => handleControls({sidebar: {showOptions: !expandCollapsePageToggle}})} type="button" className="py-5 font-medium rtl:text-right text-gray-500 dark:text-gray-400 gap-3">
         <svg className={`w-3 h-3 ${!expandCollapsePageToggle ? 'rotate-180' : 'rotate-0'} shrink-0`} aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
           <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5 5 1 1 5"/>
         </svg>

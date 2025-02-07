@@ -4,7 +4,7 @@ import {subjectState} from '../../../app/slices/subjectSlice';
 import {getSubjectData} from '../utils/utils';
 
 const NotStarted = ({
-  sidebar,
+  bookControls,
   loadBookMatter
 }) => {
 	const currentSubjectState = useSelector(subjectState);
@@ -27,7 +27,7 @@ const NotStarted = ({
 
   return (
     <>
-      <div className={`${sidebar.isExpand ? 'w-4/5' : 'w-full'} mx-auto`}>
+      <div className="w-full">
         <div className="bg-violet-900 text-center py-5 lg:px-4 mb-5">
           <div className="p-2 bg-violet-700/90 items-center text-white leading-none lg:rounded-full flex lg:inline-flex" role="alert">
             <span className="flex rounded-full bg-violet-500 uppercase px-2 py-1 text-xs font-bold mr-3">New</span>
@@ -51,7 +51,7 @@ const NotStarted = ({
             )}
           </div>
           <div className="grow flex flex-col justify-center mx-auto text-center">
-            <p className={`mb-7 ${sidebar.isExpand ? 'text-4xl' : 'text-3xl'} font-bold text-[#000] theme-dark:text-secondary leading-relaxed px-3.5 pt-3.5`}>
+            <p className={`mb-7 ${bookControls.isExpand ? 'text-4xl' : 'text-3xl'} font-bold text-[#000] theme-dark:text-secondary leading-relaxed px-3.5 pt-3.5`}>
               {title}
             </p>
             <p className="text-base tracking-wide">
@@ -61,7 +61,7 @@ const NotStarted = ({
             <div className="text-base mb-7">
               2% complete
             </div>
-            <button onClick={() => loadBookMatter('chapter-1', 'EDIT', 'EDIT')} type="button" className={`${sidebar.isExpand ? 'px-7 px-2 text-xl' : 'px-5 py-2 text-base'} w-fit mx-auto h-11 font-medium inline-flex items-center justify-center text-white bg-blue-600 rounded-md`}>
+            <button onClick={() => loadBookMatter('chapter-1', 'EDIT', 'EDIT')} type="button" className={`${bookControls.isExpand ? 'px-7 px-2 text-xl' : 'px-5 py-2 text-base'} w-fit mx-auto h-11 font-medium inline-flex items-center justify-center text-white bg-blue-600 rounded-md`}>
               Start writing
             </button>
           </div>

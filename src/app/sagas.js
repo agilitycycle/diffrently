@@ -10,7 +10,7 @@ let called = false;
 // watch all
 export default function* mySaga () {
   yield takeEvery(updateAppState.type, app);
-  yield takeEvery(updateSubjectState.type, subject);
+  yield takeEvery(loadSubjectState.type, subject);
 }
 
 // redux, update tag categories **
@@ -75,7 +75,7 @@ function* subject () {
     const newSubjectState = Object.assign({}, {...currentSubjectState}, {
       subjects
     });
-    yield put(loadSubjectState(newSubjectState));
+    yield put(updateSubjectState(newSubjectState));
 }
 
 function* app () {

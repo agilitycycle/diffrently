@@ -1,9 +1,14 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
 import axios from 'axios';
 import {appState} from '../../app/slices/appSlice';
-import {updateSubjectState, subjectState, initialState} from '../../app/slices/subjectSlice';
+import {
+  loadSubjectState,
+  updateSubjectState,
+  subjectState,
+  initialState
+} from '../../app/slices/subjectSlice';
 import {fbPush} from '../../services/firebaseService';
 import {generateUsername} from './utils/utils';
 import BooksDropdown from  './BooksDropdown';
@@ -169,6 +174,12 @@ const Subject = () => {
       </li>);
     });
   }
+
+  useEffect(() => {
+    if (subjects && subjects.length > 0) return;
+    const newSubjectState = Object.assign({}, {...currentSubjectState});
+    dispatch(loadSubjectState(newSubjectState));
+  }, [subjects])
 
   if (loading) {
     return (<Page>
