@@ -113,9 +113,9 @@ const DrawerHome = ({ side = 'left' }) => {
                       </Link>
                     </li>
                     <li>
-                      <button to="/signin" onClick={drawerMenuItemClicked} className="flex items-center pt-2 pb-2 text-gray-900 dark:text-black">
+                      <Link to="/signin" onClick={drawerMenuItemClicked} className="flex items-center pt-2 pb-2 text-gray-900 dark:text-black">
                         <span>Sign in</span>
-                      </button>
+                      </Link>
                     </li>
                   </ul>
                 </div>
