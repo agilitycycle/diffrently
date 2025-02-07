@@ -325,6 +325,11 @@ const Menu = () => {
           >
             Paragraph
           </button>
+          <button onClick={() => editor.chain().focus().unsetAllMarks().run()}
+            className={getStyles('clearMarks')}
+          >
+            Clear marks
+          </button>
           <button
             onClick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}
             className={getStyles('heading', {level: 1})}
@@ -467,6 +472,32 @@ export const Editor = ({items}) => {
       slotBefore={<Menu/>}
       extensions={extensions}
       content={newContent}
+      editorProps={{
+        // https://github.com/unicscode/tiptap-clean-paste/blob/main/src/clean-paste.ts
+        handlePaste: (view, event) => {
+          const clipboardData = event.clipboardData;
+          if (!clipboardData) return false;
+
+          const text = clipboardData.getData('text/plain');
+          if (!text) return false;
+
+          const regexPattern = /[^\x20-\x7E\u00A0-\u02AF\u0370-\u03FF\p{Letter}\s]/gu;
+
+          const cleanText = text.replace(regexPattern, '');
+
+          // Stop the default paste
+          event.preventDefault();
+
+          // Insert the cleaned text
+          const { tr, selection } = view.state;
+          const { from, to } = selection;
+          const newText = view.state.schema.text(cleanText);
+          const transaction = tr.replaceWith(from, to, newText);
+          view.dispatch(transaction);
+
+          return true;
+        }
+      }}
       onUpdate={({editor}) => {
         setValue(editor.getHTML());
       }}
