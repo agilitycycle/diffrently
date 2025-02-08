@@ -82,11 +82,11 @@ const Profile = () => {
       <Header />
 		  <div className="flex items-center justify-center h-full">
 		    <div className="h-full sm:h-auto">
-		      <h2 className="text-2xl text-white text-left leading-snug mb-8">
+		      <h2 className="text-2xl text-secondary text-left leading-snug mb-8">
 		      	1. Set up your profile
 		      </h2>
           <div className="relative w-32 mb-8 ml-auto mr-auto">
-            <div className="rounded-full w-32 h-32 bg-[#40435a] border border-[#707070]" style={renderProfileStyle()}>
+            <div className="rounded-full w-32 h-32 bg-secondary/35 border border-secondary/35" style={renderProfileStyle()}>
               {saving && (
                 <svg aria-hidden="true" className="absolute bottom-0 top-0 left-0 right-0 m-auto w-8 h-8 text-gray-200 animate-spin theme-dark:text-gray-600 fill-blue-600" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="currentColor"/>
@@ -111,10 +111,10 @@ const Profile = () => {
           </div>
 		      <div className="text-center">
             <div className="mb-5">
-              <input type="text" defaultValue={displayName} className="bg-transparent text-white text-lg block w-fit p-2.5 border-b !outline-none" placeholder="Full Name" disabled />
+              <input type="text" defaultValue={displayName} className="bg-transparent text-secondary text-lg block w-fit p-2.5 border-b border-secondary/35 !outline-none" placeholder="Full Name" disabled />
             </div>
             <div className="mb-10">
-              <input type="text" defaultValue={email} className="bg-transparent text-white text-lg block w-fit p-2.5 border-b !outline-none" placeholder="Email Address" disabled />
+              <input type="text" defaultValue={email} className="bg-transparent text-secondary text-lg block w-fit p-2.5 border-b border-secondary/35 !outline-none" placeholder="Email Address" disabled />
             </div>
             <div className="mb-2.5">
               <Link to="/subscriptions" className="font-medium text-sm text-blue-600 theme-dark:text-blue-500 hover:underline pb-10 mb-20">

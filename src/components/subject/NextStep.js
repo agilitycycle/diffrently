@@ -7,7 +7,7 @@ import {fbUpdate, fbPush} from '../../services/firebaseService.js';
 import {appState} from '../../app/slices/appSlice';
 import {updateSubjectState, subjectState} from '../../app/slices/subjectSlice';
 import {TagsInput} from 'react-tag-input-component';
-import BooksDropdown from  './BooksDropdown';
+import BooksDropdown from  '../book/components/BooksDropdown.js';
 import {HiMiniCog6Tooth} from 'react-icons/hi2';
 import {
   Page,

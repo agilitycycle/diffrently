@@ -60,10 +60,25 @@ const AddChapter = () => {
 
       setChaptersHydrated(sorted);
 
-      const newSubject = [...currentSubjectState.subjects];
-      newSubject[getSubjectIndex(activeId)].chapters = stringified;
+      const itemIndex = getSubjectIndex(activeId);
 
-      const newSubjectState = Object.assign({...currentSubjectState}, {subjects: newSubject});
+      const newSubject = subjects.map((item, index) => {
+        if (index === itemIndex) {
+          return {
+            ...item,
+            chapters: stringified
+          }
+        } else {
+           return item;
+        }
+      })
+
+      const newSubjectState = Object.assign(
+        {...currentSubjectState},
+        {
+          subjects: newSubject
+        }
+      );
       
       dispatch(updateSubjectState(newSubjectState));
 

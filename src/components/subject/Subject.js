@@ -11,7 +11,7 @@ import {
 } from '../../app/slices/subjectSlice';
 import {fbPush} from '../../services/firebaseService';
 import {generateUsername} from './utils/utils';
-import BooksDropdown from  './BooksDropdown';
+import BooksDropdown from  '../book/components/BooksDropdown';
 import {TbSquareArrowRight} from 'react-icons/tb';
 import {
   Page,

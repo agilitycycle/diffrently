@@ -1,5 +1,5 @@
 import {useEffect, useState, useRef} from 'react';
-import {updateSubjectState, subjectState} from '../../app/slices/subjectSlice';
+import {updateSubjectState, subjectState} from '../../../app/slices/subjectSlice';
 import {useNavigate} from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
 
