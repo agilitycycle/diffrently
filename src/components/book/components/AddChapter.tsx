@@ -116,9 +116,9 @@ const AddChapter = () => {
     updateIsValid();
   }, [chapter, chapters])
 
-  return (<div className="max-w-sm py-[45px] mx-auto">
+  return (<div className="max-w-sm mx-auto">
     <div className="flex items-center justify-center relative">
-      <div className="w-[90px] mr-3 relative">
+      <div className="w-[65px] sm:w-[90px] mr-3 relative">
         <input
           type="number"
           value={chapter}
@@ -128,9 +128,10 @@ const AddChapter = () => {
         />
       </div>
       <button onClick={handleSubmit} type="button" className="px-3 w-fit h-[30px] text-base font-medium text-center flex items-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-        Next chapter
+        <span className="flex sm:hidden">Add ch.</span>
+        <span className="hidden sm:flex">Add chapter</span>
       </button>
-      <BsQuestionCircleFill className="ml-2.5 text-blue-600 text-xl cursor-pointer"/>
+      <BsQuestionCircleFill className="hidden sm:flex ml-2.5 text-blue-600 text-xl cursor-pointer"/>
     </div>
   </div>)
 }
