@@ -6,7 +6,7 @@ import moment from 'moment';
 import {fbPush} from '../../services/firebaseService';
 import {subjectState} from '../../app/slices/subjectSlice';
 import {IoMdPricetag} from 'react-icons/io';
-import '../common/tiptap/styles.css';
+import '../common/tiptap/styles.scss';
 
 const initialState = {
   body: '',

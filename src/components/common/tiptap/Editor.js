@@ -10,7 +10,7 @@ import TextStyle from '@tiptap/extension-text-style';
 import {EditorProvider, useCurrentEditor} from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 import {updateSubjectState, subjectState} from '../../../app/slices/subjectSlice.js';
-import './styles.css';
+import './styles.scss';
 
 // https://tiptap.dev/docs/editor/getting-started/install/react?gad_source=1&gclid=CjwKCAiApsm7BhBZEiwAvIu2XwubtoP3gFq2ssgn7Vc5c78Y0meg2NMnf8utyr3HaRyYO0ihqd5e5RoC7PMQAvD_BwE
 
@@ -291,7 +291,7 @@ const Menu = () => {
     }
   
     return (
-      <div className="sticky top-0 flex flex-row gap-1 items-start">
+      <div className="pt-7 pl-7 pr-7 pb-2.5 sticky top-0 flex flex-row gap-1 items-start">
         <div className="flex flex-row flex-wrap gap-1">
           <button
             onClick={() => editor.chain().focus().toggleBold().run()}
@@ -467,7 +467,7 @@ export const Editor = ({items}) => {
     dispatch(updateSubjectState(newSubjectState));
   }, [value])
 
-  return (<div className="!m-0 p-7 h-[calc(100vh-232px)]">
+  return (<div className="!m-0 h-[calc(100vh-200px)]">
     <EditorProvider
       slotBefore={<Menu/>}
       extensions={extensions}

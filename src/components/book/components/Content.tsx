@@ -1,3 +1,3 @@
-const Content = ({children}) => <>{children}</>; //p-7
+const Content = ({children}) => <>{children}</>;
 
 export default Content;
