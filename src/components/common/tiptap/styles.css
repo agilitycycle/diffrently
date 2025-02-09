@@ -11,10 +11,6 @@
   padding: 40px 0 40px 0;
   height: calc(100vh - 292px);
 }
-  
-.tiptap :first-child {
-  margin-top: 0;
-}
 
 .tiptap:focus {
   outline: none;
@@ -64,11 +60,13 @@
 }
 
 .tiptap ul li p,.tiptap ol li p {
+  margin-left: 5px;
   margin-top: .25em;
-  margin-bottom: .25em;
+  margin-bottom: .35em;
 }
 
-.tiptap p {
+.tiptap p,
+.tiptap li::marker {
   font-size: 16px;
   line-height: 2;
   color: rgb(0, 4, 35);
@@ -196,6 +194,11 @@
 
 .dark .tiptap p,
 .dark .tiptap h1 {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.dark .tiptap ul,.dark .tiptap ol,
+.dark li::marker {
   color: rgba(255, 255, 255, 0.4);
 }
 
