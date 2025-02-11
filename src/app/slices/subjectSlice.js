@@ -4,6 +4,10 @@ export const initialState = {
   value: {
     activeId: '',
     // activeSubject: [],
+    resize: {
+      className: '',
+      index: 0
+    },
     subjects: [],
     chapter: '', // active chapter
     section: undefined,

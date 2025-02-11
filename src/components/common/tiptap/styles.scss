@@ -8,9 +8,10 @@
     height: calc(100vh - 285px);
   }
   * {
+    font-size: 16px;
     line-height: 1.5;
     margin: revert;
-    color: rgba(0, 4, 35, 0.6);
+    color: rgb(0, 4, 35);
   }
   h1, h2, h3, h4, h5, h6 {
     line-height: 1.1;
@@ -35,7 +36,6 @@
     font-size: 1rem;
   }
   p {
-    font-size: 16px;
     line-height: 2;
     color: rgb(0, 4, 35);
   }
@@ -44,7 +44,6 @@
     padding: 0 1rem;
     margin: 1.25rem 1rem 1.25rem .4rem;
     li::marker {
-      font-size: 16px;
       line-height: 2;
       color: rgb(0, 4, 35);
     }
@@ -96,7 +95,7 @@
 
 .dark .tiptap {
   color: rgba(255, 255, 255, 0.6);
-  p, h1 {
+  p, h1, h2, h3, h4, h5, h6 {
     color: rgba(255, 255, 255, 0.4);
   }
   ul, ol {
@@ -117,6 +116,62 @@
   pre {
     background: #e2e8f0;
     color: #000423;
+  }
+}
+
+.resize-2 {
+  .dark .light .tiptap,
+  .dark .tiptap,
+  .tiptap {
+    * {
+      font-size: 1.5rem;
+    }
+    h1 {
+      font-size: 3.2rem;
+    }
+    h2 {
+      font-size: 1.8rem;
+    }
+    h3 {
+      font-size: 1.6rem;
+    }
+    strong {
+      font-size: inherit;
+    }
+    ul, ol {
+      font-size: inherit;
+      li p {
+        font-size: inherit;
+      }
+    }
+  }
+}
+
+.resize-3 {
+  .dark .light .tiptap,
+  .dark .tiptap,
+  .tiptap {
+    * {
+      font-size: 2rem;
+    }
+    h1 {
+      font-size: 4.8rem;
+    }
+    h2 {
+      font-size: 2.8rem;
+    }
+    h3 {
+      font-size: 2.6rem;
+    }
+    strong {
+      font-size: inherit;
+    }
+    ul, ol {
+      font-size: inherit;
+      li p {
+        font-size: inherit;
+      }
+    }
   }
 }
 

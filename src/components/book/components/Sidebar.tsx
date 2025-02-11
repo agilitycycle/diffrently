@@ -1,4 +1,6 @@
+import {useDispatch, useSelector} from 'react-redux';
 import {bookStates} from '../../../configs/constants';
+import {updateSubjectState, subjectState} from '../../../app/slices/subjectSlice';
 import {MdOutlineLightMode} from 'react-icons/md';
 import {BiFontSize} from 'react-icons/bi';
 import {IoExpand} from 'react-icons/io5';
@@ -14,7 +16,26 @@ const Sidebar = ({
   isLightDark,
   isExpand
 }) => {
+  const dispatch = useDispatch();
+  const currentSubjectState = useSelector(subjectState);
+  const {resize} = currentSubjectState;
   const isEdit = book.editMode === bookStates.EDIT;
+  const resizeArray = [
+    '',
+    'resize-2',
+    'resize-3'
+  ]
+
+  const handleResize = () => {
+    const newIndex = resize.index !== 2 ? resize.index + 1 : 0;
+    const newSubjectState = Object.assign({...currentSubjectState}, {
+      resize: {
+        className: resizeArray[newIndex],
+        index: newIndex
+      }
+    });
+    dispatch(updateSubjectState(newSubjectState));
+  }
 
   const isDisabled = () => {
     if (!book.selected) {
@@ -39,7 +60,7 @@ const Sidebar = ({
           )}
         </li>
         <li className="mb-2.5">
-          <button disabled onClick={() => {}} className="bg-primary/50 opacity-50 border border-secondary/15 text-secondary w-[35px] h-[35px] font-medium inline-flex items-center justify-center rounded-full text-lg disabled:opacity-50">
+          <button onClick={handleResize} className="bg-primary/50 border border-secondary/15 text-secondary w-[35px] h-[35px] font-medium inline-flex items-center justify-center rounded-full text-lg disabled:opacity-50">
             <BiFontSize />
           </button>
         </li>

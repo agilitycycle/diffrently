@@ -17,16 +17,13 @@ const BooksDropdown = () => {
     }
   };
 
-  const handleOptions = (url) => {
-    // do I need to send this?
-    const newSubjectState = Object.assign(
-      {}, {...currentSubjectState}, {
-        subject: '',
-        currentTimeline: undefined
-      });
+  const handleOptions = (id, url) => {
+    const newSubjectState = Object.assign({}, {...currentSubjectState}, {
+      activeId: id
+    });
     dispatch(updateSubjectState(newSubjectState));
-
     navigate(url);
+    setIsOpen(false);
   }
 
   useEffect(() => {
@@ -57,12 +54,13 @@ const BooksDropdown = () => {
         <ul className="h-48 py-2 overflow-y-auto text-gray-700 theme-dark:text-gray-200">
         {subjects.map(item => {
           const {
+            id,
             subject,
             username
           } = item;
           const url = `/create/${username}/${subject}`;
           return (<li>
-            <a href={null} onClick={() => handleOptions(url)} className="cursor-pointer flex items-center px-4 py-2 hover:bg-gray-100 theme-dark:hover:bg-gray-600 theme-dark:hover:text-white">
+            <a href={null} onClick={() => handleOptions(id, url)} className="cursor-pointer flex items-center px-4 py-2 hover:bg-gray-100 theme-dark:hover:bg-gray-600 theme-dark:hover:text-white">
               #{subject}
             </a>
           </li>)

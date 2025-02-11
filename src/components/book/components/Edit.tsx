@@ -24,6 +24,7 @@ const Section = ({
   } = item;
   const dispatch = useDispatch();
   const currentSubjectState = useSelector(subjectState);
+  const {resize} = currentSubjectState;
 
   const handleOpenEditor = () => {
     const newSubjectState = Object.assign({...currentSubjectState}, {section: id});
@@ -31,27 +32,33 @@ const Section = ({
     openEditor();
   }
 
-  return (<div className="tiptap mt-6 mb-5">
-    <div className="leading-loose text-secondary/60 theme-dark:text-secondary/40 mb-7">
-      <div dangerouslySetInnerHTML={{__html: content.slice(0, 300)}}></div>
-    </div>
-    <button onClick={handleOpenEditor} type="button" className="px-2.5 py-1 text-sm font-medium text-center inline-flex items-center text-white bg-blue-700 rounded hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-      Edit
-    </button>
-    <button onClick={() => {}} type="button" className="px-2.5 py-1 ml-3 text-sm font-medium text-center inline-flex items-center text-white bg-red-700 rounded hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">
-      Delete
-    </button>
-    <div className="w-full flex items-center justify-center">
-      <div className="absolute left-0 right-0 m-auto">
-        <div className="flex flex-row items-center justify-center">
-          <button onClick={() => handleNewSection()} type="button" className="px-2.5 py-1 text-sm font-medium text-center inline-flex items-center text-white bg-blue-700 rounded hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-            + section
-          </button>
+  return (<>
+    <div className={resize.className}>
+      <div className="tiptap mt-6 mb-5">
+        <div className="leading-loose text-secondary/60 theme-dark:text-secondary/40 mb-7">
+          <div dangerouslySetInnerHTML={{__html: content.slice(0, 300)}}></div>
         </div>
       </div>
-      <hr className="w-full h-[1px] my-8 bg-gray-200 border-0 theme-dark:bg-gray-700"></hr>
     </div>
-  </div>);
+    <div className="pl-7">
+      <button onClick={handleOpenEditor} type="button" className="px-2.5 py-1 text-sm font-medium text-center inline-flex items-center text-white bg-blue-700 rounded hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+        Edit
+      </button>
+      <button onClick={() => {}} type="button" className="px-2.5 py-1 ml-3 text-sm font-medium text-center inline-flex items-center text-white bg-red-700 rounded hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">
+        Delete
+      </button>
+      <div className="w-full flex items-center justify-center">
+        <div className="absolute left-0 right-0 m-auto">
+          <div className="flex flex-row items-center justify-center">
+            <button onClick={() => handleNewSection()} type="button" className="px-2.5 py-1 text-sm font-medium text-center inline-flex items-center text-white bg-blue-700 rounded hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+              + section
+            </button>
+          </div>
+        </div>
+        <hr className="w-full h-[1px] my-8 bg-gray-200 border-0 theme-dark:bg-gray-700"></hr>
+      </div>
+    </div>
+  </>);
 }
 
 const Edit = ({
@@ -141,6 +148,8 @@ const Edit = ({
     update(ref(fbdb, `userSubject/${userId}/subjects/${activeId}/`), {
       chapters: JSON.stringify(newChapters)
     });
+
+    // how to signal for change on firebase?
   }
 
   let items = [];
@@ -161,7 +170,7 @@ const Edit = ({
   }, [subjects, activeId])
 
   if (!isEditor && selected && selected.indexOf('chapter-') > -1) {
-    return (<div className="h-[calc(100vh-131px)] relative overflow-y-auto">
+    return (<div className="h-[calc(100vh-141px)] relative overflow-y-auto">
       {items.map((item) => {
         const sectionProps = {
           handleNewSection,
@@ -201,7 +210,7 @@ const Edit = ({
   if (selected === 'Contents') {
     return (<div className="h-[calc(100vh-139px)] relative overflow-y-auto">
       <div className="p-8">
-        <h1 className="text-secondary text-3xl font-medium mb-12">Contents</h1>
+        <h1 className="text-secondary text-3xl font-medium mb-10">Contents</h1>
         <ol className="list-decimal list-inside text-blue-600">
           {getChapters(chapters).map((item) => {
             const {key, label} = item;

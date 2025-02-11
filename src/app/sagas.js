@@ -10,7 +10,7 @@ let called = false;
 // watch all
 export default function* mySaga () {
   yield takeEvery(updateAppState.type, app);
-  yield takeEvery(loadSubjectState.type, subject);
+  yield takeEvery(updateSubjectState.type, subject);
 }
 
 // redux, update tag categories **
@@ -62,7 +62,6 @@ function getSubscriptions (activeSubscriptions, userId) {
 }
 
 function* subject () {
-  console.log('subject saga triggered **');
   const currentAppState = yield select(appState);
   const {userId} = currentAppState;
   /**
@@ -75,7 +74,7 @@ function* subject () {
     const newSubjectState = Object.assign({}, {...currentSubjectState}, {
       subjects
     });
-    yield put(updateSubjectState(newSubjectState));
+    yield put(loadSubjectState(newSubjectState));
 }
 
 function* app () {

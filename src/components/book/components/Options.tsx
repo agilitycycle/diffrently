@@ -28,7 +28,7 @@ const Options = ({
           Pay a mo. subscription for no Ads, Unlimited books and more control.
         </p>
       </div>
-      <button type="button" disabled onClick={handleDelete} className="w-20 text-red-600 hover:text-white border border-red-600 hover:bg-red-700 focus:outline-none font-medium rounded-lg text-xs px-3 py-1.5 mb-8 text-center me-2 mb-2 theme-dark:border-red-500 theme-dark:text-red-500 theme-dark:hover:text-white dark:hover:bg-red-600">
+      <button type="button" onClick={handleDelete} className="w-20 text-red-600 hover:text-white border border-red-600 hover:bg-red-700 focus:outline-none font-medium rounded-lg text-xs px-3 py-1.5 mb-8 text-center me-2 mb-2 theme-dark:border-red-500 theme-dark:text-red-500 theme-dark:hover:text-white dark:hover:bg-red-600">
         Delete
       </button>
     </div>

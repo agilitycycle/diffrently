@@ -5,17 +5,15 @@ import {matchPath} from 'react-router';
 import {bookStates} from '../../configs/constants';
 import {appState} from '../../app/slices/appSlice';
 import {
-  loadSubjectState,
   updateSubjectState,
   subjectState
 } from '../../app/slices/subjectSlice';
 import {fbdb} from '../../app/firebase';
-import {ref, query, get} from 'firebase/database';
+import {ref, query, get, onValue} from 'firebase/database';
 import {fbRemove} from '../../services/firebaseService';
 import Sidebar from './components/Sidebar.tsx';
 import {Book} from './Book.tsx';
 import BooksDropdown from  './components/BooksDropdown';
-import AddChapter from './components/AddChapter.tsx';
 import {Page, Drawer, Header} from '../';
 import Highlights from '../highlights/Highlights';
 import Options from './components/Options.tsx';
@@ -101,12 +99,14 @@ const CreateBook = () => {
   }
 
   // later, delete cover img
-  // userBooks etc..
   const handleDelete = () => {
+    // cannot afford to lose data again **
+    if (!activeId || !userId) return;
+    fbRemove(`userBooks/${activeId}`);
     fbRemove(`userSubject/${userId}/subjects/${activeId}`);
     fbRemove(`userTimelineV2/${activeId}`);
 
-    const newSubjects = subjects.filter(x => x.id !== id);
+    const newSubjects = subjects.filter(x => x.id !== activeId);
     const newSubjectState = Object.assign({...currentSubjectState}, {subjects: newSubjects});
     dispatch(updateSubjectState(newSubjectState));
 
@@ -337,6 +337,31 @@ const CreateBook = () => {
     content: book.contentLoaded
   }
 
+  /**
+   * saga uses get, whereas createBook depends on onValue
+   * return realtime updates from Firebase **
+   * Hopefully this will resolve having to push everything back to state
+   */
+  useEffect(() => {
+    const userRef = ref(fbdb, `userSubject/${userId}/subjects/`);
+    const q = query(userRef);
+    onValue(q, (snapshot) => {
+      if(snapshot.val()) {
+        const result = snapshot.val();
+        const subjectArray = [];
+        for (let i in result) {
+          const subjectObject = {id: i};
+          for (let j in result[i]) {
+            subjectObject[j] = result[i][j];
+          }
+          subjectArray.push(subjectObject);
+        }
+        const newSubjectState = Object.assign({...currentSubjectState}, {subjects: subjectArray});
+        dispatch(updateSubjectState(newSubjectState)); 
+      }
+    })
+  }, [])
+
   // mode
   useEffect(() => {
     handleControls({bookControls: {darkMode}});
@@ -362,19 +387,12 @@ const CreateBook = () => {
     }
   }, [selectedTimeline])
 
+  // subjects
   useEffect(() => {
     if (!activeId && (subjects && subjects.length > 0)) {
       getSubject();
     }
   }, [subjects])
-  
-  // change url content
-  useEffect(() => {
-    const newSubjectState = Object.assign({}, {...currentSubjectState}, {
-      activeId: ''
-    });
-    dispatch(loadSubjectState(newSubjectState));
-  }, [location])
 
 	return (
     <Page>

@@ -12,7 +12,7 @@ const initialState = {
       tagid: undefined,
       postid: undefined
     },
-    darkMode: true,
+    darkMode: false,
     loggedIn: false,
     userId: '',
     email: '',

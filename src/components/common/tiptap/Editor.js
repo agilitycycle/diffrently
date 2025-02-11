@@ -418,7 +418,7 @@ const content = `
 export const Editor = ({items}) => {
   const dispatch = useDispatch();
   const currentSubjectState = useSelector(subjectState);
-  const {section} = currentSubjectState;
+  const {section, resize} = currentSubjectState;
   const [value, setValue] = useState(undefined);
   let newContent = '';
 
@@ -467,7 +467,7 @@ export const Editor = ({items}) => {
     dispatch(updateSubjectState(newSubjectState));
   }, [value])
 
-  return (<div className="!m-0 h-[calc(100vh-200px)]">
+  return (<div className={`!m-0 h-[calc(100vh-200px)] ${resize.className}`}>
     <EditorProvider
       slotBefore={<Menu/>}
       extensions={extensions}
