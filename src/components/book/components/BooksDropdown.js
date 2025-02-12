@@ -19,7 +19,7 @@ const BooksDropdown = () => {
 
   const handleOptions = (id, url) => {
     const newSubjectState = Object.assign({}, {...currentSubjectState}, {
-      activeId: id
+      activeId: ''
     });
     dispatch(updateSubjectState(newSubjectState));
     navigate(url);

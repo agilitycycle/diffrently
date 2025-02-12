@@ -69,12 +69,12 @@ function* subject () {
    * Subjects
    * 
    */
-    const subjects = yield call(getSubjects, userId);
-    const currentSubjectState = yield select(subjectState);
-    const newSubjectState = Object.assign({}, {...currentSubjectState}, {
-      subjects
-    });
-    yield put(loadSubjectState(newSubjectState));
+  const subjects = yield call(getSubjects, userId);
+  const currentSubjectState = yield select(subjectState);
+  const newSubjectState = Object.assign({}, {...currentSubjectState}, {
+    subjects
+  });
+  yield put(loadSubjectState(newSubjectState));
 }
 
 function* app () {

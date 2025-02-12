@@ -4,7 +4,6 @@ import {useDispatch, useSelector} from 'react-redux';
 import axios from 'axios';
 import {appState} from '../../app/slices/appSlice';
 import {
-  loadSubjectState,
   updateSubjectState,
   subjectState,
   initialState
@@ -175,10 +174,11 @@ const Subject = () => {
     });
   }
 
+  // trigger load subjects **
   useEffect(() => {
     if (subjects && subjects.length > 0) return;
     const newSubjectState = Object.assign({}, {...currentSubjectState});
-    dispatch(loadSubjectState(newSubjectState));
+    dispatch(updateSubjectState(newSubjectState));
   }, [subjects])
 
   if (loading) {

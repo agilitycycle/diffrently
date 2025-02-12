@@ -390,6 +390,15 @@ const CreateBook = () => {
   // subjects
   useEffect(() => {
     if (!activeId && (subjects && subjects.length > 0)) {
+      // hook in book, need a book loaded true or false **
+      setBook({
+        frontCover: true,
+        state: 'NOT_STARTED',
+        editMode: 'EDIT',
+        contentLoaded: undefined,
+        selected: undefined,
+        newSection: false
+      })
       getSubject();
     }
   }, [subjects])
@@ -410,11 +419,15 @@ const CreateBook = () => {
         <Book className={`${bookControls.darkMode !== undefined ? bookControls.darkMode ? 'dark' : 'light' : ''} w-[calc(100%-55px)] ${bookControls.isExpand ? 'md:w-[calc(100%-85px)]' : 'md:w-[600px] lg:w-[700px]'} h-full sm:h-[calc(100%-20px)] sm:mt-[10px] sm:mr-[10px] border border-secondary/10 shadow bg-page/section`}>
           <Book.Menu {...menuProps}/>
           <Book.Content>
-            {book.state === bookStates.PRELOAD && (<Skeleton/>)}
-            {book.state === bookStates.NOT_STARTED && <Book.NotStarted {...notStartedProps}/>}
-            {book.state === bookStates.STARTED && <Book.Started {...startedProps}/>}
-            {book.state === bookStates.EDIT && <Book.Edit {...editProps}/>}
-            {book.state === bookStates.PREVIEW && <Book.Preview {...previewProps}/>}
+            {activeId && (
+              <>
+                {book.state === bookStates.PRELOAD && (<Skeleton/>)}
+                {book.state === bookStates.NOT_STARTED && <Book.NotStarted {...notStartedProps}/>}
+                {book.state === bookStates.STARTED && <Book.Started {...startedProps}/>}
+                {book.state === bookStates.EDIT && <Book.Edit {...editProps}/>}
+                {book.state === bookStates.PREVIEW && <Book.Preview {...previewProps}/>}
+              </>
+            )}
           </Book.Content>
           {
             (

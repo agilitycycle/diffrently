@@ -58,9 +58,10 @@ const Preview = ({
     const subject = getSubjectData({subjects, activeId, keys: ['chapters']});
     const {chapters} = subject;
     const chapterObject = JSON.parse(chapters).find(x => x.hasOwnProperty(chapter));
-    const {alias} = chapterObject;
-    let title = alias ? alias : chapter;
-    setChapterTitle(title);
+    if (chapterObject) {
+      let title = chapterObject.alias ? chapterObject.alias : chapter;
+      setChapterTitle(title);
+    }
   }, [subjects, activeId, chapter])
 
   useEffect(() => {
