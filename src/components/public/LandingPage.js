@@ -1,29 +1,47 @@
 import React from 'react';
+import Slider from 'react-slick';
 import {
   Page,
   DrawerHome,
   Header
 } from '../../components';
-import GithubImage from '../../assets/github-mark-white.svg';
 
 const LandingPage = () => {
 
-  {/*const getCurateTags = () => {
-    const tagEl = [
-      'Books', 'Biographies', 'Blurbs', 'Blogs',
-      'Stories', 'Writings', 'Geography', 'Mappings',
-      'Disasters', 'History', 'Images', 'Post',
-      'ExpositorySermonOutlines', 'IndoorExercises', 'Insights', 'Locations',
-      'Places', 'Things'
-    ];
-    return tagEl.map((tag, index) => {
-      return <button key={`tag${index}`} className="mb-2">
-        <span key={tag} className="opacity-40 border border-[#A9AAC5] text-gray-400 bg-transparent text-sm font-medium me-3 px-2.5 py-1.5 rounded">
-          {tag}
-        </span>
-      </button>
-    })
-  }*/}
+  const settings = {
+    dots: true,
+    infinite: false,
+    speed: 500,
+    slidesToShow: 4,
+    slidesToScroll: 4,
+    initialSlide: 0,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 3,
+          infinite: true,
+          dots: true
+        }
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 2,
+          initialSlide: 2
+        }
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1
+        }
+      }
+    ]
+  };
 
   const getTags = () => {
     const tagEl = [
@@ -100,6 +118,29 @@ const LandingPage = () => {
               </div>
             </div>
           </div>
+          <div className="slider-container mb-10 lg:mb-36">
+            <div className="mb-10 text-center text-4xl text-secondary font-sans font-thin">
+              Showcase
+            </div>
+            <Slider {...settings}>
+              <div className="px-8">
+                <img src="https://firebasestorage.googleapis.com/v0/b/flipbio-1712c.appspot.com/o/cover%2F-NrnSwk-t38iZWOB76Lt%2F-OEs3jR0LGwzH1oAOkma%2Fcover.png?alt=media" />
+                <div className="text-center pt-3.5 text-base">The Perfect Sermon</div>
+              </div>
+              <div className="px-8">
+                <img src="https://firebasestorage.googleapis.com/v0/b/flipbio-1712c.appspot.com/o/cover%2F-NrnSwk-t38iZWOB76Lt%2F-OIjDZEIBWA5c91IzL-T%2Fcover.png?alt=media" />
+                <div className="text-center pt-3.5 text-base">God's grace extends far beyond Israel</div>
+              </div>
+              <div className="px-8">
+                <img src="https://firebasestorage.googleapis.com/v0/b/flipbio-1712c.appspot.com/o/cover%2F-NrnSwk-t38iZWOB76Lt%2F-OIsgCa7YfuVM3JN8ZZN%2Fcover.png?alt=media" />
+                <div className="hidden sm:flex text-center pt-3.5 text-base">TypeScript Essentials: Comprehensive Overview for Beginners and Experts</div>
+                <div className="flex sm:hidden text-center pt-3.5 text-base">TypeScript Essentials: Comprehensive...</div>
+              </div>
+            </Slider>
+            <button type="button" className="block mt-10 mx-auto text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-xl px-6 py-3.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
+              Sign in to Read
+            </button>
+          </div>
           <div className="flex flex-col text-center mb-10 text-4xl text-secondary font-sans font-thin">
             <div className="mb-10">
               Power at your fingertips...
@@ -136,7 +177,7 @@ const LandingPage = () => {
                 <svg width="98" height="96" xmlns="http://www.w3.org/2000/svg">
                   <path className="opacity-85 fill-secondary theme-dark:fill-gray-400" clip-rule="evenodd" d="M48.854 0C21.839 0 0 22 0 49.217c0 21.756 13.993 40.172 33.405 46.69 2.427.49 3.316-1.059 3.316-2.362 0-1.141-.08-5.052-.08-9.127-13.59 2.934-16.42-5.867-16.42-5.867-2.184-5.704-5.42-7.17-5.42-7.17-4.448-3.015.324-3.015.324-3.015 4.934.326 7.523 5.052 7.523 5.052 4.367 7.496 11.404 5.378 14.235 4.074.404-3.178 1.699-5.378 3.074-6.6-10.839-1.141-22.243-5.378-22.243-24.283 0-5.378 1.94-9.778 5.014-13.2-.485-1.222-2.184-6.275.486-13.038 0 0 4.125-1.304 13.426 5.052a46.97 46.97 0 0 1 12.214-1.63c4.125 0 8.33.571 12.213 1.63 9.302-6.356 13.427-5.052 13.427-5.052 2.67 6.763.97 11.816.485 13.038 3.155 3.422 5.015 7.822 5.015 13.2 0 18.905-11.404 23.06-22.324 24.283 1.78 1.548 3.316 4.481 3.316 9.126 0 6.6-.08 11.897-.08 13.526 0 1.304.89 2.853 3.316 2.364 19.412-6.52 33.405-24.935 33.405-46.691C97.707 22 75.788 0 48.854 0z"/>
                 </svg>
-                </div>
+              </div>
             </a>
           </div>
           <div className="mb-10 text-center text-base text-secondary theme-dark:text-gray-400 font-sans font-extralight leading-relaxed">

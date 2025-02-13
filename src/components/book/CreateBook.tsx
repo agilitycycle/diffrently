@@ -81,7 +81,7 @@ const CreateBook = () => {
 
   const { pathname } = location;
   const match = matchPath({
-    path: '/create/:username/:subject',
+    path: '/create/:username/:title',
     exact: true
   }, pathname);
 
@@ -181,7 +181,7 @@ const CreateBook = () => {
   }
 
   const getBookMatter = async (matter) => {
-    const userRef = ref(fbdb, `userBooks/${selectedTimeline}/pages/${matter.toLowerCase()}`);
+    const userRef = ref(fbdb, `userBooks/${activeId}/pages/${matter.toLowerCase()}`);
     const q = query(userRef);
     return await new Promise(resolve => {
       get(q)
@@ -249,9 +249,9 @@ const CreateBook = () => {
   const getSubject = () => {
     const {params} = match;
     // subject url
-    const {subject} = params;
+    const {title} = params;
     for (let i in subjects) {
-      if(subjects[i].subject === subject) {
+      if(subjects[i].title === title.replace(/%20/g, ' ')) {
         const {
           id
         } = subjects[i];
@@ -390,18 +390,21 @@ const CreateBook = () => {
   // subjects
   useEffect(() => {
     if (!activeId && (subjects && subjects.length > 0)) {
-      // hook in book, need a book loaded true or false **
-      setBook({
-        frontCover: true,
-        state: 'NOT_STARTED',
-        editMode: 'EDIT',
-        contentLoaded: undefined,
-        selected: undefined,
-        newSection: false
-      })
       getSubject();
     }
   }, [subjects])
+
+  useEffect(() => {
+    // hook in book, need a book loaded true or false **
+    setBook({
+      frontCover: true,
+      state: 'NOT_STARTED',
+      editMode: 'EDIT',
+      contentLoaded: undefined,
+      selected: undefined,
+      newSection: false
+    })
+  }, [location])
 
 	return (
     <Page>

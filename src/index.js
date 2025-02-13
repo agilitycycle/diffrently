@@ -135,11 +135,11 @@ const router = createBrowserRouter([
     element: CategoryContextComponent(Profile),
   },
   {
-    path: '/create/:username/:subject',
+    path: '/create/:username/:title',
     element: CategoryContextComponent(CreateBook),
   },
   {
-    path: '/view/:username/:subject',
+    path: '/view/:username/:title',
     element: CategoryContextComponent(ViewBook),
   },
   {

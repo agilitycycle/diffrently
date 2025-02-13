@@ -17,7 +17,7 @@ const BooksDropdown = () => {
     }
   };
 
-  const handleOptions = (id, url) => {
+  const handleOptions = (url) => {
     const newSubjectState = Object.assign({}, {...currentSubjectState}, {
       activeId: ''
     });
@@ -50,18 +50,17 @@ const BooksDropdown = () => {
       </svg>
     </button>
     {isOpen && (
-      <div className="absolute right-0 w-48 z-10 bg-white rounded-lg shadow theme-dark:bg-gray-700">
+      <div className="absolute right-0 w-[280px] z-10 bg-white rounded-lg shadow theme-dark:bg-gray-700">
         <ul className="h-48 py-2 overflow-y-auto text-gray-700 theme-dark:text-gray-200">
         {subjects.map(item => {
           const {
-            id,
-            subject,
-            username
+            username,
+            title
           } = item;
-          const url = `/create/${username}/${subject}`;
+          const url = `/create/${username}/${title}`;
           return (<li>
-            <a href={null} onClick={() => handleOptions(id, url)} className="cursor-pointer flex items-center px-4 py-2 hover:bg-gray-100 theme-dark:hover:bg-gray-600 theme-dark:hover:text-white">
-              #{subject}
+            <a href={null} onClick={() => handleOptions(url, title)} className="cursor-pointer flex items-center px-4 py-2 hover:bg-gray-100 theme-dark:hover:bg-gray-600 theme-dark:hover:text-white">
+              {title.slice(0, 50)}{title.length > 50 ? '...' : ''}
             </a>
           </li>)
         })}
