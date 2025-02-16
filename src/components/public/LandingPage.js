@@ -54,7 +54,7 @@ const LandingPage = () => {
     ];
     return tagEl.map((tag, index) => {
       return <button key={`tag${index}`} className="mb-1 sm:mb-3.5">
-        <span key={tag} className="border border-gray-800 text-secondary bg-white theme-dark:bg-transparent text-base font-sans font-light me-3 sm:me-4 px-5 py-2.5 rounded">
+        <span key={tag} className="theme-dark:border-2 theme-dark:border-gray-800 text-secondary bg-white theme-dark:bg-transparent text-base font-sans font-light me-3 sm:me-4 px-5 py-2.5 rounded">
           {tag}
         </span>
       </button>
@@ -86,124 +86,145 @@ const LandingPage = () => {
     <Page>
       <DrawerHome />
       <Header useLink="/" invisible />
-      <div className="flex items-center justify-center h-full pl-5 pr-5 pb-5">
-        <div className="h-full w-full lg:w-9/12">
-          <div className="saira-condensed-extrabold text-[#233ce6] text-7xl sm:text-9xl tracking-tight w-full xl:w-9/12 my-24 sm:my-32">
-            NOT A BLOG, NOT A WEBSITE, NOT YOUTUBE, NOT FACEBOOK.
-          </div>
-          <div className="flex flex-col lg:flex-row mb-10 lg:mb-36">
-            <div className="w-full mb-7 lg:w-5/12 lg:mb-0 text-5xl xl:text-6xl text-secondary font-thin">
-              <div className="w-10/12 lg:w-8/12 mx-auto leading-loose text-center">
-                Write a <span className="border-b border-secondary">book</span> every 5 mins with our AI co-pilot.
+      <div className="h-full w-full flex items-center justify-center h-full">
+        <div className="h-full w-full">
+          <div className="lg:w-9/12 mx-auto">
+            <div className="pl-5 pr-5">
+              <div className="saira-condensed-extrabold text-[#233ce6] text-7xl sm:text-[150px] tracking-tight w-full xl:w-9/12 mt-24 mb-20 sm:mt-32 sm:mb-36">
+                NOT A BLOG, NOT A WEBSITE, NOT YOUTUBE, NOT FACEBOOK.
               </div>
-            </div>
-            <div className="w-11/12 lg:w-7/12 mx-auto">
-              <div className="border border-gray-800">
-                <div>
-                  <img src="/wreck-it-ralph.jpg"/>
-                </div>
-                <div className="pt-12 px-12 pb-24 bg-white theme-dark:bg-transparent">
-                  <div className="text-secondary/90 text-center text-lg sm:text-2xl font-extralight mb-8">
-                    Chapter 5
-                  </div>
-                  <div className="text-secondary/90 text-2xl sm:text-4xl font-extralight mb-9">
-                    Who Broke The Internet?
-                  </div>
-                  <div className="text-secondary/90 text-base sm:text-xl font-extralight leading-loose">
-                    ... The Internet has been broken for some time. It wasn't just celebrities with outrageous ideas but a series of events that ultimately led to the internet being broken.
+              <div className="flex flex-col lg:flex-row mb-10 lg:mb-36">
+                <div className="w-full sm:w-5/12 mb-7 lg:mb-0 text-5xl xl:text-7xl text-secondary font-thin">
+                  <div className="w-full sm:pr-20 leading-loose text-center">
+                    Write a <span className="border-b border-secondary">book</span> every 5 mins with our AI co-pilot.
                   </div>
                 </div>
+                <div className="w-full sm:w-7/12">
+                  <div className="border border-gray-800">
+                    <div className="h-[250px] sm:h-[450px]" style={{
+                      backgroundSize: 'cover',
+                      backgroundPosition: 'center center',
+                      backgroundImage: 'url(/404.png)'
+                    }}>
+                      &nbsp;
+                    </div>
+                    <div className="p-12 sm:pb-24 bg-white theme-dark:bg-transparent">
+                      <div className="text-secondary/90 text-center text-lg sm:text-3xl font-extralight mb-10 sm:mb-16">
+                        Chapter 5
+                      </div>
+                      <div className="text-secondary/90 text-2xl sm:text-4xl font-extralight mb-10 sm:mb-16">
+                        Who Broke The Internet?
+                      </div>
+                      <div className="text-secondary/90 text-base sm:text-2xl font-extralight leading-loose">
+                        ... The Internet has been broken for some time. It wasn't just celebrities with outrageous ideas but a series of events that ultimately led to the internet being broken.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              {/**
+               * Showcase
+               * 
+               */}
+              <div className="slider-container mb-10 lg:mb-36">
+                <div className="mb-10 sm:mb-20 text-center text-5xl sm:text-6xl text-secondary font-sans font-thin">
+                  Showcase
+                </div>
+                <Slider {...settings}>
+                  <div className="px-8">
+                    <img src="https://firebasestorage.googleapis.com/v0/b/flipbio-1712c.appspot.com/o/cover%2F-NrnSwk-t38iZWOB76Lt%2F-OEs3jR0LGwzH1oAOkma%2Fcover.png?alt=media" />
+                    <div className="text-center pt-3.5 text-base text-secondary/90">The Perfect Sermon</div>
+                  </div>
+                  <div className="px-8">
+                    <img src="https://firebasestorage.googleapis.com/v0/b/flipbio-1712c.appspot.com/o/cover%2F-NrnSwk-t38iZWOB76Lt%2F-OIjDZEIBWA5c91IzL-T%2Fcover.png?alt=media" />
+                    <div className="text-center pt-3.5 text-base text-secondary/90">God's grace extends far beyond Israel</div>
+                  </div>
+                  <div className="px-8">
+                    <img src="https://firebasestorage.googleapis.com/v0/b/flipbio-1712c.appspot.com/o/cover%2F-NrnSwk-t38iZWOB76Lt%2F-OIsgCa7YfuVM3JN8ZZN%2Fcover.png?alt=media" />
+                    <div className="hidden sm:flex text-center pt-3.5 text-base text-secondary/90">TypeScript Essentials: Comprehensive Overview for Beginners and Experts</div>
+                    <div className="flex sm:hidden text-center pt-3.5 text-base text-secondary/90">TypeScript Essentials: Comprehensive...</div>
+                  </div>
+                </Slider>
+                <button type="button" onClick={() => navigate('/signin')} className="block mt-12 mx-auto text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium text-base px-5 py-3 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
+                  Sign in to read
+                </button>
+              </div>
+              <div className="flex flex-col text-center mb-10 text-4xl text-secondary font-sans font-thin">
+                <div className="mb-10 sm:mb-20 text-center text-5xl sm:text-6xl text-secondary font-sans font-thin">
+                  Power at your fingertips...
+                </div>
+                <iframe className="w-11/12 h-[300px] sm:h-[450px] xl:w-8/12 xl:h-450px] mx-auto mb-10 shadow" src="https://www.youtube.com/embed/sT2UDxVLJ4k?si=H78ibRRvivVAc5sg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
               </div>
             </div>
           </div>
-          <div className="slider-container mb-10 lg:mb-36">
-            <div className="mb-10 sm:mb-20 text-center text-5xl sm:text-6xl text-secondary font-sans font-thin">
-              Showcase
-            </div>
-            <Slider {...settings}>
-              <div className="px-8">
-                <img src="https://firebasestorage.googleapis.com/v0/b/flipbio-1712c.appspot.com/o/cover%2F-NrnSwk-t38iZWOB76Lt%2F-OEs3jR0LGwzH1oAOkma%2Fcover.png?alt=media" />
-                <div className="text-center pt-3.5 text-base text-secondary/90">The Perfect Sermon</div>
-              </div>
-              <div className="px-8">
-                <img src="https://firebasestorage.googleapis.com/v0/b/flipbio-1712c.appspot.com/o/cover%2F-NrnSwk-t38iZWOB76Lt%2F-OIjDZEIBWA5c91IzL-T%2Fcover.png?alt=media" />
-                <div className="text-center pt-3.5 text-base text-secondary/90">God's grace extends far beyond Israel</div>
-              </div>
-              <div className="px-8">
-                <img src="https://firebasestorage.googleapis.com/v0/b/flipbio-1712c.appspot.com/o/cover%2F-NrnSwk-t38iZWOB76Lt%2F-OIsgCa7YfuVM3JN8ZZN%2Fcover.png?alt=media" />
-                <div className="hidden sm:flex text-center pt-3.5 text-base text-secondary/90">TypeScript Essentials: Comprehensive Overview for Beginners and Experts</div>
-                <div className="flex sm:hidden text-center pt-3.5 text-base text-secondary/90">TypeScript Essentials: Comprehensive...</div>
-              </div>
-            </Slider>
-            <button type="button" onClick={() => navigate('/signin')} className="block mt-10 mx-auto text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium text-base px-5 py-3 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
-              Sign in to read
-            </button>
-          </div>
-          <div className="flex flex-col text-center mb-10 text-4xl text-secondary font-sans font-thin">
-            <div className="mb-10 sm:mb-20 text-center text-5xl sm:text-6xl text-secondary font-sans font-thin">
-              Power at your fingertips...
-            </div>
-            <iframe className="w-11/12 h-[300px] sm:h-[450px] xl:w-8/12 xl:h-450px] mx-auto mb-10 shadow" src="https://www.youtube.com/embed/sT2UDxVLJ4k?si=H78ibRRvivVAc5sg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-          </div>
+          {/**
+           * Generate images
+           * 
+           */}
           <div className="flex flex-col text-center mb-16 text-4xl text-secondary font-sans font-thin">
             <div className="mb-10 sm:mb-20 text-center text-5xl sm:text-6xl text-secondary font-sans font-thin">
               Generate images
             </div>
             <div>
-              <img className="w-11/12 m-auto" referrerpolicy="no-referrer" src="/moses.png" />
+              <img className="w-full" referrerpolicy="no-referrer" src="/moses.png" />
             </div>
           </div>
-          <div className="flex flex-col mb-16 text-5xl text-secondary font-sans font-thin">
-            <div className="text-center mb-10 sm:mb-16">
-              Generate tags
-            </div>
-            <div className="w-full sm:w-7/12 mx-auto text-center">
-              {getTags()}
-            </div>
-          </div>
-          <div className="flex flex-col mb-16 text-5xl text-secondary font-sans font-thin">
-            <div className="mb-8 sm:mb-12 leading-relaxed text-center">
-              Share on
-            </div>
-            <div>
-              {renderSocialMediaIcons()}
-            </div>
-          </div>
-          <div className="mb-10 text-center text-base text-secondary theme-dark:text-gray-400 font-sans font-extralight leading-relaxed">
-            Want to use Diffrently. commercially, PM james@agilitycycle.com to purchase a one-time commercial license.
-          </div>
-          <div className="mb-16 text-center text-base text-secondary theme-dark:text-gray-400 font-sans font-extralight leading-relaxed">
-            Diffrently. is 99.99% of the time in sync with the cloud database.
-          </div>
-          <div className="mb-10 sm:mb-20 text-center text-5xl sm:text-6xl text-secondary font-sans font-thin">
-            Pricing
-          </div>
-          <div className="mb-8 lg:mb-16">
-            <div className="w-full md:w-2/4 block mx-auto border border-gray-800 bg-white theme-dark:bg-transparent text-secondary theme-dark:text-gray-400 font-sans font-extralight">
-              <div className="pt-10 pl-9 pr-9 text-center">
-                <div className="mb-3.5 text-5xl font-medium">Author</div>
-                <div className="mb-3.5 text-base">Write a book every 5 mins with our AI co-pilot.</div>
-                <div className="mb-6 text-3xl font-light">$25 USD</div>
-                <button type="button" onClick={() => navigate('/signin')} className="block mx-auto text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium text-base px-8 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
-                  Sign up
-                </button>
+          <div className="lg:w-9/12 mx-auto">
+            <div className="pl-5 pr-5 pb-5">
+              <div className="flex flex-col mb-16 text-5xl text-secondary font-sans font-thin">
+                <div className="text-center mb-10 sm:mb-16">
+                  Generate tags
+                </div>
+                <div className="w-full sm:w-7/12 mx-auto text-center">
+                  {getTags()}
+                </div>
               </div>
-              <hr className="h-px mt-12 mb-9 bg-gray-800 border-0"/>
-              <div className="pl-9 pr-9 pb-11">
-                <ol className="mb-5 list-decimal list-inside leading-loose text-base">
-                  <li>Write unlimited books</li>
-                  <li>Create unlimited pages</li>
-                  <li>X generated topics</li>
-                  <li>X generated tags</li>
-                  <li>Usernames</li>
-                  <li>Book cover</li>
-                </ol>
-                <div className="text-sm">* All benefits of AI included.</div>
+              <div className="flex flex-col mb-16 text-5xl text-secondary font-sans font-thin">
+                <div className="mb-8 sm:mb-12 leading-relaxed text-center">
+                  Share on
+                </div>
+                <div>
+                  {renderSocialMediaIcons()}
+                </div>
+              </div>
+              <div className="mb-10 text-center text-base text-secondary theme-dark:text-gray-400 font-sans font-extralight leading-relaxed">
+                Want to use Diffrently. commercially, PM james@agilitycycle.com to purchase a one-time commercial license.
+              </div>
+              <div className="mb-16 text-center text-base text-secondary theme-dark:text-gray-400 font-sans font-extralight leading-relaxed">
+                Diffrently. is 99.99% of the time in sync with the cloud database.
+              </div>
+              <div className="mb-10 sm:mb-20 text-center text-5xl sm:text-6xl text-secondary font-sans font-thin">
+                Pricing
+              </div>
+              <div className="mb-8 lg:mb-16">
+                <div className="w-full md:w-2/4 block mx-auto border border-gray-800 bg-white theme-dark:bg-transparent text-secondary theme-dark:text-gray-400 font-sans font-extralight">
+                  <div className="pt-10 pl-9 pr-9 text-center">
+                    <div className="mb-3.5 text-5xl font-medium">Author</div>
+                    <div className="mb-3.5 text-base">Write a book every 5 mins with our AI co-pilot.</div>
+                    <div className="mb-6 text-3xl font-light">$25 USD</div>
+                    <button type="button" onClick={() => navigate('/signin')} className="block mx-auto text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium text-base px-8 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
+                      Sign up
+                    </button>
+                  </div>
+                  <hr className="h-px mt-12 mb-9 bg-gray-800 border-0"/>
+                  <div className="pl-9 pr-9 pb-11">
+                    <ol className="mb-5 list-decimal list-inside leading-loose text-base">
+                      <li>Write unlimited books</li>
+                      <li>Create unlimited pages</li>
+                      <li>X generated topics</li>
+                      <li>X generated tags</li>
+                      <li>Usernames</li>
+                      <li>Book cover</li>
+                    </ol>
+                    <div className="text-sm leading-loose">* All benefits of AI included.</div>
+                    <div className="text-sm leading-loose">** Generate images are purchaseable upon additional credit.</div>
+                  </div>
+                </div>
+              </div>
+              <div className="text-secondary theme-dark:text-gray-400 text-sm text-center mb-10 pb-10 font-sans font-extralight">
+                © Copyright Diffrently. All rights reserved.
               </div>
             </div>
-          </div>
-          <div className="text-secondary theme-dark:text-gray-400 text-sm text-center mb-10 pb-10 font-sans font-extralight">
-            © Copyright Diffrently. All rights reserved.
           </div>
         </div>
       </div>
