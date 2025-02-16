@@ -192,14 +192,14 @@ const LandingPage = () => {
           <div className="mb-8 lg:mb-16">
             <div className="w-full md:w-1/2 block mx-auto border border-gray-800 bg-transparent text-secondary theme-dark:text-gray-400 font-sans font-extralight">
               <div className="pt-10 pl-9 pr-9 text-center">
-                <div className="mb-3 text-3xl font-medium">Writer</div>
-                <div className="mb-3 text-base">For anyone who wants to write unlimited books.</div>
-                <div className="mb-4 text-2xl font-medium">$25 USD</div>
+                <div className="mb-3.5 text-3xl font-medium">Author</div>
+                <div className="mb-3.5 text-base">Write a book every 5 mins with our AI co-pilot.</div>
+                <div className="mb-3.5 text-2xl font-medium">$25 USD</div>
                 <button type="button" onClick={() => navigate('/signin')} className="block mx-auto text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium text-base px-8 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
                   Sign up
                 </button>
               </div>
-              <hr className="h-px my-9 bg-gray-800 border-0"/>
+              <hr className="h-px mt-12 mb-9 bg-gray-800 border-0"/>
               <div className="pl-9 pr-9 pb-11">
                 <ol className="mb-5 list-decimal list-inside leading-loose text-base">
                   <li>Write unlimited books</li>
