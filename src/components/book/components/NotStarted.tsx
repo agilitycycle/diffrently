@@ -1,13 +1,15 @@
 import React, {useEffect, useState} from 'react';
 import {useSelector} from 'react-redux';
+import {controlState} from '../../../app/slices/controlSlice';
 import {subjectState} from '../../../app/slices/subjectSlice';
 import {getSubjectData} from '../utils/utils';
 
 const NotStarted = ({
-  bookControls,
   loadBookMatter
 }) => {
+  const currentControlState = useSelector(controlState);
 	const currentSubjectState = useSelector(subjectState);
+  const {bookControls} = currentControlState;
   const {subjects, activeId} = currentSubjectState;
   const [meta, setMeta] = useState({
     title: '',

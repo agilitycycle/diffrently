@@ -7,6 +7,7 @@ import {fbdb} from '../../../app/firebase';
 import { InlineEdit } from 'rsuite';
 import Resizer from 'react-image-file-resizer';
 import {appState} from '../../../app/slices/appSlice';
+import {controlState} from '../../../app/slices/controlSlice';
 import {updateSubjectState, subjectState} from '../../../app/slices/subjectSlice';
 import {Editor} from '../../common/tiptap/Editor';
 import {MdPhotoCamera} from 'react-icons/md';
@@ -64,17 +65,18 @@ const Section = ({
 const Edit = ({
   content,
   selected,
-  isEditor,
   openEditor,
   newSection,
   handleNewSection
 }) => {
   const currentAppState = useSelector(appState);
+  const currentControlState = useSelector(controlState);
 	const currentSubjectState = useSelector(subjectState);
   const [newChapterValue, setNewChapterValue] = useState(undefined);
   const [uploadPreview, setUploadPreview] = useState(undefined);
   const [saving, setSaving] = useState(false);
   const {userId} = currentAppState;
+  const {editor} = currentControlState;
   const {
     activeId,
     subjects
@@ -82,9 +84,9 @@ const Edit = ({
   const [chapters, setChapters] = useState('[]');
   const [coverUrl, setCoverUrl] = useState('');
 
-  const getSubjectIndex = (id) => subjects.findIndex(x => x.id === id);
+  const getSubjectIndex = (id: string) => subjects.findIndex(x => x.id === id);
 
-  const uploadImage = (e) => {
+  const uploadImage = (e: React.FormEvent<HTMLInputElement>): void => {
     const file = e.target.files[0];
     setUploadPreview(URL.createObjectURL(file));
     Resizer.imageFileResizer(
@@ -126,11 +128,11 @@ const Edit = ({
     );
   }
 
-  const handleOnChange = (value) => {
+  const handleOnChange = (value: string) => {
     setNewChapterValue(value);
   }
 
-  const handleOnSave = (key) => {
+  const handleOnSave = (key: string) => {
     const newChapters = [...JSON.parse(chapters)];
     for (let i in newChapters) {
       if(Object.keys(newChapters[i])[0] === key) {
@@ -169,7 +171,7 @@ const Edit = ({
     setCoverUrl(coverUrl);
   }, [subjects, activeId])
 
-  if (!isEditor && selected && selected.indexOf('chapter-') > -1) {
+  if (!editor.isEditor && selected && selected.indexOf('chapter-') > -1) {
     return (<div className="h-[calc(100vh-141px)] relative overflow-y-auto">
       {items.map((item) => {
         const sectionProps = {

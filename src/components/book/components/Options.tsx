@@ -1,18 +1,34 @@
-const Options = ({
-    renderOptions,
-    handleOptions,
-    selectedTimeline,
-    handleDelete
-  }) => {
+import {useDispatch, useSelector} from 'react-redux';
+import {useNavigate} from 'react-router-dom';
+import {appState} from '../../../app/slices/appSlice';
+import {updateSubjectState, subjectState} from '../../../app/slices/subjectSlice';
+import {fbRemove} from '../../../services/firebaseService';
+
+const Options = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const currentAppState = useSelector(appState);
+  const currentSubjectState = useSelector(subjectState);
+  const {userId} = currentAppState;
+  const {activeId, subjects} = currentSubjectState;
+
+  // later, delete cover img
+  const handleDelete = () => {
+    if (!activeId || !userId) return;
+    fbRemove(`userBooks/${activeId}`);
+    fbRemove(`userSubject/${userId}/subjects/${activeId}`);
+    fbRemove(`userTimelineV2/${activeId}`);
+
+    const newSubjects = subjects.filter(x => x.id !== activeId);
+    const newSubjectState = Object.assign({...currentSubjectState}, {subjects: newSubjects});
+    dispatch(updateSubjectState(newSubjectState));
+
+    navigate('/start')
+  }
+
   return (<div className="hidden lg:flex justify-start xl:justify-center ml-[25px] mt-36">
     <div className="flex flex-col justify-between">
       <div>
-        {/*<div>
-          <select name="timeline" onChange={handleOptions} className="bg-transparent border border-secondary/25 theme-dark:border-secondary/15 text-secondary/60 text-base rounded-lg block w-72 p-2.5 mb-7 !outline-none">
-            <option value="Select timeline" selected={!selectedTimeline}>Select Timeline</option>
-            {renderOptions()}
-          </select>
-        </div>*/}
         <div className="text-sm text-[#B3B5CC] mb-2">
           {`Other reads >`}
         </div>

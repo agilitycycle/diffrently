@@ -2,8 +2,9 @@ import axios from 'axios';
 import { takeEvery, select, call, put, all } from 'redux-saga/effects';
 import { fbdb } from './firebase';
 import { ref, query, get } from 'firebase/database';
-import { updateAppState, appState } from './slices/appSlice';
-import { loadSubjectState, updateSubjectState, subjectState } from './slices/subjectSlice';
+import {addId} from '../components/book/services/subjects';
+import {updateAppState, appState} from './slices/appSlice';
+import {loadSubjectState, updateSubjectState, subjectState} from './slices/subjectSlice';
 
 let called = false;
 
@@ -20,7 +21,7 @@ function getTagCategories (userId) {
       responseType: 'text',
     })
     .then(function (response) {
-      console.log(response.data);
+      // console.log(response.data);
     });
 }
 
@@ -30,16 +31,9 @@ function getSubjects (userId) {
   return new Promise(resolve => {
     get(q)
       .then((snapshot) => {
-        const result = snapshot.val();
-        const subjectArray = [];
-        for (let i in result) {
-          const subjectObject = {id: i};
-          for (let j in result[i]) {
-            subjectObject[j] = result[i][j];
-          }
-          subjectArray.push(subjectObject);
+        if (snapshot.val()) {
+          resolve(addId(snapshot.val()));
         }
-        resolve(subjectArray);
       })
       .catch((error) => {
         console.log(error);

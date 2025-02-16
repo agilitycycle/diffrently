@@ -1,4 +1,5 @@
 import React from 'react';
+import {useNavigate} from 'react-router-dom';
 import Slider from 'react-slick';
 import {
   Page,
@@ -7,6 +8,7 @@ import {
 } from '../../components';
 
 const LandingPage = () => {
+  const navigate = useNavigate();
 
   const settings = {
     dots: true,
@@ -14,6 +16,7 @@ const LandingPage = () => {
     speed: 500,
     slidesToShow: 4,
     slidesToScroll: 4,
+    arrows: false,
     initialSlide: 0,
     responsive: [
       {
@@ -53,7 +56,7 @@ const LandingPage = () => {
     ];
     return tagEl.map((tag, index) => {
       return <button key={`tag${index}`} className="mb-2">
-        <span key={tag} className="theme-dark:opacity-40 border border-secondary/50 theme-dark:border-[#A9AAC5] text-secondary/50 theme-dark:text-gray-400 bg-transparent text-sm font-medium me-3 px-2.5 py-1.5 rounded">
+        <span key={tag} className="border border-gray-800 text-secondary bg-transparent text-sm font-sans font-extralight me-3 px-2.5 py-1.5 rounded">
           {tag}
         </span>
       </button>
@@ -85,13 +88,10 @@ const LandingPage = () => {
     <Page>
       <DrawerHome />
       <Header useLink="/" invisible />
-      <div className="flex items-center justify-center h-full p-5">
+      <div className="flex items-center justify-center h-full pl-5 pr-5 pb-5">
         <div className="h-full w-full lg:w-9/12">
-          <div className="saira-condensed-extrabold text-[#233ce6] text-7xl sm:text-9xl tracking-tight w-full xl:w-9/12 my-12 lg:mb-0">
+          <div className="saira-condensed-extrabold text-[#233ce6] text-7xl sm:text-9xl tracking-tight w-full xl:w-9/12 mt-24 mb-20 sm:mt-28 sm:b-32">
             NOT A BLOG, NOT A WEBSITE, NOT YOUTUBE, NOT FACEBOOK.
-          </div>
-          <div className="hidden lg:flex items-center justify-center h-96 mb-5 text-secondary text-9xl font-extralight">
-            Diffrently.
           </div>
           <div className="flex flex-col lg:flex-row mb-10 lg:mb-36">
             <div className="w-full mb-7 lg:w-5/12 lg:mb-0 text-4xl xl:text-5xl text-secondary font-thin">
@@ -137,15 +137,15 @@ const LandingPage = () => {
                 <div className="flex sm:hidden text-center pt-3.5 text-base">TypeScript Essentials: Comprehensive...</div>
               </div>
             </Slider>
-            <button type="button" className="block mt-10 mx-auto text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-xl px-6 py-3.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
-              Sign in to Read
+            <button type="button" onClick={() => navigate('/signin')} className="block mt-10 mx-auto text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium text-base px-5 py-3 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
+              Sign in to read
             </button>
           </div>
           <div className="flex flex-col text-center mb-10 text-4xl text-secondary font-sans font-thin">
             <div className="mb-10">
               Power at your fingertips...
             </div>
-            <iframe className="w-11/12 h-[300px] sm:h-[450px] xl:w-9/12 xl:h-[550px] mx-auto mb-10 shadow" src="https://www.youtube.com/embed/sT2UDxVLJ4k?si=H78ibRRvivVAc5sg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            <iframe className="w-11/12 h-[300px] sm:h-[450px] xl:w-8/12 xl:h-450px] mx-auto mb-10 shadow" src="https://www.youtube.com/embed/sT2UDxVLJ4k?si=H78ibRRvivVAc5sg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
           </div>
           <div className="flex flex-col text-center mb-10 text-4xl text-secondary font-sans font-thin">
             <div className="mb-10">
@@ -189,12 +189,28 @@ const LandingPage = () => {
           <div className="mb-10 text-center text-3xl text-secondary font-sans font-thin">
             Pricing
           </div>
-          <div className="mb-18 lg:mb-20">
-            <div className="text-center text-secondary text-7xl font-extralight mb-11">
-              $25/MO*
-            </div>
-            <div className="text-secondary theme-dark:text-gray-400 text-base text-center mt-10 mb-10 pb-10 font-sans font-extralight">
-              * All benefits incl. AI features.
+          <div className="mb-8 lg:mb-16">
+            <div className="w-full md:w-1/2 block mx-auto border border-gray-800 bg-transparent text-secondary theme-dark:text-gray-400 font-sans font-extralight">
+              <div className="pt-10 pl-9 pr-9 text-center">
+                <div className="mb-3 text-3xl font-medium">Writer</div>
+                <div className="mb-3 text-base">For anyone who wants to write unlimited books.</div>
+                <div className="mb-4 text-2xl font-medium">$25 USD</div>
+                <button type="button" onClick={() => navigate('/signin')} className="block mx-auto text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium text-base px-8 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
+                  Sign up
+                </button>
+              </div>
+              <hr className="h-px my-9 bg-gray-800 border-0"/>
+              <div className="pl-9 pr-9 pb-11">
+                <ol className="mb-5 list-decimal list-inside leading-loose text-base">
+                  <li>Write unlimited books</li>
+                  <li>Create unlimited pages</li>
+                  <li>X generated topics</li>
+                  <li>X generated tags</li>
+                  <li>Usernames</li>
+                  <li>Book cover</li>
+                </ol>
+                <div className="text-sm">* All benefits of AI included.</div>
+              </div>
             </div>
           </div>
           <div className="text-secondary theme-dark:text-gray-400 text-sm text-center mb-10 pb-10 font-sans font-extralight">

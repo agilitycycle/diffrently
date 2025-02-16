@@ -8,7 +8,7 @@ const Section = ({chapterTitle, item, index, resize}) => {
   } = item;
 
   const resizeArrayMap = [
-    '2rem',
+    '2.3rem',
     '3.2rem',
     '4.8rem'
   ]
@@ -16,7 +16,7 @@ const Section = ({chapterTitle, item, index, resize}) => {
   return (<div className={resize.className}>
     <div className="tiptap mb-5">
       <div className="leading-loose text-secondary/60 theme-dark:text-secondary/40 mb-2">
-        {index === 0 && (<div className="mt-10 mb-8 text-center text-secondary theme-dark:text-secondary/40"
+        {index === 0 && (<div className="mt-16 mb-14 text-center text-secondary theme-dark:text-secondary/40"
           style={{
             fontSize: resizeArrayMap[resize.index]
           }}>

@@ -1,5 +1,6 @@
 import {useDispatch, useSelector} from 'react-redux';
 import {bookStates} from '../../../configs/constants';
+import {controlState} from '../../../app/slices/controlSlice';
 import {updateSubjectState, subjectState} from '../../../app/slices/subjectSlice';
 import {MdOutlineLightMode} from 'react-icons/md';
 import {BiFontSize} from 'react-icons/bi';
@@ -12,12 +13,12 @@ import {IoMdEye} from 'react-icons/io';
 const Sidebar = ({
   book,
   previewEditToggle,
-  handleControls,
-  isLightDark,
-  isExpand
+  handleControls
 }) => {
   const dispatch = useDispatch();
+  const currentControlState = useSelector(controlState);
   const currentSubjectState = useSelector(subjectState);
+  const {bookControls} = currentControlState;
   const {resize} = currentSubjectState;
   const isEdit = book.editMode === bookStates.EDIT;
   const resizeArray = [
@@ -65,7 +66,7 @@ const Sidebar = ({
           </button>
         </li>
         <li className="mb-2.5">
-          <button onClick={() => handleControls({bookControls: {isExpand: !isExpand}})} className="hidden sm:flex bg-primary/50 border border-secondary/15 text-secondary w-[35px] h-[35px] font-medium inline-flex items-center justify-center rounded-full text-lg disabled:opacity-50">
+          <button onClick={() => handleControls({bookControls: {isExpand: !bookControls.isExpand}})} className="hidden sm:flex bg-primary/50 border border-secondary/15 text-secondary w-[35px] h-[35px] font-medium inline-flex items-center justify-center rounded-full text-lg disabled:opacity-50">
             <IoExpand />
           </button>
           <button disabled className="sm:hidden bg-primary/50 border border-secondary/15 text-secondary w-[35px] h-[35px] font-medium inline-flex items-center justify-center rounded-full text-lg disabled:opacity-50">
@@ -73,7 +74,7 @@ const Sidebar = ({
           </button>
         </li>
         <li>
-          <button onClick={() => handleControls({bookControls: {darkMode: !isLightDark}})} className="bg-primary/50 border border-secondary/15 text-secondary w-[35px] h-[35px] font-medium inline-flex items-center justify-center rounded-full text-lg disabled:opacity-50">
+          <button onClick={() => handleControls({bookControls: {darkMode: !bookControls.darkMode}})} className="bg-primary/50 border border-secondary/15 text-secondary w-[35px] h-[35px] font-medium inline-flex items-center justify-center rounded-full text-lg disabled:opacity-50">
             <MdOutlineLightMode />
           </button>
         </li>
