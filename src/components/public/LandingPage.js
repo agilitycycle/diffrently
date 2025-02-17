@@ -144,6 +144,10 @@ const LandingPage = () => {
                     <div className="hidden sm:flex text-center pt-3.5 text-base text-secondary/90">TypeScript Essentials: Comprehensive Overview for Beginners and Experts</div>
                     <div className="flex sm:hidden text-center pt-3.5 text-base text-secondary/90">TypeScript Essentials: Comprehensive...</div>
                   </div>
+                  <div className="px-8">
+                    <img src="https://firebasestorage.googleapis.com/v0/b/flipbio-1712c.appspot.com/o/cover%2F-NrnSwk-t38iZWOB76Lt%2F-OIxVS8S3pZbTa08zwMJ%2Fcover.png?alt=media" />
+                    <div className="text-center pt-3.5 text-base text-secondary/90">ReactJS BEST Practices: Tips and Tricks</div>
+                  </div>
                 </Slider>
                 <button type="button" onClick={() => navigate('/signin')} className="block mt-12 mx-auto text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium text-base px-5 py-3 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
                   Sign in to read
