@@ -39,7 +39,7 @@ const BooksDropdown = () => {
 
   return (<div className="relative" ref={dropdownRef}>
     <button type="button"
-      className="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none font-medium rounded-lg text-sm px-3 p-[5px] text-center inline-flex items-center theme-dark:bg-blue-600 theme-dark:hover:bg-blue-700"
+      className="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none font-medium rounded-lg text-base px-3 py-[3px] text-center inline-flex items-center theme-dark:bg-blue-600 theme-dark:hover:bg-blue-700"
       onClick={() => setIsOpen(!isOpen)}
       aria-expanded={isOpen}
       aria-haspopup="true"
@@ -59,12 +59,17 @@ const BooksDropdown = () => {
           } = item;
           const url = `/create/${username}/${title}`;
           return (<li>
-            <a href={null} onClick={() => handleOptions(url, title)} className="cursor-pointer flex items-center px-4 py-2 hover:bg-gray-100 theme-dark:hover:bg-gray-600 theme-dark:hover:text-white">
+            <a href={null} onClick={() => handleOptions(url, title)} className="cursor-pointer flex items-center px-4 py-2 hover:bg-gray-100 text-sm leading-relaxed theme-dark:hover:bg-gray-600 theme-dark:hover:text-white">
               {title.slice(0, 50)}{title.length > 50 ? '...' : ''}
             </a>
           </li>)
         })}
         </ul>
+        <div className="py-2.5 border-t border-gray-200 theme-dark:border-gray-200/10">
+          <button type="button" onClick={() => navigate('/discover')} className="w-full h-[32px] rounded-md text-blue-700 focus:outline-none font-medium text-base px-5 flex items-center">
+            Discover
+          </button>
+        </div>
       </div>
     )}
   </div>);

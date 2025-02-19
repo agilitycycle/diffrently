@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import {useLocation} from 'react-router-dom';
+import {useLocation, useNavigate} from 'react-router-dom';
 import {matchPath} from 'react-router';
 import {produce} from 'immer';
 import {appState} from '../../app/slices/appSlice';
@@ -24,6 +24,7 @@ import {bookStates} from '../../configs/constants';
 
 const CreateBook = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const location = useLocation();
   const currentAppState = useSelector(appState);
   const currentControlState = useSelector(controlState);

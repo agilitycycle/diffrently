@@ -12,6 +12,7 @@ import {
 } from './subject';
 import {
   CreateBook,
+  Discover,
   ViewBook
 } from './book';
 import Drawer from './common/Drawer';
@@ -36,6 +37,7 @@ export {
   SignIn,
   Profile,
   CreateBook,
+  Discover,
   ViewBook,
   Post,
   Subject,

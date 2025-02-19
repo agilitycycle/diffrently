@@ -7,21 +7,12 @@ const Section = ({chapterTitle, item, index, resize}) => {
     content
   } = item;
 
-  const resizeArrayMap = [
-    '2.3rem',
-    '3.2rem',
-    '4.8rem'
-  ]
-
   return (<div className={resize.className}>
     <div className="tiptap mb-5">
       <div className="leading-loose text-secondary/60 theme-dark:text-secondary/40 mb-2">
-        {index === 0 && (<div className="mt-16 mb-14 text-center text-secondary theme-dark:text-secondary/40"
-          style={{
-            fontSize: resizeArrayMap[resize.index]
-          }}>
+        {index === 0 && (<h1 className="mt-16 mb-14 text-center text-secondary theme-dark:text-secondary/40">
           {chapterTitle}
-        </div>)}
+        </h1>)}
         <div dangerouslySetInnerHTML={{__html: content}}></div>
       </div>
     </div>

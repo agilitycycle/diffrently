@@ -18,6 +18,7 @@ import { CategoryContextHOC } from './context/CategoryContext';
 import {
   SignIn,
   Profile,
+  Discover,
   CreateBook,
   ViewBook,
   LandingPage,
@@ -134,6 +135,10 @@ const router = createBrowserRouter([
     path: '/profile',
     element: CategoryContextComponent(Profile),
   },
+  {
+    path: '/discover',
+    element: CategoryContextComponent(Discover),
+  }, 
   {
     path: '/create/:username/:title',
     element: CategoryContextComponent(CreateBook),
