@@ -132,26 +132,26 @@ const LandingPage = () => {
                 </div>
                 <Slider {...settings}>
                   <div className="px-4">
-                    <div className="p-5 bg-primary rounded-md">
-                      <img src="https://firebasestorage.googleapis.com/v0/b/flipbio-1712c.appspot.com/o/cover%2F-NrnSwk-t38iZWOB76Lt%2F-OEs3jR0LGwzH1oAOkma%2Fcover.png?alt=media" />
+                    <div className="p-5 bg-primary rounded-lg">
+                      <img className="rounded-md" src="https://firebasestorage.googleapis.com/v0/b/flipbio-1712c.appspot.com/o/cover%2F-NrnSwk-t38iZWOB76Lt%2F-OEs3jR0LGwzH1oAOkma%2Fcover.png?alt=media" />
                       <div className="text-center pt-3.5 text-base text-secondary/90">The Perfect Sermon: Sermonizing</div>
                     </div>
                   </div>
                   <div className="px-4">
-                    <div className="p-5 bg-primary rounded-md">
-                      <img src="https://firebasestorage.googleapis.com/v0/b/flipbio-1712c.appspot.com/o/cover%2F-NrnSwk-t38iZWOB76Lt%2F-OIjDZEIBWA5c91IzL-T%2Fcover.png?alt=media" />
+                    <div className="p-5 bg-primary rounded-lg">
+                      <img className="rounded-md" src="https://firebasestorage.googleapis.com/v0/b/flipbio-1712c.appspot.com/o/cover%2F-NrnSwk-t38iZWOB76Lt%2F-OIjDZEIBWA5c91IzL-T%2Fcover.png?alt=media" />
                       <div className="text-center pt-3.5 text-base text-secondary/90">God's grace extends far beyond Israel</div>
                     </div>
                   </div>
                   <div className="px-4">
-                    <div className="p-5 bg-primary rounded-md">
-                      <img src="https://firebasestorage.googleapis.com/v0/b/flipbio-1712c.appspot.com/o/cover%2F-NrnSwk-t38iZWOB76Lt%2F-OIsgCa7YfuVM3JN8ZZN%2Fcover.png?alt=media" />
+                    <div className="p-5 bg-primary rounded-lg">
+                      <img className="rounded-md" src="https://firebasestorage.googleapis.com/v0/b/flipbio-1712c.appspot.com/o/cover%2F-NrnSwk-t38iZWOB76Lt%2F-OIsgCa7YfuVM3JN8ZZN%2Fcover.png?alt=media" />
                       <div className="text-center pt-3.5 text-base text-secondary/90">TypeScript Essentials: Comprehensive...</div>
                     </div>
                   </div>
                   <div className="px-4">
-                    <div className="p-5 bg-primary rounded-md">
-                      <img src="https://firebasestorage.googleapis.com/v0/b/flipbio-1712c.appspot.com/o/cover%2F-NrnSwk-t38iZWOB76Lt%2F-OIxVS8S3pZbTa08zwMJ%2Fcover.png?alt=media" />
+                    <div className="p-5 bg-primary rounded-lg">
+                      <img className="rounded-md" src="https://firebasestorage.googleapis.com/v0/b/flipbio-1712c.appspot.com/o/cover%2F-NrnSwk-t38iZWOB76Lt%2F-OIxVS8S3pZbTa08zwMJ%2Fcover.png?alt=media" />
                       <div className="text-center pt-3.5 text-base text-secondary/90">ReactJS BEST Practices: Tips and Tricks...</div>
                     </div>
                   </div>
@@ -224,8 +224,8 @@ const LandingPage = () => {
                       <li>Create unlimited pages</li>
                       <li>X generated topics</li>
                       <li>X generated tags</li>
-                      <li>Username</li>
-                      <li>Book cover</li>
+                      <li>Usernames</li>
+                      <li>Book covers</li>
                     </ol>
                     <div className="text-sm leading-loose">* All benefits of AI included.</div>
                     <div className="text-sm leading-loose">** Generate images are purchaseable upon additional credit.</div>

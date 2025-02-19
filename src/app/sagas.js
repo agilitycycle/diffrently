@@ -11,6 +11,7 @@ let called = false;
 // watch all
 export default function* mySaga () {
   yield takeEvery(updateAppState.type, app);
+  // every time there is an update, get & set latest subject from fb
   yield takeEvery(updateSubjectState.type, subject);
 }
 

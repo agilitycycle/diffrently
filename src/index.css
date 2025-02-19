@@ -10,6 +10,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background: rgba(226, 232, 240, 0.7);
+  overflow-x: hidden;
 }
 
 body.dark {
@@ -51,20 +52,6 @@ code {
   font-family: 'Saira Condensed', serif;
   font-weight: 800;
   font-style: normal;
-}
-
-.react-player {
-  width: 365px !important;
-  height: 697px !important;
-  border: 1px solid #fff;
-}
-
-@media screen and (max-width: 767px) {
-  .react-player {
-    width: 300px !important;
-    height: 573px !important;
-    border-color: rgb(161 161 170);
-  }
 }
 
 /* react-tag-input-component */

@@ -11,10 +11,10 @@ Write a book every 5 mins with our AI co-pilot.
 ## Features
 
  * [ ] Social Logins (Facebook, Twitter)
- * [ ] Post edit the Diffrently way
+ * [ ] TypeScript migration
+ * [ ] Re-structure chapters
+ * [ ] View author's book
  * [ ] Stripe Payment
- * [ ] Re-order chapters
- * [ ] Render book
 
 ## FREE to use under GPLv3 license
 
